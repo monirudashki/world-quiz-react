@@ -1,0 +1,121 @@
+header {
+    display: none;
+}
+
+.lives {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    transform: translate(-10%, -5%);
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    border-radius: 5px;
+}
+
+.lives :nth-child(2) {
+    color: goldenrod;
+    margin-right: 4px;
+}
+
+.lives i {
+    color: red;
+    font-size: 18px;
+    padding: 5px 3px;
+    text-align: center;
+}
+
+.question-container {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    gap: 30px;
+    color: whitesmoke;
+}
+
+.question {
+    width: 100%;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #239AD4;
+    border-radius: 20px;
+    border: 1px solid black;
+    box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+.question p {
+    font-size: 24px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.answers-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 20px;
+}
+
+.answers-container__answer-button {
+    width: 320px;
+    height: 70px;
+    border-radius: 5px;
+    box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.7);
+    background-color: #239AD4;
+    color: whitesmoke;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.answers-container .answers-container__answer-button button :hover {
+    color: #239AD4;
+    background-color: whitesmoke;
+}
+
+.answers-container__answer-button span {
+    margin-right: 10px;
+}
+
+.jokers {
+    width: 320px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background-color: #239AD4;
+    box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.jokers__button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    background-color: #35D545;
+    cursor: pointer;
+}
+
+.jokers__button i {
+    text-align: center;
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+}

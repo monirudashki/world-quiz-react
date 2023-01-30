@@ -1,0 +1,225 @@
+body {
+    background: unset;
+    background-color: #95B0B4;
+}
+
+.head {
+    display: flex;
+    justify-content: center;
+    padding: 5% 0 0 0;
+}
+
+.head h1 {
+    font-size: 24px;
+    color: black;
+}
+
+.profile-container {
+    display: grid;
+    width: 80%;
+    height: 70vh;
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -60%);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+
+    grid-template-areas:
+        "img info ."
+        "level diagrama diagrama"
+    ;
+
+    gap: 10px;
+}
+
+.profile-container__img {
+    grid-area: img;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(214, 240, 238); */
+    border-top-left-radius: 20px;
+}
+
+.profile-container__img img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 1px 4px 12px rgba(0, 0, 0, 1);
+}
+
+.profile-container__info {
+    grid-area: info;
+    background-color: rgb(214, 240, 238);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+    box-shadow: 1px 4px 12px rgba(0, 0, 0, 1);
+}
+
+.profile-container__info p {
+    font-size: 20px;
+    color: #95B0B4;
+    font-weight: bold;
+}
+
+.profile-container span {
+    color: black;
+}
+
+.profile-container__info .work-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-container__info .work-buttons button {
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 5px;
+    background-color: #95B0B4;
+}
+
+.profile-container__level {
+    grid-area: level;
+}
+
+.profile-container__level h2 {
+    text-align: center;
+    color: black;
+    background-color: #5CE6F7;
+    font-size: 42px;
+    margin-top: 20px;
+    box-shadow: 1px 4px 12px rgba(0, 0, 0, 1);
+}
+
+.profile-container__level .level-square {
+    width: 150px;
+    height: 150px;
+    margin: 20px auto 0 auto;
+    background-color: rgb(214, 240, 238);
+    border: 2px solid black;
+    box-shadow: 1px 4px 12px rgba(0, 0, 0, 1);
+}
+
+.profile-container__level .level-square p {
+    font-size: 100px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.profile-container__diagrama {
+    grid-area: diagrama;
+    background-color: whitesmoke;
+    border: 3px solid black;
+    box-shadow: 1px 4px 12px rgba(0, 0, 0, 1);
+    border-radius: 20px;
+}
+
+.profile-container__diagrama h2 {
+    text-align: center;
+    font-weight: bold;
+}
+
+figure {
+    width: 90%;
+    max-width: 600px;
+    height: 250px;
+    margin: 60px auto auto auto;
+}
+
+.graph {
+    display: grid;
+    grid: repeat(6, auto) max-content / max-content repeat(5, auto);
+    height: 250px;
+}
+
+/* graph bars */
+.graphBar {
+    grid-row: 1 / -2;
+    border-radius: 0 0 50% 50% / 0 0 10px 10px;
+    background: palegoldenrod linear-gradient(to top, gold var(--h), transparent var(--h));
+    justify-self: center;
+    width: 45px;
+    height: 200px;
+    box-shadow: 0 0 3px lightgrey;
+}
+
+.graphBar:nth-of-type(1) {
+    grid-column: 2;
+    --h: 10%;
+}
+
+.graphBar:nth-of-type(2) {
+    grid-column: 3;
+    --h: 65%;
+}
+
+.graphBar:nth-of-type(3) {
+    grid-column: 4;
+    --h: 52%;
+}
+
+.graphBar:nth-of-type(4) {
+    grid-column: 5;
+    --h: 20%;
+}
+
+.graphBar:nth-of-type(5) {
+    grid-column: 6;
+    --h: 92%;
+}
+
+/* graph bar edges */
+.graphBar::before,
+.graphBar::after {
+    display: block;
+    content: "";
+    height: 20px;
+    border-radius: 50% / 10px;
+}
+
+.graphBar::before {
+    margin-top: -10px;
+    background-color: darkkhaki;
+}
+
+.graphBar::after {
+    background-color: darkgoldenrod;
+    position: relative;
+    top: calc(100% - var(--h) - 20px);
+}
+
+/* graph  labels */
+.graphRowLabel {
+    margin-top: 7px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.graphColumnLabel {
+    justify-self: center;
+    margin-top: 6px;
+    text-shadow: 0 0 2px palegoldenrod;
+    font-size: 14pt;
+}
+
+.graphRowLabel::after {
+    display: inline-block;
+    content: "\2000\2000\2014";
+}
+
+.graphRowLabel:nth-of-type(1)::after {
+    content: "\2000\2014";
+}
+
+figcaption {
+    text-align: center;
+    margin-top: 30px;
+}

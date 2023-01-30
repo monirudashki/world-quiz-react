@@ -1,0 +1,20 @@
+.timer {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    transform: translate(-5%, -5%);
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+.timer p {
+    font-size: 36px;
+    font-weight: bold;
+}

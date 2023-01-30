@@ -1,0 +1,45 @@
+.scoreboard-container__item {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scoreboard-container__item__img {
+    width: 10%;
+    border: 1px solid black;
+}
+
+.scoreboard-container__item__username,
+.scoreboard-container__item__coins {
+    width: 40%;
+    background-color: whitesmoke;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    font-size: 22px;
+    overflow: auto;
+}
+
+.scoreboard-container__item__coins {
+    color: goldenrod;
+}
+
+.scoreboard-container__item__coins span {
+    margin-left: 5px;
+}
+
+.scoreboard-container__item__place {
+    width: 10%;
+    background-color: gray;
+    color: white;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    font-size: 22px;
+    overflow: auto;
+}

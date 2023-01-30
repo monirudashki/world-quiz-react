@@ -1,0 +1,83 @@
+.head {
+    display: flex;
+    justify-content: center;
+    padding: 5% 0 0 0;
+    margin-bottom: 20px;
+}
+
+.head h1 {
+    font-size: 2.5rem;
+    padding: 0 30px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgba(92, 230, 247, 0.7);
+    color: whitesmoke;
+    box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-container input {
+    font-size: 20px;
+}
+
+.search-container button {
+    text-align: center;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    color: lightgrey;
+    background-color: white;
+}
+
+.question-container {
+    width: 80%;
+    height: 50vh;
+    display: flex;
+    margin: 30px auto 0 auto;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: rgba(50, 75, 78, 0.7);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 20px auto 0 auto;
+}
+
+.pagination-button {
+    width: 80px;
+    padding: 8px 12px;
+    background-color: gray;
+    color: whitesmoke;
+    border-radius: 10px;
+}
+
+.pagination-button:hover {
+    background-color: whitesmoke;
+    color: gray;
+}
+
+.pagination p {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding-top: 6px;
+    text-align: center;
+    border: 1px solid gray;
+    background-color: whitesmoke;
+    font-weight: bold;
+    font-size: 18px;
+}
