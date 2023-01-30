@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import image from '../../../Assets/images/logo-1.jpg';
 import styles from '../Header/Header.module.css';
 
@@ -6,9 +7,13 @@ function Header() {
 
     //TODO optimization of active buttons?
 
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState('admin');
 
     const [activePage, setActivePage] = useState('');
+
+    const activeHome = () => {
+        setActivePage(oldPage => '');
+    }
 
     const activeCapitals = () => {
         setActivePage(oldPage => 'capitals');
@@ -25,12 +30,12 @@ function Header() {
 
     const activeLogin = () => {
         setActivePage(oldPage => 'login');
-        setCurrentUser(user => 'user');
+        // setCurrentUser(user => 'user');
     }
 
     const activeRegister = () => {
         setActivePage(oldPage => 'register');
-        setCurrentUser(user => 'admin');
+        // setCurrentUser(user => 'admin');
     }
 
     const activeRules = () => {
@@ -52,32 +57,32 @@ function Header() {
 
     return (
         <header className={styles['header']}>
-            <a className={styles["logo"]} href="#/"><img className={styles["logo-img"]} src={image} alt="" /></a>
+            <Link onClick={activeHome} className={styles["logo"]} to="/"><img className={styles["logo-img"]} src={image} alt="" /></Link>
             <nav className={styles['nav']}>
 
-                {currentUser == null &&
-                    <div>
-                        <a onClick={activeLogin} className={activePage == 'login' ? styles['active'] : 'none'}>Login</a>
-                        <a onClick={activeRegister} className={activePage == 'register' ? styles['active'] : 'none'}>Register</a>
-                    </div>
+                {currentUser === null &&
+                    <>
+                        <Link to="/auth/login" onClick={activeLogin} className={activePage == 'login' ? styles['active'] : 'none'}>Login</Link>
+                        <Link to="/auth/register" onClick={activeRegister} className={activePage == 'register' ? styles['active'] : 'none'}>Register</Link>
+                    </>
                 }
 
                 {currentUser === 'admin' &&
-                    <div>
-                        <a onClick={activeCapitals} className={activePage == 'capitals' ? styles['active'] : 'none'}>Capitols</a>
-                        <a onClick={activeFlags} className={activePage == 'flags' ? styles['active'] : 'none'}>Flags</a>
-                        <a onClick={activeAddCapitals} className={activePage == 'addCapitals' ? styles['active'] : 'none'}>Add Capitals</a>
-                        <a onClick={activeAddFlags} className={activePage == 'addFlags' ? styles['active'] : 'none'}>Add Flags</a>
+                    <>
+                        <Link to={'/admin/capitals-questions'} onClick={activeCapitals} className={activePage == 'capitals' ? styles['active'] : 'none'}>Capitols</Link>
+                        <Link to={'/admin/flags-questions'} onClick={activeFlags} className={activePage == 'flags' ? styles['active'] : 'none'}>Flags</Link>
+                        <Link to={'/admin/add-capitals-question'} onClick={activeAddCapitals} className={activePage == 'addCapitals' ? styles['active'] : 'none'}>Add Capitals</Link>
+                        <Link to={'/admin/add-flags-question'} onClick={activeAddFlags} className={activePage == 'addFlags' ? styles['active'] : 'none'}>Add Flags</Link>
                         <a onClick={logoutHandler}>Logout</a>
-                    </div>
+                    </>
                 }
-                {currentUser == 'user' &&
-                    <div>
-                        <a onClick={activeRules} className={activePage == 'rules' ? styles['active'] : 'none'}>Rules</a>
-                        <a onClick={activeScoreBoard} className={activePage == 'scoreBoard' ? styles['active'] : 'none'}>Scoreboard</a>
-                        <a onClick={activeProfile} className={activePage == 'profile' ? styles['active'] : 'none'}>Rudashki</a>
+                {currentUser === 'user' &&
+                    <>
+                        <Link to={'/rules'} onClick={activeRules} className={activePage == 'rules' ? styles['active'] : 'none'}>Rules</Link>
+                        <Link to={'/scoreboard'} onClick={activeScoreBoard} className={activePage == 'scoreBoard' ? styles['active'] : 'none'}>Scoreboard</Link>
+                        <Link to={'/auth/user-profile/rudashki'} onClick={activeProfile} className={activePage == 'profile' ? styles['active'] : 'none'}>Rudashki</Link>
                         <a onClick={logoutHandler}>Logout</a>
-                    </div>
+                    </>
                 }
             </nav>
         </header>

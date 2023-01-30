@@ -1,7 +1,8 @@
 import styles from '../home-page/Home.module.css';
 import image1 from '../../../Assets/images/byciclesProject.png';
-import { CoinsLives } from '../../shared/Coins&Lives';
+import { CoinsLives } from '../../shared/CoinsLives/Coins&Lives';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
 
@@ -31,8 +32,8 @@ export const Home = () => {
             </div>
 
             <div className={styles['game-buttons']}>
-                <button type="button">CAPITOLS START</button>
-                <button type="button">FLAGS START</button>
+                <Link className={styles['button']} to={'/game-capitals'}>CAPITOLS START</Link>
+                <Link className={styles['button']} to={'/game-flags'}>FLAGS START</Link>
             </div>
         </main>
     );
