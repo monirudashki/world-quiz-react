@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import image from '../../../Assets/images/logo-1.jpg';
+import { baseUrl } from '../../../Services/request';
 import styles from '../Header/Header.module.css';
 
 function Header() {
 
     //navigate on page correct works?
 
-    const [currentUser, setCurrentUser] = useState('admin');
+    const [currentUser, setCurrentUser] = useState('user');
 
     const setActiveStyle = ({ isActive }) => {
         return isActive
@@ -16,8 +17,18 @@ function Header() {
             : 'none'
     }
 
-    const logoutHandler = () => {
-        setCurrentUser(user => null);
+    const logoutHandler = async () => {
+        try {
+            await fetch(`${baseUrl}/logout`, {
+                method: "POST",
+                headers: { 'Content-type': 'Application/json' },
+                credentials: 'include',
+                mode: 'no-cors',
+                body: {}
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -25,7 +36,7 @@ function Header() {
             <NavLink className={styles["logo"]} to="/"><img className={styles["logo-img"]} src={image} alt="" /></NavLink>
             <nav className={styles['nav']}>
 
-                {currentUser === null &&
+                {!currentUser &&
                     <>
                         <NavLink to="/auth/login" className={setActiveStyle}>Login</NavLink>
                         <NavLink to="/auth/register" className={setActiveStyle}>Register</NavLink>

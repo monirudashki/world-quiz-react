@@ -54,7 +54,7 @@
     background-color: rgb(242, 242, 242);
 }
 
-.form button {
+.button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     font-weight: bold;
@@ -118,4 +118,21 @@
 
 .input-error {
     border-left: 2px solid red;
+}
+
+.button-disabled {
+    background-color: rgb(208, 68, 68);
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    outline: 0;
+    width: 30%;
+    border: 0;
+    padding: 15px;
+    color: #ffffff;
+    font-size: 14px;
+    border-radius: 10px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
 }

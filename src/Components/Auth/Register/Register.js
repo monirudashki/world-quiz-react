@@ -1,4 +1,5 @@
 import styles from '../Register/Register.module.css';
+import { emailValidator, imageUrlValidator, minLength, passwordsMatch } from '../../../Utils/validators';
 
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
@@ -28,42 +29,10 @@ export const Register = () => {
         }))
     }
 
-    const minLength = (e, min) => {
-        setErrors(state => ({
-            ...state,
-            [e.target.name]: formValues[e.target.name].length < min
-        }))
-    }
-
-    const emailValidator = () => {
-        const pattern = /^.{3,}@gmail\.(bg|com)$/;
-
-        setErrors(state => ({
-            ...state,
-            email: !pattern.test(formValues.email)
-        }))
-    }
-
-    const imageUrlValidator = () => {
-        setErrors(state => ({
-            ...state,
-            imageUrl: !formValues.imageUrl.startsWith('http') || !formValues.imageUrl.startsWith('https')
-        }))
-    }
-
-    const passwordsMatch = () => {
-        setErrors(state => ({
-            ...state,
-            rePass: !(formValues.password === formValues.rePass)
-        }))
-    }
-
-    const invalidForm = Object.values(formValues).some(x => x);
+    const invalidForm = Object.values(formValues).some(x => x === '') || Object.values(errors).some(x => x)
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-
-        console.log('submit')
 
         const userData = { ...formValues };
 
@@ -75,14 +44,11 @@ export const Register = () => {
 
         const result = await res.json();
 
-        console.log(result);
-
         if (res.ok === true) {
             navigate('/');
         } else {
             setError(error => result.message);
         }
-
     }
 
     return (
@@ -100,7 +66,7 @@ export const Register = () => {
 
                     <label htmlFor="register-username">Username: </label>
                     <input type="text" name="username" id="register-username" placeholder="username"
-                        value={formValues.username} onChange={onChangeValueHandler} onBlur={(e) => { minLength(e, 3) }}
+                        value={formValues.username} onChange={onChangeValueHandler} onBlur={(e) => minLength(e, 3, setErrors, formValues)}
                     />
 
                     {errors.username &&
@@ -109,7 +75,7 @@ export const Register = () => {
 
                     <label htmlFor="register-email">Email: </label>
                     <input type="text" name="email" id="register-email" placeholder="email"
-                        value={formValues.email} onChange={onChangeValueHandler} onBlur={emailValidator}
+                        value={formValues.email} onChange={onChangeValueHandler} onBlur={(e) => emailValidator(e, setErrors, formValues)}
                     />
 
                     {errors.email &&
@@ -118,7 +84,7 @@ export const Register = () => {
 
                     <label htmlFor="register-imageUrl">ImageUrl: </label>
                     <input type="text" name="imageUrl" id="register-imageUrl" placeholder="image Url"
-                        value={formValues.imageUrl} onChange={onChangeValueHandler} onBlur={imageUrlValidator}
+                        value={formValues.imageUrl} onChange={onChangeValueHandler} onBlur={(e) => imageUrlValidator(e, setErrors, formValues)}
                     />
 
                     {errors.imageUrl &&
@@ -128,7 +94,7 @@ export const Register = () => {
 
                     <label htmlFor="register-password">Password: </label>
                     <input type="password" name="password" id="register-password" placeholder="password"
-                        value={formValues.password} onChange={onChangeValueHandler} onBlur={(e) => { minLength(e, 5) }}
+                        value={formValues.password} onChange={onChangeValueHandler} onBlur={(e) => minLength(e, 5, setErrors, formValues)}
                     />
 
                     {errors.password &&
@@ -137,14 +103,20 @@ export const Register = () => {
 
                     <label htmlFor="repeat-password">Confirm Password: </label>
                     <input type="password" name="rePass" id="repeat-password" placeholder="repeat password"
-                        value={formValues.rePass} onChange={onChangeValueHandler} onBlur={passwordsMatch}
+                        value={formValues.rePass} onChange={onChangeValueHandler} onBlur={(e) => passwordsMatch(e, setErrors, formValues)}
                     />
 
                     {errors.rePass &&
                         <p className={styles['error']}>Passwords don't match!</p>
                     }
 
-                    <button id='action-save' type="submit" disabled={!invalidForm}>Register</button>
+                    <button
+                        className={invalidForm ? styles['button-disabled'] : styles['button']}
+                        disabled={invalidForm}
+                        type="submit"
+                    >
+                        Register
+                    </button>
                     <p className={styles["message"]}>Already registered? <Link to="/auth/login">Login</Link></p>
                 </form>
             </div>
