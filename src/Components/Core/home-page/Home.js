@@ -1,7 +1,7 @@
 import styles from '../home-page/Home.module.css';
 import image1 from '../../../Assets/images/byciclesProject.png';
 import { CoinsLives } from '../../shared/CoinsLives/Coins&Lives';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthContext';
 

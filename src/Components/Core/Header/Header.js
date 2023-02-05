@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import image from '../../../Assets/images/logo-1.jpg';
 import { AuthContext } from '../../../Contexts/AuthContext';
@@ -48,7 +48,7 @@ function Header() {
 
                 {currentUser?.roles === 'admin' &&
                     <>
-                        <NavLink to={'/admin/capitals-questions'} className={setActiveStyle}>Capitols</NavLink>
+                        <NavLink to={'/admin/capitals-questions?page=1'} className={setActiveStyle}>Capitols</NavLink>
                         <NavLink to={'/admin/flags-questions'} className={setActiveStyle}>Flags</NavLink>
                         <NavLink to={'/admin/add-capitals-question'} className={setActiveStyle}>Add Capitals</NavLink>
                         <NavLink to={'/admin/add-flags-question'} className={setActiveStyle}>Add Flags</NavLink>

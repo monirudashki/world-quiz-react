@@ -4,10 +4,10 @@ export const CapitalsQuestionItem = (question) => {
     return (
         <div className={styles["question-item"]}>
             <h2>Capitol {question.title}</h2>
-            <p className={styles["question-answer"]}>{question.answerA}</p>
-            <p className={styles["question-answer"]}>{question.answerB}</p>
-            <p className={styles["question-answer"]}>{question.answerC}</p>
-            <p className={styles["question-answer"]}>{question.answerD}</p>
+            <p className={styles["question-answer"]}>{question.firstAnswer}</p>
+            <p className={styles["question-answer"]}>{question.secondAnswer}</p>
+            <p className={styles["question-answer"]}>{question.thirdAnswer}</p>
+            <p className={styles["question-answer"]}>{question.fourthAnswer}</p>
 
             <div className={styles["right-answer-container"]}>
                 <p>Wright answer: {question.wrightAnswer}</p>
