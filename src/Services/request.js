@@ -5,7 +5,9 @@ export const request = async (url, method, data) => {
     try {
         let response;
         if (method === "GET") {
-            response = await fetch(url);
+            response = await fetch(url, {
+                credentials: 'include'
+            });
         } else {
             response = await fetch(url, {
                 method,

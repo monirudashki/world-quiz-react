@@ -16,37 +16,57 @@ import { GameFlags } from './Components/Feature/GameFlags/GameFlags';
 import { AdminCapitalsQuestions } from './Components/admin/AdminCapitalsQuestions/AdminCapitalsQuestions';
 import { AdminFlagsQuestions } from './Components/admin/AdminFlagsQuestions/AdminFlagQuestions';
 import { AdminAddQuestion } from './Components/admin/AdminActions/AdminAddQuestion';
+import { AuthContext } from './Contexts/AuthContext';
+import { useEffect, useState } from 'react';
+import { getCurrentUser } from './Services/authService';
 // import { AdminEditQuestion } from './Components/admin/AdminActions/AdminEditQuestion';
 
 function App() {
+
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    getCurrentUser()
+      .then(currentUser => setCurrentUser(currentUser))
+      .catch(err => console.log(err));
+  }, [])
+
+  const currentUserLoginHandler = (userData) => {
+    setCurrentUser(userData);
+  }
+
   return (
-    <div className="App">
-      <Header></Header>
+    <AuthContext.Provider value={{ currentUser, currentUserLoginHandler }}>
 
-      <Routes>
-        <Route path='/' element={<Home />} />
+      <div className="App">
+        <Header></Header>
 
-        <Route path='/rules' element={<Rules />} />
-        <Route path='/scoreboard' element={<ScoreBoard />} />
+        <Routes>
+          <Route path='/' element={<Home />} />
 
-        <Route path='/game-capitals' element={<GameCapitals />} />
-        <Route path='/game-flags' element={<GameFlags />} />
-        {/* add result to game pages */}
+          <Route path='/rules' element={<Rules />} />
+          <Route path='/scoreboard' element={<ScoreBoard />} />
 
-        <Route path='/auth/login' element={<Login />} />
-        <Route path='/auth/register' element={<Register />} />
-        <Route path='/auth/user-profile/:username' element={<UserProfile />} />
+          <Route path='/game-capitals' element={<GameCapitals />} />
+          <Route path='/game-flags' element={<GameFlags />} />
+          {/* add result to game pages */}
 
-        <Route path='/admin/capitals-questions' element={<AdminCapitalsQuestions />} />
-        <Route path='/admin/flags-questions' element={<AdminFlagsQuestions />} />
-        <Route path='/admin/add-capitals-question' element={<AdminAddQuestion />} />
-        <Route path='/admin/add-flags-question' element={<AdminAddQuestion />} />
-        {/* <Route path='/admin/capitals-questions' element={<GameCapitals />} /> */}
+          <Route path='/auth/login' element={<Login />} />
+          <Route path='/auth/register' element={<Register />} />
+          <Route path='/auth/user-profile/:username' element={<UserProfile />} />
 
-      </Routes>
+          <Route path='/admin/capitals-questions' element={<AdminCapitalsQuestions />} />
+          <Route path='/admin/flags-questions' element={<AdminFlagsQuestions />} />
+          <Route path='/admin/add-capitals-question' element={<AdminAddQuestion />} />
+          <Route path='/admin/add-flags-question' element={<AdminAddQuestion />} />
+          {/* <Route path='/admin/capitals-questions' element={<GameCapitals />} /> */}
 
-      <Footer />
-    </div>
+        </Routes>
+
+        <Footer />
+      </div>
+
+    </AuthContext.Provider>
   );
 }
 

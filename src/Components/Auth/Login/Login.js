@@ -1,11 +1,14 @@
 import styles from '../Login/Login.module.css'
 
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { emailValidator, minLength } from '../../../Utils/validators';
 import { login } from '../../../Services/authService';
+import { AuthContext } from '../../../Contexts/AuthContext';
 
 export const Login = () => {
+
+    const { currentUserLoginHandler } = useContext(AuthContext);
 
     const navigateTo = useNavigate();
 
@@ -35,7 +38,8 @@ export const Login = () => {
         const userData = { ...formValues };
 
         try {
-            await login(userData);
+            const user = await login(userData);
+            currentUserLoginHandler(user);
             navigateTo('/')
         } catch (err) {
             setError(err)

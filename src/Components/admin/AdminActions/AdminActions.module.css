@@ -2,7 +2,7 @@
 
 .form {
   background: #ffffff;
-  max-width: 460px;
+  max-width: 30%;
   position: absolute;
   left: 50%;
   top: 10%;
@@ -54,7 +54,7 @@
   background-color: rgb(242, 242, 242);
 }
 
-.form button {
+.button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   font-weight: bold;
@@ -109,16 +109,34 @@
   gap: 5px;
 }
 
-p.error {
+.error {
   text-align: center;
   border-radius: 0.3em;
   color: red;
   padding-top: 0;
 }
 
-.error {
+.success {
   text-align: center;
   border-radius: 0.3em;
-  color: red;
+  color: green;
   padding-top: 0;
+  font-size: 20px;
+}
+
+.button-disabled {
+  background-color: rgb(208, 68, 68);
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  outline: 0;
+  width: 30%;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  border-radius: 10px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
 }

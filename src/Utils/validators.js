@@ -28,3 +28,18 @@ export const passwordsMatch = (e, setter, formValues) => {
     }))
 }
 
+export const firstCapitalLetter = (e, setter, formValues) => {
+    setter(state => ({
+        ...state,
+        [e.target.name]: formValues[e.target.name] === '' || formValues[e.target.name][0] === formValues[e.target.name][0].toLowerCase()
+    }))
+
+}
+
+export const wrightAnswerExist = (e, setter, formValues) => {
+    firstCapitalLetter(e, setter, formValues);
+    setter(state => ({
+        ...state,
+        [e.target.name]: ![formValues.firstAnswer, formValues.secondAnswer, formValues.thirdAnswer, formValues.fourthAnswer].includes(formValues.wrightAnswer)
+    }))
+}

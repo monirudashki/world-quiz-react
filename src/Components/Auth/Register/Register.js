@@ -2,13 +2,15 @@ import styles from '../Register/Register.module.css';
 import { emailValidator, imageUrlValidator, minLength, passwordsMatch } from '../../../Utils/validators';
 
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react';
-
-const apiUrl = "http://localhost:3030/api";
+import { useContext, useState } from 'react';
+import { register } from '../../../Services/authService';
+import { AuthContext } from '../../../Contexts/AuthContext';
 
 export const Register = () => {
 
-    const navigate = useNavigate();
+    const { currentUserLoginHandler } = useContext(AuthContext);
+
+    const navigateTo = useNavigate();
 
     const [error, setError] = useState('');
 
@@ -34,20 +36,16 @@ export const Register = () => {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
+        console.log('register');
+
         const userData = { ...formValues };
 
-        const res = await fetch(`${apiUrl}/register`, {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userData)
-        });
-
-        const result = await res.json();
-
-        if (res.ok === true) {
-            navigate('/');
-        } else {
-            setError(error => result.message);
+        try {
+            const user = await register(userData);
+            currentUserLoginHandler(user);
+            navigateTo('/')
+        } catch (err) {
+            setError(err)
         }
     }
 

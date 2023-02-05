@@ -64,3 +64,20 @@
 i {
     margin-left: 0.5vw;
 }
+
+.logout-button {
+    font-size: 1.5vw;
+    color: whitesmoke;
+    font-weight: bolder;
+    border: none;
+    padding: 1vw;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: transparent;
+}
+
+.logout-button:hover {
+    background-color: whitesmoke;
+    color: #5CE6F7;
+    transition: all 200ms ease-in-out;
+}
