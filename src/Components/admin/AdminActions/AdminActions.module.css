@@ -2,7 +2,7 @@
 
 .form {
   background: #ffffff;
-  max-width: 30%;
+  max-width: 460px;
   position: absolute;
   left: 50%;
   top: 10%;
@@ -33,25 +33,6 @@
   box-sizing: border-box;
   font-size: 14px;
   text-align: center;
-}
-
-.form select {
-  background: #ffffff;
-  width: 90%;
-  height: 30px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  border-left: 5px solid green;
-}
-
-.form textarea {
-  border: 1px solid rgb(206, 206, 206);
-  width: 90%;
-  max-width: 99%;
-  min-width: 90%;
-  min-height: 50px;
-  margin-bottom: 10px;
-  background-color: rgb(242, 242, 242);
 }
 
 .button {

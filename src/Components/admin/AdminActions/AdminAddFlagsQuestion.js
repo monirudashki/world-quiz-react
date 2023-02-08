@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createCapitalsQuestion } from '../../../Services/capitalsService';
+import { createFlagsQuestion } from '../../../Services/flagsService';
 
 import { firstCapitalLetter, wrightAnswerExist } from '../../../Utils/validators';
 
 import styles from '../AdminActions/AdminActions.module.css';
 
-function AdminAddQuestion() {
+function AdminAddFlagsQuestion() {
 
     const navigateTo = useNavigate();
 
@@ -39,9 +39,9 @@ function AdminAddQuestion() {
         const questionData = { ...formValues };
 
         try {
-            await createCapitalsQuestion(questionData);
+            await createFlagsQuestion(questionData);
 
-            console.log('add capital question');
+            console.log('add flags question');
 
             setSuccess(true);
 
@@ -70,7 +70,7 @@ function AdminAddQuestion() {
                 <p className={styles['success']}>Success!</p>
             }
 
-            <h2>Add Capitol Question</h2>
+            <h2>Add Flags Question</h2>
 
             <form className={styles['create-form']} onSubmit={onSubmitHandler}>
                 <label htmlFor="title">*Title: </label>
@@ -134,4 +134,5 @@ function AdminAddQuestion() {
     );
 }
 
-export default AdminAddQuestion
+export default AdminAddFlagsQuestion;
+

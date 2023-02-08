@@ -7,3 +7,7 @@ export const createCapitalsQuestion = async (questionData) => {
 export const getCapitalsQuestion = async (page) => {
     await request(`${baseUrl}/capitals?page=${page}`, "GET");
 }
+
+export const editCapitalsQuestion = async (questionId, questionData) => {
+    await request(`${baseUrl}/capitals/${questionId}/edit`, "PUT", questionData);
+}

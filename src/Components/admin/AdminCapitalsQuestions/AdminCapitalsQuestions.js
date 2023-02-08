@@ -6,13 +6,16 @@ import styles from '../AdminCapitalsQuestions/AdminCapitalsQuestions.module.css'
 import { CapitalsQuestionItem } from '../CapitalsQuestionItem/CapitalsQuestionItem';
 import { Spinner } from '../../shared/Spinner.js/Spinner';
 
-export const AdminCapitalsQuestions = () => {
+function AdminCapitalsQuestions() {
 
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const [isQuestionDeleted, setIsQuestionDeleted] = useState(false);
 
     const [isLoading, setIsLoading] = useState(false);
 
     const [questions, setQuestions] = useState([]);
+    let questionsLength = questions.length;
 
     let currentPage = Number(searchParams.get('page')) || 1;
     let search = searchParams.get('search') || '';
@@ -24,9 +27,10 @@ export const AdminCapitalsQuestions = () => {
             .then(res => res.json())
             .then(result => {
                 setIsLoading(false);
+                setIsQuestionDeleted(false);
                 setQuestions(result);
             })
-    }, [currentPage, search]);
+    }, [currentPage, search, isQuestionDeleted]);
 
     const pageUpHandler = () => {
         setSearchParams(values => ({
@@ -40,6 +44,17 @@ export const AdminCapitalsQuestions = () => {
             ...values,
             page: currentPage - 1
         }));
+    }
+
+    const setIsQuestionDeletedHandler = () => {
+        setIsQuestionDeleted(true);
+    }
+
+    const setCurrentPageHandler = (currentPage) => {
+        setSearchParams(values => ({
+            ...values,
+            page: currentPage - 1
+        }))
     }
 
     const onSubmitHandler = (e) => {
@@ -78,7 +93,14 @@ export const AdminCapitalsQuestions = () => {
                             <h1>There is no added questions yet!</h1>
                             :
                             <>
-                                {questions.map(x => <CapitalsQuestionItem key={x._id} {...x} />)}
+                                {questions.map(x => <CapitalsQuestionItem
+                                    key={x._id}
+                                    question={x}
+                                    setIsQuestionDeletedHandler={setIsQuestionDeletedHandler}
+                                    questionsLength={questionsLength}
+                                    page={currentPage}
+                                    setCurrentPageHandler={setCurrentPageHandler}
+                                />)}
                             </>
                         }
                     </>
@@ -93,3 +115,5 @@ export const AdminCapitalsQuestions = () => {
         </>
     );
 }
+
+export default AdminCapitalsQuestions;

@@ -1,37 +1,18 @@
 import { useContext } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import image from '../../../Assets/images/logo-1.jpg';
 import { AuthContext } from '../../../Contexts/AuthContext';
-import { baseUrl } from '../../../Services/request';
 import styles from '../Header/Header.module.css';
 
 function Header() {
 
-    const navigateTo = useNavigate();
-    //navigate on page correct works?
-    const { currentUser, currentUserLoginHandler } = useContext(AuthContext);
+    const { currentUser } = useContext(AuthContext);
 
     const setActiveStyle = ({ isActive }) => {
         return isActive
             ? styles['active']
             : 'none'
-    }
-
-    const logoutHandler = async () => {
-        try {
-            await fetch(`${baseUrl}/logout`, {
-                method: "POST",
-                headers: { 'Content-type': 'Application/json' },
-                credentials: 'include',
-                mode: 'no-cors',
-                body: {}
-            });
-            currentUserLoginHandler(null);
-            navigateTo('/');
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     return (
@@ -52,7 +33,7 @@ function Header() {
                         <NavLink to={'/admin/flags-questions'} className={setActiveStyle}>Flags</NavLink>
                         <NavLink to={'/admin/add-capitals-question'} className={setActiveStyle}>Add Capitals</NavLink>
                         <NavLink to={'/admin/add-flags-question'} className={setActiveStyle}>Add Flags</NavLink>
-                        <button className={styles['logout-button']} onClick={logoutHandler}>Logout</button>
+                        <Link to={'/auth/logout'} className={styles['logout-button']} >Logout</Link>
                     </>
                 }
                 {currentUser?.roles === 'user' &&
@@ -60,7 +41,7 @@ function Header() {
                         <NavLink to={'/rules'} className={setActiveStyle}>Rules</NavLink>
                         <NavLink to={'/scoreboard'} className={setActiveStyle}>Scoreboard</NavLink>
                         <NavLink to={'/auth/user-profile/rudashki'} className={setActiveStyle}>{currentUser?.username}</NavLink>
-                        <button className={styles['logout-button']} onClick={logoutHandler}>Logout</button>
+                        <Link to={'/auth/logout'} className={styles['logout-button']} >Logout</Link>
                     </>
                 }
             </nav>
