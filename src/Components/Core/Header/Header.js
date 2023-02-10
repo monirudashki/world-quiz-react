@@ -39,7 +39,7 @@ function Header() {
                 {currentUser?.roles === 'user' &&
                     <>
                         <NavLink to={'/rules'} className={setActiveStyle}>Rules</NavLink>
-                        <NavLink to={'/scoreboard'} className={setActiveStyle}>Scoreboard</NavLink>
+                        <NavLink to={'/scoreboard?page=1'} className={setActiveStyle}>Scoreboard</NavLink>
                         <NavLink to={'/auth/user-profile/rudashki'} className={setActiveStyle}>{currentUser?.username}</NavLink>
                         <Link to={'/auth/logout'} className={styles['logout-button']} >Logout</Link>
                     </>
