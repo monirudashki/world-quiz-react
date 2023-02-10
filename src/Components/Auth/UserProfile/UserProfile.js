@@ -1,62 +1,51 @@
 import styles from '../UserProfile/UserProfile.module.css';
+import { useContext, useState } from 'react';
 
-const user = {
-    'username': 'MoniRudashki',
-    'email': 'monirudashki@abv.bg'
-}
+import { AuthContext } from '../../../Contexts/AuthContext';
 
-const userLevel = 3;
-
-//Add diagram model;
+import { Graph } from './Graph';
+import { UserProfileInfo } from './UserProfileInfo';
+import { UserProfileEdit } from './UserProfileEdit/UserProfileEdit';
 
 export const UserProfile = () => {
+
+    const { currentUser, currentUserLoginHandler } = useContext(AuthContext);
+
+    const [editMode, setEditMode] = useState(false);
+
+    const onEditClickHandler = (boolean) => {
+        setEditMode(boolean);
+    }
+
     return (
         <>
             <div className={styles['head']}>
-                <h1>User Profile</h1>
+                <h1>{currentUser.username} Profile</h1>
             </div>
 
             <section className={styles["profile-container"]}>
                 <div className={styles["profile-container__img"]}>
-                    <img src="https://bestprofilepictures.com/wp-content/uploads/2021/04/Cool-Profile-Picture-For-Youtube-960x1024.jpg" alt="" />
+                    <img src={currentUser.imageUrl} alt="" />
                 </div>
 
                 <div className={styles['profile-container__info']}>
-                    <p>Username: <span>{user.username}</span></p>
-                    <p>Email: <span>{user.email}</span></p>
-
-                    <div className={styles['work-buttons']}>
-                        <button type="button">EDIT</button>
-                        <button type="button">CHANGE PASSWORD</button>
-                        <button type="button">EARN COINS</button>
-                    </div>
+                    {!editMode
+                        ?
+                        <UserProfileInfo username={currentUser.username} email={currentUser.email} onEditClickHandler={onEditClickHandler} />
+                        :
+                        <UserProfileEdit user={currentUser} onEditClickHandler={onEditClickHandler} currentUserLoginHandler={currentUserLoginHandler} />
+                    }
                 </div>
 
                 <div className={styles['profile-container__level']}>
                     <h2>LEVEL</h2>
                     <div className={styles['level-square']}>
-                        <p>{userLevel}</p>
+                        <p>{currentUser.level}</p>
                     </div>
                 </div>
 
-                {/* diagrama on own component */}
-
                 <div className={styles['profile-container__diagrama']}>
-                    <h2>Last 5 games score graph</h2>
-                    <figure aria-hidden="true">
-                        <div className={styles['graph']}>
-                            <span className={styles['graphRowLabel']}>25</span>
-                            <span className={styles['graphRowLabel']}>20</span>
-                            <span className={styles['graphRowLabel']}>15</span>
-                            <span className={styles['graphRowLabel']}>10</span>
-                            <span className={styles['graphRowLabel']}>0</span>
-                            <div className={styles['graphBar']}></div>
-                            <div className={styles['graphBar']}></div>
-                            <div className={styles['graphBar']}></div>
-                            <div className={styles['graphBar']}></div>
-                            <div className={styles['graphBar']}></div>
-                        </div>
-                    </figure>
+                    <Graph lastFiveGames={currentUser.lastFiveGames} />
                 </div>
             </section>
         </>

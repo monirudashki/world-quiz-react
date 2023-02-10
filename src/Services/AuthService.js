@@ -11,3 +11,7 @@ export const register = async (userData) => {
 export const getCurrentUser = async (userData) => {
     return await request(`${baseUrl}/users/profile`, "GET");
 }
+
+export const editCurrentUser = async (userData) => {
+    return await request(`${baseUrl}/users/profile`, "PUT", userData);
+}
