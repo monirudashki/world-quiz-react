@@ -10,7 +10,6 @@ export const AuthProvider = ({
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        console.log('use effect')
         getCurrentUser()
             .then(currentUser => setCurrentUser(currentUser))
             .catch(err => console.log(err));

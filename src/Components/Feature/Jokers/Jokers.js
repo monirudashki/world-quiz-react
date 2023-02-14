@@ -10,7 +10,7 @@ export const Jokers = () => {
                 50/50
             </button>
             <button className={styles['jokers__button']}>
-                <i class="fa-solid fa-square-check"></i>
+                <i className="fa-solid fa-square-check"></i>
             </button>
         </div>
     );

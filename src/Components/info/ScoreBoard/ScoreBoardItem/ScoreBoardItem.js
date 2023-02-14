@@ -17,7 +17,7 @@ export const ScoreBoardItem = ({
     if (page === 1) {
         place = index + 1;
     } else {
-        place = (page - 1) * 5 + index;
+        place = (page - 1) * 5 + index + 1;
     }
 
     const { currentUser } = useContext(AuthContext);

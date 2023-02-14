@@ -14,8 +14,8 @@ export const Home = () => {
 
             {currentUser?.roles === 'user' &&
                 <CoinsLives
-                    coins='8000'
-                    lives={[1, 2, 3, 4]}
+                    coins={currentUser.coins}
+                    lives={currentUser.lives}
                 ></CoinsLives>
             }
 

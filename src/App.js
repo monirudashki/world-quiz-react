@@ -21,6 +21,7 @@ import { GameFlags } from './Components/Feature/GameFlags/GameFlags';
 // import { AdminHome } from './Components/admin/Admin Home/AdminHome';
 import { Spinner } from './Components/shared/Spinner.js/Spinner';
 import { AuthProvider } from './Contexts/AuthContext';
+import { GameCapitalsProvider } from './Contexts/GameCapitalsContext';
 
 const AdminHome = lazy(() => import('./Components/admin/Admin Home/AdminHome'));
 const AdminCapitalsQuestions = lazy(() => import('./Components/admin/AdminCapitalsQuestions/AdminCapitalsQuestions'));
@@ -35,37 +36,39 @@ function App() {
     <AuthProvider>
       <div className="App">
 
-        <Header></Header>
+        <Header />
 
-        <Routes>
+        <GameCapitalsProvider>
+          <Routes>
 
-          <Route path='/' element={<Home />} />
+            <Route path='/' element={<Home />} />
 
-          <Route path='/rules' element={<Rules />} />
-          <Route path='/scoreboard' element={<ScoreBoard />} />
+            <Route path='/rules' element={<Rules />} />
+            <Route path='/scoreboard' element={<ScoreBoard />} />
 
-          <Route path='/game-capitals' element={<GameCapitals />} />
-          <Route path='/game-flags' element={<GameFlags />} />
-          {/* add result to game pages */}
+            <Route path='/game-capitals' element={<GameCapitals />} />
+            <Route path='/game-flags' element={<GameFlags />} />
+            {/* add result to game pages */}
 
-          <Route path='/auth/login' element={<Login />} />
-          <Route path='/auth/register' element={<Register />} />
-          <Route path='/auth/user-profile/:username' element={<UserProfile />} />
-          <Route path='/auth/logout' element={<Logout />} />
+            <Route path='/auth/login' element={<Login />} />
+            <Route path='/auth/register' element={<Register />} />
+            <Route path='/auth/user-profile/:username' element={<UserProfile />} />
+            <Route path='/auth/logout' element={<Logout />} />
 
-          <Route path='/admin' element={
-            <Suspense fallback={<Spinner />}>
-              <AdminHome />
-            </Suspense>} >
-            <Route path='capitals-questions' element={<AdminCapitalsQuestions />} />
-            <Route path='add-capitals-question' element={<AdminAddQuestion />} />
-            <Route path='capitals-questions/:id/edit' element={<AdminEditCapitalQuestion />} />
-            <Route path='flags-questions' element={<AdminFlagsQuestions />} />
-            <Route path='add-flags-question' element={<AdminAddFlagsQuestion />} />
-            <Route path='flags-question/:id/edit' element={< AdminEditFlagsQuestion />} />
-          </Route>
+            <Route path='/admin' element={
+              <Suspense fallback={<Spinner />}>
+                <AdminHome />
+              </Suspense>} >
+              <Route path='capitals-questions' element={<AdminCapitalsQuestions />} />
+              <Route path='add-capitals-question' element={<AdminAddQuestion />} />
+              <Route path='capitals-questions/:id/edit' element={<AdminEditCapitalQuestion />} />
+              <Route path='flags-questions' element={<AdminFlagsQuestions />} />
+              <Route path='add-flags-question' element={<AdminAddFlagsQuestion />} />
+              <Route path='flags-question/:id/edit' element={< AdminEditFlagsQuestion />} />
+            </Route>
 
-        </Routes>
+          </Routes>
+        </GameCapitalsProvider>
 
         <Footer />
 

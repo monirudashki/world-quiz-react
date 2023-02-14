@@ -22,7 +22,7 @@ export const UserProfileEdit = ({
     const onChangeValueHandler = (e) => {
         setFormValues(state => ({
             ...state,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value.trim()
         }))
     }
 
