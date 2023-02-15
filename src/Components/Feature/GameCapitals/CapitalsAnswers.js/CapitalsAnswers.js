@@ -4,8 +4,16 @@ export const CapitalsAnswers = ({
     questions,
     questionNumber,
     addCorrectAnswer,
-    nextQuestion
+    nextQuestion,
+    showFiftyFifty,
+    showFiftyFiftyHandler
 }) => {
+
+    const firstAnswer = questions[questionNumber]?.firstAnswer;
+    const secondAnswer = questions[questionNumber]?.secondAnswer;
+    const thirdAnswer = questions[questionNumber]?.thirdAnswer;
+    const fourthAnswer = questions[questionNumber]?.fourthAnswer;
+    const wrightAnswer = questions[questionNumber]?.wrightAnswer;
 
     let className = styles['answers-container__answer-button']
 
@@ -19,10 +27,16 @@ export const CapitalsAnswers = ({
         }
 
         setTimeout(() => {
-            e.target.className = styles['answers-container__answer-button']
+            console.log('set time out')
+            e.target.className = styles['answers-container__answer-button'];
+            showFiftyFiftyHandler(false);
             nextQuestion();
         }, 1000)
     }
+
+    const wrongAnswerArray = [firstAnswer, secondAnswer, thirdAnswer, fourthAnswer].filter(x => x !== wrightAnswer);
+    const random = wrongAnswerArray[Math.floor(Math.random() * wrongAnswerArray.length)];
+    const twoWrongAnswerArray = wrongAnswerArray.filter(x => x !== random);
 
     return (
         <div className={styles['answers-container']}>
@@ -30,29 +44,33 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
+                disabled={twoWrongAnswerArray.includes(firstAnswer) && showFiftyFifty}
             >
-                {questions[questionNumber]?.firstAnswer}
+                {firstAnswer}
             </button>
             <button
                 onClick={giveAnswer}
                 type="button"
                 className={className}
+                disabled={twoWrongAnswerArray.includes(secondAnswer) && showFiftyFifty}
             >
-                {questions[questionNumber]?.secondAnswer}
+                {secondAnswer}
             </button>
             <button
                 onClick={giveAnswer}
                 type="button"
                 className={className}
+                disabled={twoWrongAnswerArray.includes(thirdAnswer) && showFiftyFifty}
             >
-                {questions[questionNumber]?.thirdAnswer}
+                {thirdAnswer}
             </button>
             <button
                 onClick={giveAnswer}
                 type="button"
                 className={className}
+                disabled={twoWrongAnswerArray.includes(fourthAnswer) && showFiftyFifty}
             >
-                {questions[questionNumber]?.fourthAnswer}
+                {fourthAnswer}
             </button>
         </div>
     );

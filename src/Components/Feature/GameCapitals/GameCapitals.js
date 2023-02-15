@@ -1,7 +1,6 @@
 import styles from '../GameCapitals/GameCapitals.module.css';
 
 import { Link } from 'react-router-dom';
-
 // import { Spinner } from '../../shared/Spinner.js/Spinner';
 import { Timer } from '../../shared/TImes/Times';
 import { CoinsLives } from '../../shared/CoinsLives/Coins&Lives';
@@ -19,17 +18,30 @@ export const GameCapitals = () => {
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const addCorrectAnswer = () => {
         setCorrectAnswers(value => value + 1);
-    }
+    };
 
-    const coinsAfterCharge = Number(currentUser?.coins) - 2000;
+    const coinsAfterCharge = Number(currentUser?.coins) - 2000; // useMemo or useRef
     //TODO lives correct charge
 
     const [questionNumber, setQuestionsNumber] = useState(0);
     const nextQuestion = () => {
         setQuestionsNumber(value => value + 1);
+    };
+
+    const [showFiftyFifty, setShowFiftyFifty] = useState(false);
+    const showFiftyFiftyHandler = (boolean) => {
+        setShowFiftyFifty(boolean);
     }
 
-    console.log(correctAnswers);
+    if (questionNumber === 11) { //TODO 25
+        // correct answers
+        //charge lives
+        // util functions for earn coins 
+
+        //fetch data rest api (update user)
+
+        //navigate to result
+    }
 
     return (
         <>
@@ -38,7 +50,11 @@ export const GameCapitals = () => {
                 <Link to='/'>EXIT</Link>
             </div>
 
-            <Timer />
+            <Timer
+                nextQuestion={nextQuestion}
+                questionNumber={questionNumber}
+                showFiftyFiftyHandler={showFiftyFiftyHandler}
+            />
 
             <CoinsLives
                 coins={coinsAfterCharge}
@@ -55,9 +71,13 @@ export const GameCapitals = () => {
                     questionNumber={questionNumber}
                     addCorrectAnswer={addCorrectAnswer}
                     nextQuestion={nextQuestion}
+                    showFiftyFifty={showFiftyFifty}
+                    showFiftyFiftyHandler={showFiftyFiftyHandler}
                 />
 
-                <Jokers />
+                <Jokers
+                    showFiftyFiftyHandler={showFiftyFiftyHandler}
+                />
 
             </section>
             <div className={styles['number-container']}>
