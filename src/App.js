@@ -17,11 +17,10 @@ import { Rules } from './Components/info/Rules/Rules';
 import { ScoreBoard } from './Components/info/ScoreBoard/ScoreBoard';
 import { GameCapitals } from './Components/Feature/GameCapitals/GameCapitals';
 import { GameFlags } from './Components/Feature/GameFlags/GameFlags';
-// import { Result } from './Components/Feature/Result/Result';
-// import { AdminHome } from './Components/admin/Admin Home/AdminHome';
 import { Spinner } from './Components/shared/Spinner.js/Spinner';
 import { AuthProvider } from './Contexts/AuthContext';
 import { GameCapitalsProvider } from './Contexts/GameCapitalsContext';
+import { Result } from './Components/Feature/Result/Result';
 
 const AdminHome = lazy(() => import('./Components/admin/Admin Home/AdminHome'));
 const AdminCapitalsQuestions = lazy(() => import('./Components/admin/AdminCapitalsQuestions/AdminCapitalsQuestions'));
@@ -48,7 +47,7 @@ function App() {
 
             <Route path='/game-capitals' element={<GameCapitals />} />
             <Route path='/game-flags' element={<GameFlags />} />
-            {/* add result to game pages */}
+            <Route path='/result' element={<Result />} />
 
             <Route path='/auth/login' element={<Login />} />
             <Route path='/auth/register' element={<Register />} />

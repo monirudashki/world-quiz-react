@@ -3,10 +3,10 @@ import styles from '../Commercial/Commercial.module.css';
 
 import image from '../Commercial/git-hub.png';
 
-import { userEarnCoins } from '../../../../Services/authService';
+import { userEarnLives } from '../../../../Services/authService';
 
 export const Commercial = ({
-    onEarnCoinsHandler,
+    onEarnLivesHandler,
     currentUserLoginHandler
 }) => {
 
@@ -22,10 +22,10 @@ export const Commercial = ({
         setTimer("X");
     }
 
-    const earnCoinsHandler = async () => {
-        const result = await userEarnCoins();
+    const earnLivesHandler = async () => {
+        const result = await userEarnLives();
         currentUserLoginHandler(result);
-        onEarnCoinsHandler(false);
+        onEarnLivesHandler(false);
     }
 
     return (
@@ -36,7 +36,7 @@ export const Commercial = ({
                 </a>
             </div>
 
-            <button type='button' disabled={timer !== "X"} className={styles['commercial-button']} onClick={earnCoinsHandler}>{timer}</button>
+            <button type='button' disabled={timer !== "X"} className={styles['commercial-button']} onClick={earnLivesHandler}>{timer}</button>
         </div>
     );
 }

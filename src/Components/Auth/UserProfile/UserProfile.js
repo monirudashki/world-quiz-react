@@ -21,7 +21,7 @@ export const UserProfile = () => {
         setEditMode(boolean);
     }
 
-    const onEarnCoinsHandler = (boolean) => {
+    const onEarnLivesHandler = (boolean) => {
         setCommercialMode(boolean);
     }
 
@@ -31,7 +31,7 @@ export const UserProfile = () => {
                 <h1>{currentUser.username} Profile</h1>
             </div>
 
-            {commercialMode && <Commercial onEarnCoinsHandler={onEarnCoinsHandler} currentUserLoginHandler={currentUserLoginHandler} />}
+            {commercialMode && <Commercial onEarnLivesHandler={onEarnLivesHandler} currentUserLoginHandler={currentUserLoginHandler} />}
 
             <CoinsLives
                 coins={currentUser.coins}
@@ -49,8 +49,9 @@ export const UserProfile = () => {
                         <UserProfileInfo
                             username={currentUser.username}
                             email={currentUser.email}
+                            lives={currentUser.lives}
                             onEditClickHandler={onEditClickHandler}
-                            onEarnCoinsHandler={onEarnCoinsHandler}
+                            onEarnLivesHandler={onEarnLivesHandler}
                         />
                         :
                         <UserProfileEdit

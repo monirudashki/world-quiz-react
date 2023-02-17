@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from '../CapitalsAnswers.js/CapitalAnswers.module.css';
 
 export const CapitalsAnswers = ({
@@ -6,8 +7,11 @@ export const CapitalsAnswers = ({
     addCorrectAnswer,
     nextQuestion,
     showFiftyFifty,
-    showFiftyFiftyHandler
+    showFiftyFiftyHandler,
+    setGameFinishHandler
 }) => {
+
+    const [answerIsGiven, setAnswerIsGiven] = useState(false);
 
     const firstAnswer = questions[questionNumber]?.firstAnswer;
     const secondAnswer = questions[questionNumber]?.secondAnswer;
@@ -19,6 +23,7 @@ export const CapitalsAnswers = ({
 
     const giveAnswer = (e) => {
         e.preventDefault();
+        setAnswerIsGiven(true);
         if (e.target.textContent === questions[questionNumber].wrightAnswer) {
             e.target.className = styles['answers-container__answer-buttonCorrect'];
             addCorrectAnswer();
@@ -27,9 +32,12 @@ export const CapitalsAnswers = ({
         }
 
         setTimeout(() => {
-            console.log('set time out')
             e.target.className = styles['answers-container__answer-button'];
             showFiftyFiftyHandler(false);
+            if (questionNumber === 25) {
+                setGameFinishHandler();
+            }
+            setAnswerIsGiven(false);
             nextQuestion();
         }, 1000)
     }
@@ -44,7 +52,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
-                disabled={twoWrongAnswerArray.includes(firstAnswer) && showFiftyFifty}
+                disabled={(twoWrongAnswerArray.includes(firstAnswer) && showFiftyFifty) || answerIsGiven}
             >
                 {firstAnswer}
             </button>
@@ -52,7 +60,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
-                disabled={twoWrongAnswerArray.includes(secondAnswer) && showFiftyFifty}
+                disabled={(twoWrongAnswerArray.includes(secondAnswer) && showFiftyFifty) || answerIsGiven}
             >
                 {secondAnswer}
             </button>
@@ -60,7 +68,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
-                disabled={twoWrongAnswerArray.includes(thirdAnswer) && showFiftyFifty}
+                disabled={(twoWrongAnswerArray.includes(thirdAnswer) && showFiftyFifty) || answerIsGiven}
             >
                 {thirdAnswer}
             </button>
@@ -68,7 +76,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
-                disabled={twoWrongAnswerArray.includes(fourthAnswer) && showFiftyFifty}
+                disabled={(twoWrongAnswerArray.includes(fourthAnswer) && showFiftyFifty) || answerIsGiven}
             >
                 {fourthAnswer}
             </button>

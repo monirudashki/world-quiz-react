@@ -1,27 +1,36 @@
 import styles from '../GameCapitals/GameCapitals.module.css';
 
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import { Spinner } from '../../shared/Spinner.js/Spinner';
 import { Timer } from '../../shared/TImes/Times';
 import { CoinsLives } from '../../shared/CoinsLives/Coins&Lives';
 import { Jokers } from '../Jokers/Jokers';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../Contexts/AuthContext';
 import { GameCapitalsContext } from '../../../Contexts/GameCapitalsContext';
 import { CapitalsAnswers } from './CapitalsAnswers.js/CapitalsAnswers';
+import { CallFriend } from '../Jokers/CallFriend';
+import { PublicJoker } from '../Jokers/PublicJoker';
+import { coinsForGame } from './Utils/coinsForGame';
 
 export const GameCapitals = () => {
 
-    const { questions } = useContext(GameCapitalsContext);
-    const { currentUser } = useContext(AuthContext);
+    const { questions, setGameEarnCoinsHandler, setNewGameHandler } = useContext(GameCapitalsContext);
+    const { currentUser, currentUserLoginHandler } = useContext(AuthContext);
+
+    const navigateTo = useNavigate();
+
+    const [gameFinish, setGameFinish] = useState(false);
+    const setGameFinishHandler = () => {
+        setGameFinish(true);
+    }
 
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const addCorrectAnswer = () => {
         setCorrectAnswers(value => value + 1);
     };
 
-    const coinsAfterCharge = Number(currentUser?.coins) - 2000; // useMemo or useRef
-    //TODO lives correct charge
+    const lives = Number(currentUser?.lives) - 1; //Use memo or something like this to asign value just ones
 
     const [questionNumber, setQuestionsNumber] = useState(0);
     const nextQuestion = () => {
@@ -33,32 +42,96 @@ export const GameCapitals = () => {
         setShowFiftyFifty(boolean);
     }
 
-    if (questionNumber === 11) { //TODO 25
-        // correct answers
-        //charge lives
-        // util functions for earn coins 
+    const [showCallFriendJoker, setShowCallFriendJoker] = useState(false);
+    const showCallFriendJokerHandler = (boolean) => {
+        setShowCallFriendJoker(boolean);
+    }
 
-        //fetch data rest api (update user)
+    const [showPublicJoker, setShowPublicJoker] = useState(false);
+    const showPublicJokerHandler = (boolean) => {
+        setShowPublicJoker(boolean);
+    }
 
-        //navigate to result
+    useEffect(() => {
+        if (currentUser.lives < 1) {
+            return navigateTo('/');
+        }
+
+        if (gameFinish) {
+            const earnCoins = coinsForGame(correctAnswers);
+
+            const lastFive = currentUser.lastFiveGames.slice(0, 4);
+            lastFive.push(correctAnswers);
+            const updateUserData = {
+                lastFiveGames: lastFive,
+                lives: lives,
+                coins: earnCoins + Number(currentUser.coins),
+                correctAnswers: correctAnswers + Number(currentUser.wrightAnswers),
+            }
+
+            fetch(`http://localhost:3030/api/users/profile/update`, {
+                method: "PUT",
+                headers: { 'Content-type': 'Application/json' },
+                credentials: 'include',
+                body: JSON.stringify(updateUserData)
+            })
+                .then(res => res.json())
+                .then(result => currentUserLoginHandler(result));
+
+            setNewGameHandler(true);
+            setGameEarnCoinsHandler(earnCoins);
+            navigateTo('/result')
+        }
+    }, [gameFinish, correctAnswers, currentUser, lives, navigateTo, setGameEarnCoinsHandler, currentUserLoginHandler, setNewGameHandler]);
+
+    const onExitGame = () => {
+        const lastFive = currentUser.lastFiveGames.slice(1, 5);
+        lastFive.push(0);
+        console.log(lastFive);
+        const updateUserData = {
+            lastFiveGames: lastFive,
+            lives: lives,
+            coins: currentUser.coins,
+            correctAnswers: currentUser.wrightAnswers,
+        }
+
+        fetch(`http://localhost:3030/api/users/profile/update`, {
+            method: "PUT",
+            headers: { 'Content-type': 'Application/json' },
+            credentials: 'include',
+            body: JSON.stringify(updateUserData)
+        })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+                currentUserLoginHandler(result);
+                setNewGameHandler(true);
+            });
+
+        navigateTo('/');
     }
 
     return (
         <>
             <div className={styles['header']}>
                 <p className={styles['header__head']}>GAME CAPITALS</p>
-                <Link to='/'>EXIT</Link>
+                <button type='button' onClick={onExitGame}>EXIT</button>
             </div>
+
+            {showCallFriendJoker && <CallFriend showCallFriendJokerHandler={showCallFriendJokerHandler} question={questions[questionNumber]} />}
+
+            {showPublicJoker && <PublicJoker showPublicJokerHandler={showPublicJokerHandler} question={questions[questionNumber]} />}
 
             <Timer
                 nextQuestion={nextQuestion}
                 questionNumber={questionNumber}
                 showFiftyFiftyHandler={showFiftyFiftyHandler}
+                setGameFinishHandler={setGameFinishHandler}
             />
 
             <CoinsLives
-                coins={coinsAfterCharge}
-                lives={currentUser?.lives}
+                coins={currentUser?.coins}
+                lives={lives}
             ></CoinsLives>
 
             <section className={styles['question-container']}>
@@ -73,10 +146,13 @@ export const GameCapitals = () => {
                     nextQuestion={nextQuestion}
                     showFiftyFifty={showFiftyFifty}
                     showFiftyFiftyHandler={showFiftyFiftyHandler}
+                    setGameFinishHandler={setGameFinishHandler}
                 />
 
                 <Jokers
                     showFiftyFiftyHandler={showFiftyFiftyHandler}
+                    showCallFriendJokerHandler={showCallFriendJokerHandler}
+                    showPublicJokerHandler={showPublicJokerHandler}
                 />
 
             </section>

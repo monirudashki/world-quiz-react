@@ -3,8 +3,9 @@ import styles from '../UserProfile/UserProfile.module.css';
 export const UserProfileInfo = ({
     username,
     email,
+    lives,
     onEditClickHandler,
-    onEarnCoinsHandler
+    onEarnLivesHandler
 }) => {
     return (
         <>
@@ -13,7 +14,7 @@ export const UserProfileInfo = ({
 
             <div className={styles['work-buttons']}>
                 <button type="button" onClick={() => onEditClickHandler(true)}>EDIT</button>
-                <button type="button" onClick={() => onEarnCoinsHandler(true)}>EARN COINS</button>
+                <button disabled={lives > 4} type="button" onClick={() => onEarnLivesHandler(true)}>LIVE+</button>
             </div>
         </>
     );

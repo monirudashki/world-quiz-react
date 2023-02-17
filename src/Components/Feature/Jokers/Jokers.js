@@ -8,25 +8,38 @@ const phone = <FontAwesomeIcon icon={faPhone} />
 const users = <FontAwesomeIcon icon={faUsers} />
 
 export const Jokers = ({
-    showFiftyFiftyHandler
+    showFiftyFiftyHandler,
+    showCallFriendJokerHandler,
+    showPublicJokerHandler
 }) => {
 
     const [fiftyFiftyUsed, setFiftyFiftyUsed] = useState(false);
-
     const useFiftyFifty = () => {
         setFiftyFiftyUsed(true);
         showFiftyFiftyHandler(true);
     }
 
+    const [callFriendUsed, setCallFriendUsed] = useState(false);
+    const useCallFriend = () => {
+        setCallFriendUsed(true);
+        showCallFriendJokerHandler(true);
+    }
+
+    const [publicJokerUsed, setPublicJokerUsed] = useState(false);
+    const usePublicJoker = () => {
+        setPublicJokerUsed(true);
+        showPublicJokerHandler(true);
+    }
+
     return (
         <div className={styles['jokers']}>
-            <button className={styles['jokers__button']}>
+            <button disabled={publicJokerUsed} className={styles['jokers__button']} onClick={usePublicJoker}>
                 {users}
             </button>
             <button disabled={fiftyFiftyUsed} className={styles['jokers__button']} onClick={useFiftyFifty}>
                 50/50
             </button>
-            <button className={styles['jokers__button']}>
+            <button disabled={callFriendUsed} className={styles['jokers__button']} onClick={useCallFriend}>
                 {phone}
             </button>
         </div>

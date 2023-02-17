@@ -16,6 +16,6 @@ export const editCurrentUser = async (userData) => {
     return await request(`${baseUrl}/users/profile`, "PUT", userData);
 }
 
-export const userEarnCoins = async () => {
-    return await request(`${baseUrl}/users/profile/earnCoins`, "GET");
+export const userEarnLives = async () => {
+    return await request(`${baseUrl}/users/profile/earnLive`, "GET");
 }

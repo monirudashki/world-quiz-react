@@ -12,15 +12,18 @@ export const CoinsLives = ({
     coins
 }) => {
 
-    const currentLives = lives.map((live, index) => {
-        let style;
+    let currentLives = [];
 
-        if (live === 0) {
-            style = { color: 'black' }
+    for (let i = 0; i < lives; i++) {
+        currentLives.push(<span style={{ color: 'red' }} key={i}>{heart}</span>)
+    }
+
+    if (currentLives.length < 5) {
+        const border = 5 - currentLives.length + 10;
+        for (let i = 10; i < border; i++) {
+            currentLives.push(<span style={{ color: 'black' }} key={i}>{heart}</span>)
         }
-
-        return (<span style={style} key={index}>{heart}</span>)
-    });
+    }
 
     return (<div className={styles["lives"]}>
         <span className={styles["coins"]}>{moneyCoins} {coins}</span>

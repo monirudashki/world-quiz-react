@@ -7,11 +7,10 @@ export const Timer = ({
     showFiftyFiftyHandler
 }) => {
 
-    const [timer, setTimer] = useState(10);
+    const [timer, setTimer] = useState(60);
 
     useEffect(() => {
-        console.log('set timer')
-        setTimer(20);
+        setTimer(60);
     }, [questionNumber])
 
     useEffect(() => {
@@ -20,7 +19,8 @@ export const Timer = ({
                 setTimer(timer - 1);
             } else {
                 nextQuestion();
-                showFiftyFiftyHandler(false);
+                //showFiftyFiftyHandler(false);
+                //TODO every joker to false and use callback to functions for jokers
             }
         }, 1000);
 
