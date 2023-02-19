@@ -7,10 +7,14 @@ import { baseUrl } from "../../../Services/request";
 export const Logout = () => {
 
     const navigateTo = useNavigate();
-    const { currentUserLoginHandler } = useContext(AuthContext);
+    const { currentUserLoginHandler, currentUser } = useContext(AuthContext);
 
     useEffect(() => {
-        console.log('try to logout')
+
+        if (!currentUser) {
+            navigateTo('/')
+        }
+
         fetch(`${baseUrl}/logout`, {
             method: "POST",
             headers: { 'Content-type': 'Application/json' },
@@ -22,7 +26,7 @@ export const Logout = () => {
                 currentUserLoginHandler(null);
                 navigateTo('/');
             })
-    }, [currentUserLoginHandler, navigateTo])
+    }, [currentUserLoginHandler, navigateTo, currentUser])
 
     return null;
 }

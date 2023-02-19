@@ -1,0 +1,33 @@
+.page-not-found-container {
+    width: 100vw;
+    height: 100vh;
+
+    background-image: url(../../../../public/images/404/404.png);
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    font-family: Garamond, serif;
+    position: relative;
+}
+
+.page-not-found-container-wrapper {
+    position: absolute;
+    left: 62%;
+    bottom: 14%;
+    transform: translate(-65%, -14%);
+}
+
+.not-found-h1 {
+    margin: 0;
+    color: black;
+    font-size: 46px;
+    font-weight: bold;
+}
+
+.not-found-h2 {
+    color: black;
+    font-size: 40px;
+    font-weight: bold;
+}

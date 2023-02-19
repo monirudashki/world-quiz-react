@@ -22,6 +22,10 @@ import { AuthProvider } from './Contexts/AuthContext';
 import { GameCapitalsProvider } from './Contexts/GameCapitalsContext';
 import { Result } from './Components/Feature/Result/Result';
 
+import { UsersOnlyGuard } from './Components/Guards/UsersOnlyGuard';
+import { AdminOnlyGuard } from './Components/Guards/AdminOnlyGuard';
+import { PageNotFound } from './Components/Core/404/404';
+
 const AdminHome = lazy(() => import('./Components/admin/Admin Home/AdminHome'));
 const AdminCapitalsQuestions = lazy(() => import('./Components/admin/AdminCapitalsQuestions/AdminCapitalsQuestions'));
 const AdminFlagsQuestions = lazy(() => import('./Components/admin/AdminFlagsQuestions/AdminFlagQuestions'));
@@ -43,28 +47,34 @@ function App() {
             <Route path='/' element={<Home />} />
 
             <Route path='/rules' element={<Rules />} />
-            <Route path='/scoreboard' element={<ScoreBoard />} />
 
-            <Route path='/game-capitals' element={<GameCapitals />} />
-            <Route path='/game-flags' element={<GameFlags />} />
-            <Route path='/result' element={<Result />} />
+            <Route element={<UsersOnlyGuard />}>
+              <Route path='/scoreboard' element={<ScoreBoard />} />
+              <Route path='/game-capitals' element={<GameCapitals />} />
+              <Route path='/game-flags' element={<GameFlags />} />
+              <Route path='/result' element={<Result />} />
+              <Route path='/auth/user-profile/:username' element={<UserProfile />} />
+            </Route>
 
             <Route path='/auth/login' element={<Login />} />
             <Route path='/auth/register' element={<Register />} />
-            <Route path='/auth/user-profile/:username' element={<UserProfile />} />
             <Route path='/auth/logout' element={<Logout />} />
 
-            <Route path='/admin' element={
-              <Suspense fallback={<Spinner />}>
-                <AdminHome />
-              </Suspense>} >
-              <Route path='capitals-questions' element={<AdminCapitalsQuestions />} />
-              <Route path='add-capitals-question' element={<AdminAddQuestion />} />
-              <Route path='capitals-questions/:id/edit' element={<AdminEditCapitalQuestion />} />
-              <Route path='flags-questions' element={<AdminFlagsQuestions />} />
-              <Route path='add-flags-question' element={<AdminAddFlagsQuestion />} />
-              <Route path='flags-question/:id/edit' element={< AdminEditFlagsQuestion />} />
+            <Route element={<AdminOnlyGuard />}>
+              <Route path='/admin' element={
+                <Suspense fallback={<Spinner />}>
+                  <AdminHome />
+                </Suspense>} >
+                <Route path='capitals-questions' element={<AdminCapitalsQuestions />} />
+                <Route path='add-capitals-question' element={<AdminAddQuestion />} />
+                <Route path='capitals-questions/:id/edit' element={<AdminEditCapitalQuestion />} />
+                <Route path='flags-questions' element={<AdminFlagsQuestions />} />
+                <Route path='add-flags-question' element={<AdminAddFlagsQuestion />} />
+                <Route path='flags-question/:id/edit' element={< AdminEditFlagsQuestion />} />
+              </Route>
             </Route>
+
+            <Route path='*' element={<PageNotFound />} />
 
           </Routes>
         </GameCapitalsProvider>

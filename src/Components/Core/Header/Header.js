@@ -22,6 +22,7 @@ function Header() {
 
                 {!currentUser &&
                     <>
+                        <NavLink to={'/rules'} className={setActiveStyle}>Rules</NavLink>
                         <NavLink to="/auth/login" className={setActiveStyle}>Login</NavLink>
                         <NavLink to="/auth/register" className={setActiveStyle}>Register</NavLink>
                     </>
