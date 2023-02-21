@@ -11,6 +11,28 @@
     z-index: 1000;
 }
 
+.header__head {
+    font-weight: bold;
+    color: whitesmoke;
+    font-size: 24px;
+}
+
+.exit-button {
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    position: absolute;
+    top: 15%;
+    right: 2%;
+    transform: translate(-15%, -2%);
+    cursor: pointer;
+}
+
+.exit-button:hover {
+    background-color: black;
+    color: whitesmoke;
+}
+
 .question-container {
     width: 30%;
     display: flex;
@@ -54,4 +76,16 @@
     left: 0;
     bottom: 0;
     z-index: 1000;
+}
+
+.question-number {
+    font-size: 30px;
+    color: whitesmoke;
+}
+
+.question-number span {
+    padding: 4px 12px;
+    background-color: whitesmoke;
+    color: black;
+    border: 1px solid black;
 }

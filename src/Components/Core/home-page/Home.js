@@ -1,4 +1,5 @@
 import styles from '../home-page/Home.module.css';
+import gameRunning from '../home-page/home-images/game-running/capitals-running.png';
 import image1 from '../../../Assets/images/byciclesProject.png';
 import { CoinsLives } from '../../shared/CoinsLives/Coins&Lives';
 import { useContext } from 'react';
@@ -33,7 +34,7 @@ export const Home = () => {
 
             <div className={styles['games-img-container']}>
                 <div className={styles['games-img-container__item']}>
-                    <img src={image1} alt="asd" />
+                    <img src={gameRunning} alt="asd" />
                 </div>
                 <div className={styles['games-img-container__item']}>
                     <img src={image1} alt="asd" />

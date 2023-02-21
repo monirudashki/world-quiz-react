@@ -15,12 +15,6 @@ import { coinsForGame } from './Utils/coinsForGame';
 
 export const GameCapitals = () => {
 
-    // useEffect(() => {
-    //     return () => {
-    //         console.log('unmount')
-    //     }
-    // })
-
     const { questions, setGameEarnCoinsHandler, setNewGameHandler } = useContext(GameCapitalsContext);
     const { currentUser, currentUserLoginHandler } = useContext(AuthContext);
 
@@ -36,7 +30,7 @@ export const GameCapitals = () => {
         setCorrectAnswers(value => value + 1);
     };
 
-    const lives = Number(currentUser.lives) - 1; //Use memo or something like this to asign value just ones
+    const lives = Number(currentUser.lives) - 1; //Use ref or something like this to asign value just ones
 
     const [questionNumber, setQuestionsNumber] = useState(0);
     const nextQuestion = () => {
@@ -118,8 +112,8 @@ export const GameCapitals = () => {
     return (
         <>
             <div className={styles['header']}>
-                <p className={styles['header__head']}>GAME CAPITALS</p>
-                <button type='button' onClick={onExitGame}>EXIT</button>
+                <p className={styles['header__head']}>CAPITALS QUIZ</p>
+                <button type='button' className={styles['exit-button']} onClick={onExitGame}>EXIT</button>
             </div>
 
             {showCallFriendJoker && <CallFriend
@@ -166,7 +160,7 @@ export const GameCapitals = () => {
 
             </section>
             <div className={styles['number-container']}>
-                <p className={styles['number']}>{Number(questionNumber) + 1}</p>
+                <p className={styles['question-number']}>QUESTION - <span>{Number(questionNumber) + 1}</span></p>
             </div>
         </>
     );

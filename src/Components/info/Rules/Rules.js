@@ -1,6 +1,6 @@
 import styles from '../Rules/Rules.module.css';
-import imageCapitals from './images/babystroller.png';
-import imageFlags from './images/babystroller.png';
+import imageCapitals from './images/capitals.png';
+import imageFlags from './images/297005.jpg';
 
 export const Rules = () => {
     return (
