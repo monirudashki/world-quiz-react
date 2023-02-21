@@ -42,10 +42,10 @@ export const PublicJoker = ({
                         <span className={styles['graphColumnLabel']}></span>
                         <span className={styles['graphColumnLabel']}></span>
                         <span className={styles['graphColumnLabel']}></span>
-                        <span className={styles['graphColumnLabel']}>{firstAnswer}</span>
-                        <span className={styles['graphColumnLabel']}>{secondAnswer}</span>
-                        <span className={styles['graphColumnLabel']}>{thirdAnswer}</span>
-                        <span className={styles['graphColumnLabel']}>{fourthAnswer}</span>
+                        <span className={styles['graphColumnLabel']}>{firstAnswer.length > 5 ? `${firstAnswer.slice(0, 5)}..` : firstAnswer}</span>
+                        <span className={styles['graphColumnLabel']}>{secondAnswer.length > 5 ? `${secondAnswer.slice(0, 5)}..` : secondAnswer}</span>
+                        <span className={styles['graphColumnLabel']}>{thirdAnswer.length > 5 ? `${thirdAnswer.slice(0, 5)}..` : thirdAnswer}</span>
+                        <span className={styles['graphColumnLabel']}>{fourthAnswer.length > 5 ? `${fourthAnswer.slice(0, 5)}..` : fourthAnswer}</span>
                     </div>
                 </figure>
             </div>

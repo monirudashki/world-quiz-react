@@ -15,6 +15,12 @@ import { coinsForGame } from './Utils/coinsForGame';
 
 export const GameCapitals = () => {
 
+    // useEffect(() => {
+    //     return () => {
+    //         console.log('unmount')
+    //     }
+    // })
+
     const { questions, setGameEarnCoinsHandler, setNewGameHandler } = useContext(GameCapitalsContext);
     const { currentUser, currentUserLoginHandler } = useContext(AuthContext);
 
@@ -30,7 +36,7 @@ export const GameCapitals = () => {
         setCorrectAnswers(value => value + 1);
     };
 
-    const lives = Number(currentUser?.lives) - 1; //Use memo or something like this to asign value just ones
+    const lives = Number(currentUser.lives) - 1; //Use memo or something like this to asign value just ones
 
     const [questionNumber, setQuestionsNumber] = useState(0);
     const nextQuestion = () => {
@@ -87,7 +93,6 @@ export const GameCapitals = () => {
     const onExitGame = () => {
         const lastFive = currentUser.lastFiveGames.slice(1, 5);
         lastFive.push(0);
-        console.log(lastFive);
         const updateUserData = {
             lastFiveGames: lastFive,
             lives: lives,
@@ -103,7 +108,6 @@ export const GameCapitals = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result);
                 currentUserLoginHandler(result);
                 setNewGameHandler(true);
             });
@@ -118,9 +122,14 @@ export const GameCapitals = () => {
                 <button type='button' onClick={onExitGame}>EXIT</button>
             </div>
 
-            {showCallFriendJoker && <CallFriend showCallFriendJokerHandler={showCallFriendJokerHandler} question={questions[questionNumber]} />}
+            {showCallFriendJoker && <CallFriend
+                showCallFriendJokerHandler={showCallFriendJokerHandler}
+                question={questions[questionNumber]}
+            />}
 
-            {showPublicJoker && <PublicJoker showPublicJokerHandler={showPublicJokerHandler} question={questions[questionNumber]} />}
+            {showPublicJoker && <PublicJoker
+                showPublicJokerHandler={showPublicJokerHandler}
+                question={questions[questionNumber]} />}
 
             <Timer
                 nextQuestion={nextQuestion}
@@ -130,7 +139,7 @@ export const GameCapitals = () => {
             />
 
             <CoinsLives
-                coins={currentUser?.coins}
+                coins={currentUser.coins}
                 lives={lives}
             ></CoinsLives>
 

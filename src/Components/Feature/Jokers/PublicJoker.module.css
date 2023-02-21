@@ -1,5 +1,5 @@
 .public-container {
-    width: 50%;
+    width: 70%;
     height: 50%;
     background-color: rgba(49, 46, 46, 0.7);
     display: flex;
@@ -14,7 +14,7 @@
 }
 
 .public-wrapper {
-    width: 500px;
+    width: 800px;
     height: 350px;
     background-color: lightslategray;
     border-radius: 20px;
@@ -38,8 +38,8 @@
 
 figure {
     width: 90%;
-    max-width: 600px;
-    height: 250px;
+    max-width: 800px;
+    height: 400px;
     margin: 60px auto auto auto;
 }
 
@@ -53,9 +53,9 @@ figure {
 .graphBar {
     grid-row: 1 / -2;
     border-radius: 0 0 50% 50% / 0 0 10px 10px;
-    background: palegoldenrod linear-gradient(to top, gold var(--h), transparent var(--h));
+    background: palegoldenrod linear-gradient(to top, rgb(48, 130, 217) var(--h), transparent var(--h));
     justify-self: center;
-    width: 45px;
+    width: 70px;
     height: 200px;
     box-shadow: 0 0 3px lightgrey;
 }

@@ -27,7 +27,7 @@ export const Register = () => {
     const onChangeValueHandler = (e) => {
         setFormValues(state => ({
             ...state,
-            [e.target.name]: e.target.value.trim()
+            [e.target.name]: e.target.value
         }))
     }
 
@@ -35,8 +35,6 @@ export const Register = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-
-        console.log('register');
 
         const userData = { ...formValues };
 

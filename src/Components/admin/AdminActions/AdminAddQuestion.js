@@ -27,7 +27,7 @@ function AdminAddQuestion() {
     const onChangeValueHandler = (e) => {
         setFormValues(state => ({
             ...state,
-            [e.target.name]: e.target.value.trim()
+            [e.target.name]: e.target.value
         }))
     }
 
@@ -40,8 +40,6 @@ function AdminAddQuestion() {
 
         try {
             await createCapitalsQuestion(questionData);
-
-            console.log('add capital question');
 
             setSuccess(true);
 

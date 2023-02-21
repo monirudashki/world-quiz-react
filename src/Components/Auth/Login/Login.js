@@ -24,7 +24,7 @@ export const Login = () => {
     const onChangeValueHandler = (e) => {
         setFormValues(state => ({
             ...state,
-            [e.target.name]: e.target.value.trim()
+            [e.target.name]: e.target.value
         }))
     }
 
@@ -32,8 +32,6 @@ export const Login = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-
-        console.log('submit')
 
         const userData = { ...formValues };
 

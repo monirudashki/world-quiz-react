@@ -2,15 +2,11 @@ import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from '../../Contexts/AuthContext';
 
-export const AdminOnlyGuard = () => {
+export const GuestGuardOnly = () => {
 
     const { currentUser } = useContext(AuthContext);
 
-    if (!currentUser) {
-        return <Navigate to="/auth/login" replace />
-    }
-
-    if (currentUser.roles !== 'admin') {
+    if (currentUser) {
         return <Navigate to="/" replace />
     }
 

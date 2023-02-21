@@ -25,6 +25,7 @@ import { Result } from './Components/Feature/Result/Result';
 import { UsersOnlyGuard } from './Components/Guards/UsersOnlyGuard';
 import { AdminOnlyGuard } from './Components/Guards/AdminOnlyGuard';
 import { PageNotFound } from './Components/Core/404/404';
+import { GuestGuardOnly } from './Components/Guards/GuestOnlyGuard';
 
 const AdminHome = lazy(() => import('./Components/admin/Admin Home/AdminHome'));
 const AdminCapitalsQuestions = lazy(() => import('./Components/admin/AdminCapitalsQuestions/AdminCapitalsQuestions'));
@@ -47,6 +48,7 @@ function App() {
             <Route path='/' element={<Home />} />
 
             <Route path='/rules' element={<Rules />} />
+            <Route path='/auth/logout' element={<Logout />} />
 
             <Route element={<UsersOnlyGuard />}>
               <Route path='/scoreboard' element={<ScoreBoard />} />
@@ -56,9 +58,10 @@ function App() {
               <Route path='/auth/user-profile/:username' element={<UserProfile />} />
             </Route>
 
-            <Route path='/auth/login' element={<Login />} />
-            <Route path='/auth/register' element={<Register />} />
-            <Route path='/auth/logout' element={<Logout />} />
+            <Route element={<GuestGuardOnly />}>
+              <Route path='/auth/login' element={<Login />} />
+              <Route path='/auth/register' element={<Register />} />
+            </Route>
 
             <Route element={<AdminOnlyGuard />}>
               <Route path='/admin' element={

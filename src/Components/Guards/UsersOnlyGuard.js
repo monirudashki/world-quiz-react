@@ -6,13 +6,12 @@ export const UsersOnlyGuard = () => {
 
     const { currentUser } = useContext(AuthContext);
 
-    console.log(currentUser);
-
     if (!currentUser) {
+        console.log('return from if')
         return <Navigate to="/auth/login" replace />
     }
 
-    if (currentUser && currentUser.roles === 'admin') {
+    if (currentUser.roles === 'admin') {
         return <Navigate to="/" replace />
     }
 

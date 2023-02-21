@@ -8,20 +8,32 @@ export const AuthProvider = ({
 }) => {
 
     const [currentUser, setCurrentUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         getCurrentUser()
-            .then(currentUser => setCurrentUser(currentUser))
-            .catch(err => console.log(err));
+            .then(currentUser => {
+                setIsLoading(false);
+                setCurrentUser(currentUser);
+            })
+            .catch(err => console.log(err))
+            .finally(() => {
+                setIsLoading(false);
+            });
     }, [])
 
     const currentUserLoginHandler = (userData) => {
         setCurrentUser(userData);
     }
 
-    return (
-        <AuthContext.Provider value={{ currentUser, currentUserLoginHandler }}>
-            {children}
-        </AuthContext.Provider>
-    )
+    if (!isLoading) {
+        return (
+            <AuthContext.Provider value={{
+                currentUser,
+                currentUserLoginHandler
+            }}>
+                {children}
+            </AuthContext.Provider>
+        )
+    }
 }

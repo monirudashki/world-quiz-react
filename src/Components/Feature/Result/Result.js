@@ -18,8 +18,8 @@ export const Result = () => {
     return (
         <>
             <CoinsLives
-                coins={currentUser?.coins}
-                lives={currentUser?.lives}
+                coins={currentUser.coins}
+                lives={currentUser.lives}
             ></CoinsLives>
 
             <section className={styles["result-container"]}>
@@ -27,7 +27,7 @@ export const Result = () => {
                 <div className={styles["result-coins"]}>
                     <div className={styles["result"]}>
                         <p>Correct Answers</p>
-                        <p className={styles["score"]}>{currentUser?.lastFiveGames[4]}/25</p>
+                        <p className={styles["score"]}>{currentUser.lastFiveGames[4]}/25</p>
                     </div>
                     <div className={styles["coins"]}>
                         <p>Earn Coins</p>

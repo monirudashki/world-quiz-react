@@ -6,8 +6,6 @@ export const GameCapitalsProvider = ({
     children,
 }) => {
 
-    console.log('game context');
-
     const [newGame, setNewGame] = useState(false);
     const setNewGameHandler = (boolean) => {
         setNewGame(boolean);
@@ -21,8 +19,7 @@ export const GameCapitalsProvider = ({
     }
 
     useEffect(() => {
-        if (newGame) {
-            console.log('get questions');
+        if (newGame || questions.length === 0) {
             setNewGame(false);
             fetch(`http://localhost:3030/api/capitals/gameQuestions`)
                 .then(res => res.json())
@@ -31,7 +28,7 @@ export const GameCapitalsProvider = ({
                 })
                 .catch(err => console.log(err));
         }
-    }, [newGame]);
+    }, [newGame, questions]);
 
 
     return (
