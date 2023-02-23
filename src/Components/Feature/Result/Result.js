@@ -1,4 +1,3 @@
-import { CoinsLives } from '../../shared/CoinsLives/Coins&Lives';
 import styles from '../Result/Result.module.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,6 +6,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../Contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { GameCapitalsContext } from '../../../Contexts/GameCapitalsContext';
+import CoinsLives from '../../shared/CoinsLives/Coins&Lives';
 const coins = <FontAwesomeIcon icon={faCoins} />
 
 

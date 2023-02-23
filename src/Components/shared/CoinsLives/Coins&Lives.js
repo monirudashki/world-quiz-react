@@ -1,5 +1,7 @@
 import styles from '../CoinsLives/Coins&Lives.module.css';
 
+import { memo } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoins } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +9,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 const moneyCoins = <FontAwesomeIcon icon={faCoins} />
 const heart = <FontAwesomeIcon icon={faHeart} />
 
-export const CoinsLives = ({
+const CoinsLives = ({
     lives,
     coins
 }) => {
@@ -33,3 +35,5 @@ export const CoinsLives = ({
     </div>
     )
 }
+
+export default memo(CoinsLives);

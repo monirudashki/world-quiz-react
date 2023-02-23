@@ -52,7 +52,8 @@
 .rules-container__flags p {
     color: whitesmoke;
     text-align: center;
-    padding: 5px 20px;
+    padding: 0px 50px;
+    font-size: 20px;
 }
 
 .rules-container__info h2 {
@@ -64,4 +65,5 @@
     color: whitesmoke;
     text-align: center;
     padding: 10px 30px;
+    font-size: 22px;
 }

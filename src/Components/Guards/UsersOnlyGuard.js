@@ -7,7 +7,6 @@ export const UsersOnlyGuard = () => {
     const { currentUser } = useContext(AuthContext);
 
     if (!currentUser) {
-        console.log('return from if')
         return <Navigate to="/auth/login" replace />
     }
 

@@ -2,7 +2,8 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../../Contexts/AuthContext";
-import { baseUrl } from "../../../Services/request";
+import { logout } from "../../../Services/authService";
+// import { baseUrl } from "../../../Services/request";
 
 export const Logout = () => {
 
@@ -15,13 +16,7 @@ export const Logout = () => {
             navigateTo('/')
         }
 
-        fetch(`${baseUrl}/logout`, {
-            method: "POST",
-            headers: { 'Content-type': 'Application/json' },
-            credentials: 'include',
-            mode: 'no-cors',
-            body: {}
-        })
+        logout()
             .then(() => {
                 currentUserLoginHandler(null);
                 navigateTo('/');

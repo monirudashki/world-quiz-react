@@ -1,7 +1,7 @@
 import styles from '../home-page/Home.module.css';
-import gameRunning from '../home-page/home-images/game-running/capitals-running.png';
-import image1 from '../../../Assets/images/byciclesProject.png';
-import { CoinsLives } from '../../shared/CoinsLives/Coins&Lives';
+import random from '../../info/Rules/images/capitals.png';
+import capitalsRunning from '../home-page/home-images/game-running/capitals-running.png';
+import CoinsLives from '../../shared/CoinsLives/Coins&Lives';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthContext';
@@ -34,10 +34,10 @@ export const Home = () => {
 
             <div className={styles['games-img-container']}>
                 <div className={styles['games-img-container__item']}>
-                    <img src={gameRunning} alt="asd" />
+                    <img src={capitalsRunning} alt="asd" />
                 </div>
                 <div className={styles['games-img-container__item']}>
-                    <img src={image1} alt="asd" />
+                    <img src={random} alt="asd" />
                 </div>
             </div>
 

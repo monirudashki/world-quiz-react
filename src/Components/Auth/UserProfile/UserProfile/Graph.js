@@ -1,9 +1,10 @@
 import styles from '../UserProfile/UserProfile.module.css';
 
-export const Graph = ({
+import { memo } from 'react';
+
+const Graph = ({
     lastFiveGames
 }) => {
-
     let graphStyle1 = { gridColumn: 2, '--h': getPercentage(lastFiveGames[0]) };
     let graphStyle2 = { gridColumn: 3, '--h': getPercentage(lastFiveGames[1]) };
     let graphStyle3 = { gridColumn: 4, '--h': getPercentage(lastFiveGames[2]) };
@@ -42,4 +43,6 @@ function getPercentage(value) {
     const percentage = (Number(value) * 100) / 25;
 
     return `${percentage}%`
-} 
+}
+
+export default memo(Graph);

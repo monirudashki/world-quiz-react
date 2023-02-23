@@ -1,28 +1,43 @@
 import styles from '../UserProfile/UserProfile.module.css';
 
-import { useContext, useState } from 'react';
-
-import { AuthContext } from '../../../Contexts/AuthContext';
-import { Graph } from './Graph';
-import { UserProfileInfo } from './UserProfileInfo';
-import { UserProfileEdit } from './UserProfileEdit/UserProfileEdit';
-import { Commercial } from './Commercial/Commercial';
-import { CoinsLives } from '../../shared/CoinsLives/Coins&Lives';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../../../Contexts/AuthContext';
+import Graph from './Graph';
+import UserProfileInfo from './UserProfileInfo';
+import { UserProfileEdit } from '../UserProfileEdit/UserProfileEdit';
+import { Commercial } from '../Commercial/Commercial';
+import CoinsLives from '../../../shared/CoinsLives/Coins&Lives';
+import { Spinner } from '../../../shared/Spinner.js/Spinner';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const UserProfile = () => {
 
+    const navigateTo = useNavigate();
+
     const { currentUser, currentUserLoginHandler } = useContext(AuthContext);
+
+    const { username } = useParams();
+    useEffect(() => {
+        if (username !== currentUser.username) {
+            navigateTo('/not-found-page');
+        }
+    }, [username, currentUser.username, navigateTo])
+
 
     const [editMode, setEditMode] = useState(false);
 
     const [commercialMode, setCommercialMode] = useState(false);
 
-    const onEditClickHandler = (boolean) => {
+    const onEditClickHandler = useCallback((boolean) => {
         setEditMode(boolean);
-    }
+    }, []);
 
-    const onEarnLivesHandler = (boolean) => {
+    const onEarnLivesHandler = useCallback((boolean) => {
         setCommercialMode(boolean);
+    }, []);
+
+    if (!currentUser) {
+        return <Spinner />
     }
 
     return (

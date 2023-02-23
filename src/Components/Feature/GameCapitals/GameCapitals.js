@@ -3,7 +3,7 @@ import styles from '../GameCapitals/GameCapitals.module.css';
 import { useNavigate } from 'react-router-dom';
 // import { Spinner } from '../../shared/Spinner.js/Spinner';
 import { Timer } from '../../shared/TImes/Times';
-import { CoinsLives } from '../../shared/CoinsLives/Coins&Lives';
+import CoinsLives from '../../shared/CoinsLives/Coins&Lives';
 import { Jokers } from '../Jokers/Jokers';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../Contexts/AuthContext';

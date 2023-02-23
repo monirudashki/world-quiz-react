@@ -4,6 +4,16 @@ export const login = async (userData) => {
     return await request(`${baseUrl}/login`, "POST", userData);
 }
 
+export const logout = () => {
+    return fetch(`${baseUrl}/logout`, {
+        method: "POST",
+        headers: { 'Content-type': 'Application/json' },
+        credentials: 'include',
+        mode: 'no-cors',
+        body: {}
+    });
+}
+
 export const register = async (userData) => {
     return await request(`${baseUrl}/register`, "POST", userData)
 }

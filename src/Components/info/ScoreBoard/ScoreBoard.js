@@ -1,12 +1,14 @@
 import styles from '../ScoreBoard/ScoreBoard.module.css';
 
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { ScoreBoardItem } from './ScoreBoardItem/ScoreBoardItem';
 import { Spinner } from '../../shared/Spinner.js/Spinner';
 
 export const ScoreBoard = () => {
+
+    const navigateTo = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -14,9 +16,9 @@ export const ScoreBoard = () => {
 
     const [users, setUsers] = useState([]);
 
-    const [lastPage, setLastPage] = useState(0);
+    const lastPage = useRef(0);
 
-    let currentPage = Number(searchParams.get('page')) || 1;
+    let currentPage = Number(searchParams.get('page'));
 
     useEffect(() => {
         setIsLoading(true);
@@ -24,11 +26,14 @@ export const ScoreBoard = () => {
         fetch(`http://localhost:3030/api/users?page=${currentPage}`)
             .then(res => res.json())
             .then(result => {
-                setLastPage(Math.ceil(result.count / 5));
+                lastPage.current = (Math.ceil(result.count / 5));
+                if (!(Number(currentPage) <= Number(lastPage.current))) {
+                    navigateTo('/not-found-page')
+                }
                 setUsers(result.users);
                 setIsLoading(false);
             })
-    }, [currentPage]);
+    }, [currentPage, navigateTo]);
 
     const pageUpHandler = () => {
         setSearchParams(values => ({

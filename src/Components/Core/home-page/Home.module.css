@@ -22,7 +22,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    width: 80%;
     margin: 50px auto 0 auto;
     gap: 50px;
     background-color: rgba(92, 230, 247, 0.7);
@@ -33,15 +33,15 @@
 .games-img-container__item {
     width: 40%;
     height: 80%;
-    padding: 50px 50px;
+    padding: 100px 100px;
 }
 
 .games-img-container__item:hover {
-    -ms-transform: scale(1.5);
+    -ms-transform: scale(1.8);
     /* IE 9 */
-    -webkit-transform: scale(1.5);
+    -webkit-transform: scale(1.8);
     /* Safari 3-8 */
-    transform: scale(1.5);
+    transform: scale(1.8);
 }
 
 .games-img-container__item img {
@@ -64,6 +64,8 @@
 }
 
 .game-buttons .button {
+    width: 250px;
+    text-align: center;
     padding: 8px 12px;
     font-size: 1.5rem;
     background-color: #95B0B4;

@@ -1,10 +1,12 @@
 import styles from '../ScoreBoardItem/ScoreBoardItem.module.css';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoins } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import { AuthContext } from '../../../../Contexts/AuthContext';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoins, faMedal } from '@fortawesome/free-solid-svg-icons';
+
 const coins = <FontAwesomeIcon icon={faCoins} />
+const medal = <FontAwesomeIcon icon={faMedal} />
 
 export const ScoreBoardItem = ({
     user,
@@ -20,6 +22,15 @@ export const ScoreBoardItem = ({
         place = (page - 1) * 5 + index + 1;
     }
 
+    let style;
+    if (place === 1) {
+        style = { color: 'gold' }
+    } else if (place === 2) {
+        style = { color: 'silver' }
+    } else if (place === 3) {
+        style = { color: '#cd7f32' }
+    }
+
     const { currentUser } = useContext(AuthContext);
     const isCurrentUser = currentUser.username === user.username;
 
@@ -28,14 +39,19 @@ export const ScoreBoardItem = ({
             <div className={styles["scoreboard-container__item__img"]}>
                 <img src={user.imageUrl} alt="dsad" />
             </div>
-            <div className={styles["scoreboard-container__item__username"]} style={{ backgroundColor: isCurrentUser ? "lightgreen" : 'none' }}>
+            <div className={styles["scoreboard-container__item__username"]} style={{ backgroundColor: isCurrentUser ? "lightgrey" : 'none' }}>
                 <p>{user.username}</p>
             </div>
-            <div className={styles["scoreboard-container__item__coins"]} >
+            <div className={styles["scoreboard-container__item__coins"]} style={{ backgroundColor: isCurrentUser ? "lightgrey" : 'none' }}>
                 <p>{user.coins} <span>{coins}</span></p>
             </div>
             <div className={styles["scoreboard-container__item__place"]} >
-                <p>{place}.</p>
+                {place < 4
+                    ?
+                    <p style={style}>{medal}</p>
+                    :
+                    <p>{place}.</p>
+                }
             </div>
         </div>
     );

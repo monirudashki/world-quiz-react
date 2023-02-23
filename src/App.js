@@ -11,9 +11,9 @@ import { Login } from './Components/Auth/Login/Login';
 import { Register } from './Components/Auth/Register/Register';
 import { Logout } from './Components/Auth/Logout/Logout';
 
-import { UserProfile } from './Components/Auth/UserProfile/UserProfile';
+import { UserProfile } from './Components/Auth/UserProfile/UserProfile/UserProfile';
 
-import { Rules } from './Components/info/Rules/Rules';
+import Rules from './Components/info/Rules/Rules';
 import { ScoreBoard } from './Components/info/ScoreBoard/ScoreBoard';
 import { GameCapitals } from './Components/Feature/GameCapitals/GameCapitals';
 import { GameFlags } from './Components/Feature/GameFlags/GameFlags';

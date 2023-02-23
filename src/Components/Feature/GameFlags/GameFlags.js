@@ -1,7 +1,7 @@
 import styles from "../GameFlags/GameFlags.module.css";
 
 import { Timer } from "../../shared/TImes/Times";
-import { CoinsLives } from "../../shared/CoinsLives/Coins&Lives";
+import CoinsLives from "../../shared/CoinsLives/Coins&Lives";
 import { Jokers } from "../Jokers/Jokers";
 
 import flagImage from "../GameFlags/Images/spain.png";

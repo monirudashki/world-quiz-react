@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import styles from '../UserProfile/UserProfile.module.css';
 
-export const UserProfileInfo = ({
+const UserProfileInfo = ({
     username,
     email,
     lives,
@@ -19,3 +20,5 @@ export const UserProfileInfo = ({
         </>
     );
 }
+
+export default memo(UserProfileInfo);
