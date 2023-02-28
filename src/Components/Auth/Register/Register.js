@@ -61,7 +61,7 @@ export const Register = () => {
                 <form className={styles["login-form"]} onSubmit={onSubmitHandler}>
 
                     <label htmlFor="register-username">Username: </label>
-                    <input type="text" name="username" id="register-username" placeholder="username"
+                    <input type="text" name="username" id="register-username"
                         value={formValues.username} onChange={onChangeValueHandler} onBlur={(e) => minLength(e, 3, setErrors, formValues)}
                     />
 
@@ -70,7 +70,7 @@ export const Register = () => {
                     }
 
                     <label htmlFor="register-email">Email: </label>
-                    <input type="text" name="email" id="register-email" placeholder="email"
+                    <input type="text" name="email" id="register-email"
                         value={formValues.email} onChange={onChangeValueHandler} onBlur={(e) => emailValidator(e, setErrors, formValues)}
                     />
 
@@ -79,7 +79,7 @@ export const Register = () => {
                     }
 
                     <label htmlFor="register-imageUrl">ImageUrl: </label>
-                    <input type="text" name="imageUrl" id="register-imageUrl" placeholder="image Url"
+                    <input type="text" name="imageUrl" id="register-imageUrl"
                         value={formValues.imageUrl} onChange={onChangeValueHandler} onBlur={(e) => imageUrlValidator(e, setErrors, formValues)}
                     />
 
@@ -89,7 +89,7 @@ export const Register = () => {
 
 
                     <label htmlFor="register-password">Password: </label>
-                    <input type="password" name="password" id="register-password" placeholder="password"
+                    <input type="password" name="password" id="register-password"
                         value={formValues.password} onChange={onChangeValueHandler} onBlur={(e) => minLength(e, 5, setErrors, formValues)}
                     />
 
@@ -98,7 +98,7 @@ export const Register = () => {
                     }
 
                     <label htmlFor="repeat-password">Confirm Password: </label>
-                    <input type="password" name="rePass" id="repeat-password" placeholder="repeat password"
+                    <input type="password" name="rePass" id="repeat-password"
                         value={formValues.rePass} onChange={onChangeValueHandler} onBlur={(e) => passwordsMatch(e, setErrors, formValues)}
                     />
 

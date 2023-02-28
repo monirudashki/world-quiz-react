@@ -36,6 +36,11 @@
     padding: 100px 100px;
 }
 
+.games-img-container__item h2 {
+    text-align: center;
+    color: whitesmoke;
+}
+
 .games-img-container__item:hover {
     -ms-transform: scale(1.8);
     /* IE 9 */

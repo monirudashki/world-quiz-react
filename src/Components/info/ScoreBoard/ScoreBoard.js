@@ -69,7 +69,7 @@ export const ScoreBoard = () => {
                 <div className={styles['pagination']}>
                     <button type='button' onClick={pageDownHandler} disabled={currentPage === 1}>Previous</button>
                     <p>{currentPage}/2</p>
-                    <button type="button" onClick={pageUpHandler} disabled={currentPage === lastPage}>Next</button>
+                    <button type="button" onClick={pageUpHandler} disabled={currentPage === lastPage.current}>Next</button>
                 </div>
             </section>
         </>

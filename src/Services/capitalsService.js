@@ -11,3 +11,12 @@ export const getCapitalsQuestion = async (page) => {
 export const editCapitalsQuestion = async (questionId, questionData) => {
     await request(`${baseUrl}/capitals/${questionId}/edit`, "PUT", questionData);
 }
+
+export const updateUser = (updateUserData) => {
+    return fetch(`http://localhost:3030/api/users/profile/update`, {
+        method: "PUT",
+        headers: { 'Content-type': 'Application/json' },
+        credentials: 'include',
+        body: JSON.stringify(updateUserData)
+    });
+}

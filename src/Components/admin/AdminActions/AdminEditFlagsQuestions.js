@@ -52,6 +52,7 @@ function AdminEditFlagsQuestion() {
 
         const questionData = { ...formValues };
 
+        //TODO All admin action with rest api to service..
         try {
             const response = await fetch(`http://localhost:3030/api/flags/${id}/edit`, {
                 method: "PUT",
@@ -83,53 +84,66 @@ function AdminEditFlagsQuestion() {
                     <h2>Edit Flags Question</h2>
 
                     <form className={styles['create-form']} onSubmit={onSubmitHandler}>
-                        <label htmlFor="title">*Title: </label>
-                        <input type="text" name="title" id="Title"
-                            value={formValues.title} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
-                        {errors.title &&
-                            <p className={styles['error']}>Title is required and needs to starts with capital letter!</p>
-                        }
+                        <div>
+                            <label htmlFor="title">*Title: </label>
+                            <input type="text" name="title" id="Title"
+                                value={formValues.title} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
-                        <label htmlFor="firstAnswer">*First answer:</label>
-                        <input type="text" name="firstAnswer" id="firstAnswer"
-                            value={formValues.firstAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
+                            {errors.title &&
+                                <p className={styles['error']}>Title is required and needs to starts with capital letter!</p>
+                            }
+                        </div>
 
-                        {errors.firstAnswer &&
-                            <p className={styles['error']}>First Answer is required and needs to starts with capital letter!</p>
-                        }
+                        <div>
+                            <label htmlFor="firstAnswer">*First answer:</label>
+                            <input type="text" name="firstAnswer" id="firstAnswer"
+                                value={formValues.firstAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
-                        <label htmlFor="secondAnswer">*Second Answer: </label>
-                        <input type="text" name="secondAnswer" id="secondAnswer"
-                            value={formValues.secondAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
+                            {errors.firstAnswer &&
+                                <p className={styles['error']}>First Answer is required and needs to starts with capital letter!</p>
+                            }
+                        </div>
 
-                        {errors.secondAnswer &&
-                            <p className={styles['error']}>Second Answer is required and needs to starts with capital letter!</p>
-                        }
+                        <div>
+                            <label htmlFor="secondAnswer">*Second Answer: </label>
+                            <input type="text" name="secondAnswer" id="secondAnswer"
+                                value={formValues.secondAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
-                        <label htmlFor="thirdAnswer">*Third Answer: </label>
-                        <input type="text" name="thirdAnswer" id="thirdAnswer"
-                            value={formValues.thirdAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
+                            {errors.secondAnswer &&
+                                <p className={styles['error']}>Second Answer is required and needs to starts with capital letter!</p>
+                            }
+                        </div>
 
-                        {errors.thirdAnswer &&
-                            <p className={styles['error']}>Third Answer is required and needs to starts with capital letter!</p>
-                        }
+                        <div>
+                            <label htmlFor="thirdAnswer">*Third Answer: </label>
+                            <input type="text" name="thirdAnswer" id="thirdAnswer"
+                                value={formValues.thirdAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
-                        <label htmlFor="fourthAnswer">*Forth Answer: </label>
-                        <input type="text" name="fourthAnswer" id="forthAnswer"
-                            value={formValues.fourthAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
+                            {errors.thirdAnswer &&
+                                <p className={styles['error']}>Third Answer is required and needs to starts with capital letter!</p>
+                            }
+                        </div>
 
-                        {errors.fourthAnswer &&
-                            <p className={styles['error']}>Forth Answer is required and needs to starts with capital letter!</p>
-                        }
+                        <div>
+                            <label htmlFor="fourthAnswer">*Forth Answer: </label>
+                            <input type="text" name="fourthAnswer" id="forthAnswer"
+                                value={formValues.fourthAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
-                        <label htmlFor="wrightAnswer">*Wright Answer: </label>
-                        <input type="text" name="wrightAnswer" id="wrightAnswer"
-                            value={formValues.wrightAnswer} onChange={onChangeValueHandler} onBlur={(e) => wrightAnswerExist(e, setErrors, formValues)} />
+                            {errors.fourthAnswer &&
+                                <p className={styles['error']}>Forth Answer is required and needs to starts with capital letter!</p>
+                            }
+                        </div>
 
-                        {errors.wrightAnswer &&
-                            <p className={styles['error']}>Wright Answer must exist in other for answers!</p>
-                        }
+                        <div>
+                            <label htmlFor="wrightAnswer">*Wright Answer: </label>
+                            <input type="text" name="wrightAnswer" id="wrightAnswer"
+                                value={formValues.wrightAnswer} onChange={onChangeValueHandler} onBlur={(e) => wrightAnswerExist(e, setErrors, formValues)} />
+
+                            {errors.wrightAnswer &&
+                                <p className={styles['error']}>Wright Answer must exist in other for answers!</p>
+                            }
+                        </div>
 
                         <div className={styles['buttons']}>
                             <button className={styles['button']} type="button" onClick={() => navigateTo('/')}>CANCEL</button>

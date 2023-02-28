@@ -2,7 +2,11 @@
 
 .form {
   background: #ffffff;
-  max-width: 460px;
+  width: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   position: absolute;
   left: 50%;
   top: 10%;
@@ -25,7 +29,7 @@
   outline: 0;
   background: #f2f2f2;
   width: 90%;
-  height: 33px;
+  height: 40px;
   border: 0;
   margin: 0 0 15px;
   padding: 15px;

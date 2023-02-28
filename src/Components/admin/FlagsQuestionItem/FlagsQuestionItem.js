@@ -56,7 +56,7 @@ export const FlagsQuestionItem = ({
             </div>
 
             <div className={styles['action-buttons']}>
-                <Link to={`/admin/flags-question/${question._id}/edit`} className={styles['action-button']}>EDIT</Link>
+                <Link to={`/admin/flags-question/${question._id}/edit`} className={styles['edit-link']}>EDIT</Link>
                 <button type="button" className={styles['action-button']} onClick={deleteQuestionHandler}>DELETE</button>
             </div>
         </div>

@@ -44,7 +44,7 @@ export const CapitalsQuestionItem = ({
             </div>
 
             <div className={styles['action-buttons']}>
-                <Link to={`/admin/capitals-questions/${question._id}/edit`} className={styles['action-button']}>Edit</Link>
+                <Link to={`/admin/capitals-questions/${question._id}/edit`} className={styles['edit-link']}>Edit</Link>
                 <button type="button" className={styles['action-button']} onClick={deleteQuestionHandler}>Delete</button>
             </div>
         </div>

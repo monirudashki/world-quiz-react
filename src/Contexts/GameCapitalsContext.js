@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 
 export const GameCapitalsContext = createContext();
 
@@ -7,16 +7,16 @@ export const GameCapitalsProvider = ({
 }) => {
 
     const [newGame, setNewGame] = useState(false);
-    const setNewGameHandler = (boolean) => {
+    const setNewGameHandler = useCallback((boolean) => {
         setNewGame(boolean);
-    }
+    }, []);
 
     const [questions, setQuestions] = useState([]);
 
     const [gameEarnCoins, setGameEarnCoins] = useState(0);
-    const setGameEarnCoinsHandler = (value) => {
+    const setGameEarnCoinsHandler = useCallback((value) => {
         setGameEarnCoins(value);
-    }
+    }, []);
 
     useEffect(() => {
         if (newGame || questions.length === 0) {

@@ -4,7 +4,9 @@ import styles from "../TImes/Times.module.css";
 export const Timer = ({
     nextQuestion,
     questionNumber,
-    showFiftyFiftyHandler
+    showFiftyFiftyHandler,
+    showCallFriendJokerHandler,
+    showPublicJokerHandler
 }) => {
 
     const [timer, setTimer] = useState(60);
@@ -19,8 +21,9 @@ export const Timer = ({
                 setTimer(timer - 1);
             } else {
                 nextQuestion();
-                //showFiftyFiftyHandler(false);
-                //TODO every joker to false and use callback to functions for jokers
+                showFiftyFiftyHandler(false);
+                showPublicJokerHandler(false);
+                showCallFriendJokerHandler(false);
             }
         }, 1000);
 

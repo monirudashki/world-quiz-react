@@ -1,17 +1,18 @@
 import styles from '../GameCapitals/GameCapitals.module.css';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 // import { Spinner } from '../../shared/Spinner.js/Spinner';
 import { Timer } from '../../shared/TImes/Times';
 import CoinsLives from '../../shared/CoinsLives/Coins&Lives';
-import { Jokers } from '../Jokers/Jokers';
-import { useContext, useEffect, useState } from 'react';
+import Jokers from '../Jokers/Jokers';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from '../../../Contexts/AuthContext';
 import { GameCapitalsContext } from '../../../Contexts/GameCapitalsContext';
 import { CapitalsAnswers } from './CapitalsAnswers.js/CapitalsAnswers';
 import { CallFriend } from '../Jokers/CallFriend';
 import { PublicJoker } from '../Jokers/PublicJoker';
 import { coinsForGame } from './Utils/coinsForGame';
+import { updateUser } from '../../../Services/capitalsService';
 
 export const GameCapitals = () => {
 
@@ -30,27 +31,29 @@ export const GameCapitals = () => {
         setCorrectAnswers(value => value + 1);
     };
 
-    const lives = Number(currentUser.lives) - 1; //Use ref or something like this to asign value just ones
+    const lives = useRef(Number(currentUser.lives) - 1);
 
-    const [questionNumber, setQuestionsNumber] = useState(0);
+    const [questionNumber, setQuestionsNumber] = useState(1);
     const nextQuestion = () => {
         setQuestionsNumber(value => value + 1);
     };
 
     const [showFiftyFifty, setShowFiftyFifty] = useState(false);
-    const showFiftyFiftyHandler = (boolean) => {
+    const showFiftyFiftyHandler = useCallback((boolean) => {
         setShowFiftyFifty(boolean);
-    }
+    }, []);
 
     const [showCallFriendJoker, setShowCallFriendJoker] = useState(false);
-    const showCallFriendJokerHandler = (boolean) => {
+    const showCallFriendJokerHandler = useCallback((boolean) => {
         setShowCallFriendJoker(boolean);
-    }
+    }, []);
 
     const [showPublicJoker, setShowPublicJoker] = useState(false);
-    const showPublicJokerHandler = (boolean) => {
+    const showPublicJokerHandler = useCallback((boolean) => {
         setShowPublicJoker(boolean);
-    }
+    }, []);
+
+    const location = useLocation();
 
     useEffect(() => {
         if (currentUser.lives < 1) {
@@ -59,47 +62,47 @@ export const GameCapitals = () => {
 
         if (gameFinish) {
             const earnCoins = coinsForGame(correctAnswers);
-
             const lastFive = currentUser.lastFiveGames.slice(0, 4);
             lastFive.push(correctAnswers);
             const updateUserData = {
                 lastFiveGames: lastFive,
-                lives: lives,
+                lives: lives.current,
                 coins: earnCoins + Number(currentUser.coins),
                 correctAnswers: correctAnswers + Number(currentUser.wrightAnswers),
             }
 
-            fetch(`http://localhost:3030/api/users/profile/update`, {
-                method: "PUT",
-                headers: { 'Content-type': 'Application/json' },
-                credentials: 'include',
-                body: JSON.stringify(updateUserData)
-            })
+            updateUser(updateUserData)
                 .then(res => res.json())
                 .then(result => currentUserLoginHandler(result));
 
             setNewGameHandler(true);
             setGameEarnCoinsHandler(earnCoins);
-            navigateTo('/result')
+            navigateTo('/result', {
+                state: {
+                    previousPath: location.pathname
+                }
+            });
         }
-    }, [gameFinish, correctAnswers, currentUser, lives, navigateTo, setGameEarnCoinsHandler, currentUserLoginHandler, setNewGameHandler]);
+    }, [gameFinish,
+        correctAnswers,
+        currentUser,
+        navigateTo,
+        setGameEarnCoinsHandler,
+        currentUserLoginHandler,
+        setNewGameHandler,
+        location.pathname]);
 
     const onExitGame = () => {
         const lastFive = currentUser.lastFiveGames.slice(1, 5);
         lastFive.push(0);
         const updateUserData = {
             lastFiveGames: lastFive,
-            lives: lives,
+            lives: lives.current,
             coins: currentUser.coins,
             correctAnswers: currentUser.wrightAnswers,
         }
 
-        fetch(`http://localhost:3030/api/users/profile/update`, {
-            method: "PUT",
-            headers: { 'Content-type': 'Application/json' },
-            credentials: 'include',
-            body: JSON.stringify(updateUserData)
-        })
+        updateUser(updateUserData)
             .then(res => res.json())
             .then(result => {
                 currentUserLoginHandler(result);
@@ -130,6 +133,8 @@ export const GameCapitals = () => {
                 questionNumber={questionNumber}
                 showFiftyFiftyHandler={showFiftyFiftyHandler}
                 setGameFinishHandler={setGameFinishHandler}
+                showCallFriendJokerHandler={showCallFriendJokerHandler}
+                showPublicJokerHandler={showPublicJokerHandler}
             />
 
             <CoinsLives
@@ -160,7 +165,7 @@ export const GameCapitals = () => {
 
             </section>
             <div className={styles['number-container']}>
-                <p className={styles['question-number']}>QUESTION - <span>{Number(questionNumber) + 1}</span></p>
+                <p className={styles['question-number']}>QUESTION - <span>{questionNumber}</span></p>
             </div>
         </>
     );

@@ -51,9 +51,22 @@
     padding: 8px 12px;
     background-color: lightgrey;
     border-radius: 5px;
+    cursor: pointer;
 }
 
-.action-button:hover {
+.edit-link {
+    width: 80px;
+    padding: 8px 12px;
+    background-color: lightgrey;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 2px solid black;
+    text-align: center;
+    color: black;
+}
+
+.action-button:hover,
+.edit-link:hover {
     color: lightgray;
     background-color: black;
 }

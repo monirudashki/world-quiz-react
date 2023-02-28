@@ -4,14 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+
+import { memo } from 'react';
+
 const phone = <FontAwesomeIcon icon={faPhone} />
 const users = <FontAwesomeIcon icon={faUsers} />
 
-export const Jokers = ({
+const Jokers = ({
     showFiftyFiftyHandler,
     showCallFriendJokerHandler,
     showPublicJokerHandler
 }) => {
+
+    console.log('jokers');
 
     const [fiftyFiftyUsed, setFiftyFiftyUsed] = useState(false);
     const useFiftyFifty = () => {
@@ -45,3 +50,5 @@ export const Jokers = ({
         </div>
     );
 }
+
+export default memo(Jokers);

@@ -25,7 +25,7 @@ export const Login = () => {
         setFormValues(state => ({
             ...state,
             [e.target.name]: e.target.value
-        }))
+        }));
     }
 
     const invalidForm = Object.values(formValues).some(x => x === '') || Object.values(errors).some(x => x)
@@ -33,7 +33,10 @@ export const Login = () => {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
-        const userData = { ...formValues };
+        const userData = {
+            email: formValues.email.trim().toLocaleLowerCase(),
+            password: formValues.password.trim()
+        }
 
         try {
             const user = await login(userData);
@@ -60,7 +63,9 @@ export const Login = () => {
 
                         <label htmlFor="email">Email: </label>
                         <input type="text" name="email" id="email"
-                            value={formValues.email} onChange={onChangeValueHandler} onBlur={(e) => emailValidator(e, setErrors, formValues)}
+                            value={formValues.email}
+                            onChange={onChangeValueHandler}
+                            onBlur={(e) => emailValidator(e, setErrors, formValues)}
                         />
 
                         {errors.email &&
@@ -69,7 +74,9 @@ export const Login = () => {
 
                         <label htmlFor="password">Password: </label>
                         <input type="password" name="password" id="password"
-                            value={formValues.password} onChange={onChangeValueHandler} onBlur={(e) => minLength(e, 5, setErrors, formValues)}
+                            value={formValues.password}
+                            onChange={onChangeValueHandler}
+                            onBlur={(e) => minLength(e, 5, setErrors, formValues)}
                         />
 
                         {errors.password &&

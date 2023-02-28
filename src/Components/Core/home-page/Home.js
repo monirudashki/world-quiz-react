@@ -29,21 +29,29 @@ export const Home = () => {
             }
 
             <div className={styles["head"]}>
-                <h1 className={styles["head-h1"]}>World Quiz</h1>
+                <h1 className={styles["head-h1"]}>World Quiz Games</h1>
             </div>
 
             <div className={styles['games-img-container']}>
                 <div className={styles['games-img-container__item']}>
+                    <h2>Capitals Quiz</h2>
                     <img src={capitalsRunning} alt="asd" />
                 </div>
                 <div className={styles['games-img-container__item']}>
+                    <h2>Flags Quiz</h2>
                     <img src={random} alt="asd" />
                 </div>
             </div>
 
             {currentUser?.roles === 'user' &&
                 <div className={styles['game-buttons']}>
-                    <Link style={{ pointerEvents: currentUser.lives > 0 ? '' : 'none' }} className={styles['button']} to={'/game-capitals'} onClick={onStartGame}>CAPITOLS START</Link>
+                    <Link
+                        style={{ pointerEvents: currentUser.lives > 0 ? '' : 'none' }}
+                        className={styles['button']} to={'/game-capitals'}
+                        onClick={onStartGame}
+                    >
+                        CAPITALS START
+                    </Link>
                     <Link className={styles['button']} to={'/game-flags'}>FLAGS START</Link>
                 </div>
             }
