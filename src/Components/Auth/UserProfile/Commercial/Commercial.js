@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../Commercial/Commercial.module.css';
 
 import image from '../Commercial/git-hub.png';
@@ -10,9 +10,13 @@ export const Commercial = ({
     currentUserLoginHandler
 }) => {
 
+    useEffect(() => {
+        return () => clearTimeout(timeOut);
+    })
+
     const [timer, setTimer] = useState(5);
 
-    setTimeout(() => {
+    const timeOut = setTimeout(() => {
         if (timer > 0) {
             setTimer(timer - 1);
         }

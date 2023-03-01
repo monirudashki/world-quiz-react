@@ -45,7 +45,7 @@ function AdminAddQuestion() {
 
             setTimeout(() => {
                 setSuccess(false);
-            }, 2000)
+            }, 2000);
 
             setFormValues(state => ({
                 title: '',
@@ -54,7 +54,7 @@ function AdminAddQuestion() {
                 thirdAnswer: '',
                 fourthAnswer: '',
                 wrightAnswer: '',
-            }))
+            }));
         } catch (err) {
             setRequestError(err)
         }

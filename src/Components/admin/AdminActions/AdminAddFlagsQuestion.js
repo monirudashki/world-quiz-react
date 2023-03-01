@@ -45,7 +45,7 @@ function AdminAddFlagsQuestion() {
 
             setTimeout(() => {
                 setSuccess(false);
-            }, 2000)
+            }, 2000);
 
             setFormValues(state => ({
                 title: '',

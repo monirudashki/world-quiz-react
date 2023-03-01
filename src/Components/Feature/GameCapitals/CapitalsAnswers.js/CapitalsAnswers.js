@@ -19,7 +19,7 @@ export const CapitalsAnswers = ({
     const fourthAnswer = questions[questionNumber]?.fourthAnswer;
     const wrightAnswer = questions[questionNumber]?.wrightAnswer;
 
-    let className = styles['answers-container__answer-button']
+    let className = styles['answers-container__answer-button'];
 
     const giveAnswer = (e) => {
         e.preventDefault();

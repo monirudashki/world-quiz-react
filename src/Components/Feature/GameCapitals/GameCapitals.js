@@ -1,18 +1,21 @@
 import styles from '../GameCapitals/GameCapitals.module.css';
 
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-// import { Spinner } from '../../shared/Spinner.js/Spinner';
+
+import { AuthContext } from '../../../Contexts/AuthContext';
+import { GameCapitalsContext } from '../../../Contexts/GameCapitalsContext';
+
 import { Timer } from '../../shared/TImes/Times';
 import CoinsLives from '../../shared/CoinsLives/Coins&Lives';
 import Jokers from '../Jokers/Jokers';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { AuthContext } from '../../../Contexts/AuthContext';
-import { GameCapitalsContext } from '../../../Contexts/GameCapitalsContext';
 import { CapitalsAnswers } from './CapitalsAnswers.js/CapitalsAnswers';
 import { CallFriend } from '../Jokers/CallFriend';
 import { PublicJoker } from '../Jokers/PublicJoker';
 import { coinsForGame } from './Utils/coinsForGame';
+
 import { updateUser } from '../../../Services/capitalsService';
+import { userLevel } from './Utils/userLevel';
 
 export const GameCapitals = () => {
 
@@ -64,11 +67,13 @@ export const GameCapitals = () => {
             const earnCoins = coinsForGame(correctAnswers);
             const lastFive = currentUser.lastFiveGames.slice(0, 4);
             lastFive.push(correctAnswers);
+            const level = userLevel(currentUser.wrightAnswers + correctAnswers);
             const updateUserData = {
                 lastFiveGames: lastFive,
                 lives: lives.current,
                 coins: earnCoins + Number(currentUser.coins),
                 correctAnswers: correctAnswers + Number(currentUser.wrightAnswers),
+                level: level
             }
 
             updateUser(updateUserData)
@@ -100,6 +105,7 @@ export const GameCapitals = () => {
             lives: lives.current,
             coins: currentUser.coins,
             correctAnswers: currentUser.wrightAnswers,
+            level: currentUser.level
         }
 
         updateUser(updateUserData)
