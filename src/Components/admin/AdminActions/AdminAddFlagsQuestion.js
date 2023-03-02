@@ -41,6 +41,7 @@ function AdminAddFlagsQuestion() {
         try {
             await createFlagsQuestion(questionData);
 
+            setRequestError('');
             setSuccess(true);
 
             setTimeout(() => {

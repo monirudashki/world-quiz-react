@@ -37,22 +37,22 @@ export const FlagsQuestionItem = ({
             <h2>Flag {question.title}</h2>
             <div className={styles['question-answers']}>
                 <div className={styles['question-img-container']}>
-                    <img src={`../images/${question.firstAnswer}.png`} alt={question.answerA} className={styles['question-img']} />
+                    <img src={`../images/Flags/${question.firstAnswer}.png`} alt='dsadsa' className={styles['question-img']} />
                 </div>
                 <div className={styles['question-img-container']}>
-                    <img src={`../images/${question.secondAnswer}.png`} alt={question.answerB} className={styles['question-img']} />
+                    <img src={`../images/Flags/${question.secondAnswer}.png`} alt={question.answerB} className={styles['question-img']} />
                 </div>
                 <div className={styles['question-img-container']}>
-                    <img src={`../images/${question.thirdAnswer}.png`} alt={question.answerC} className={styles['question-img']} />
+                    <img src={`../images/Flags/${question.thirdAnswer}.png`} alt={question.answerC} className={styles['question-img']} />
                 </div>
                 <div className={styles['question-img-container']}>
-                    <img src={`../images/${question.fourthAnswer}.png`} alt={question.answerD} className={styles['question-img']} />
+                    <img src={`../images/Flags/${question.fourthAnswer}.png`} alt={question.answerD} className={styles['question-img']} />
                 </div>
             </div>
 
             <div className={styles['right-answer-container']}>
                 <p>Wright answer:</p>
-                <img src={`../images/${question.wrightAnswer}.png`} alt="sda" />
+                <img src={`../images/Flags/${question.wrightAnswer}.png`} alt="sda" />
             </div>
 
             <div className={styles['action-buttons']}>

@@ -41,6 +41,7 @@ function AdminAddQuestion() {
         try {
             await createCapitalsQuestion(questionData);
 
+            setRequestError('');
             setSuccess(true);
 
             setTimeout(() => {
