@@ -1,5 +1,5 @@
 import styles from '../home-page/Home.module.css';
-import random from '../../info/Rules/images/capitals.png';
+import flagsRunning from '../home-page/home-images/game-running/game flags running.png';
 import capitalsRunning from '../home-page/home-images/game-running/capitals-running.png';
 import CoinsLives from '../../shared/CoinsLives/Coins&Lives';
 import { useContext } from 'react';
@@ -39,7 +39,7 @@ export const Home = () => {
                 </div>
                 <div className={styles['games-img-container__item']}>
                     <h2>Flags Quiz</h2>
-                    <img src={random} alt="asd" />
+                    <img src={flagsRunning} alt="asd" />
                 </div>
             </div>
 
@@ -52,7 +52,12 @@ export const Home = () => {
                     >
                         CAPITALS START
                     </Link>
-                    <Link className={styles['button']} to={'/game-flags'}>FLAGS START</Link>
+                    <Link
+                        className={styles['button']} to={'/game-flags'}
+                        style={{ pointerEvents: currentUser.lives > 0 ? '' : 'none' }}
+                    >
+                        FLAGS START
+                    </Link>
                 </div>
             }
         </main>

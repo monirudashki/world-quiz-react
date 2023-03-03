@@ -30,6 +30,8 @@
     align-items: center;
     width: 100%;
     height: 25%;
+    font-size: 18px;
+    color: whitesmoke;
 }
 
 .img-wrapper {
@@ -64,6 +66,8 @@
     align-items: center;
     width: 100%;
     height: 25%;
+    font-size: 18px;
+    color: whitesmoke;
 }
 
 .answer-flag-button-wrong {
@@ -76,4 +80,6 @@
     align-items: center;
     width: 100%;
     height: 25%;
+    font-size: 18px;
+    color: whitesmoke;
 }
