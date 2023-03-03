@@ -2,7 +2,8 @@ import styles from '../Jokers/PublicJoker.module.css';
 
 export const PublicJoker = ({
     showPublicJokerHandler,
-    question
+    question,
+    game
 }) => {
 
     const firstAnswer = question.firstAnswer;
@@ -42,10 +43,23 @@ export const PublicJoker = ({
                         <span className={styles['graphColumnLabel']}></span>
                         <span className={styles['graphColumnLabel']}></span>
                         <span className={styles['graphColumnLabel']}></span>
-                        <span className={styles['graphColumnLabel']}>{firstAnswer.length > 5 ? `${firstAnswer.slice(0, 5)}..` : firstAnswer}</span>
-                        <span className={styles['graphColumnLabel']}>{secondAnswer.length > 5 ? `${secondAnswer.slice(0, 5)}..` : secondAnswer}</span>
-                        <span className={styles['graphColumnLabel']}>{thirdAnswer.length > 5 ? `${thirdAnswer.slice(0, 5)}..` : thirdAnswer}</span>
-                        <span className={styles['graphColumnLabel']}>{fourthAnswer.length > 5 ? `${fourthAnswer.slice(0, 5)}..` : fourthAnswer}</span>
+                        {game === 'Capitals'
+                            ?
+                            <>
+                                <span className={styles['graphColumnLabel']}>{firstAnswer.length > 5 ? `${firstAnswer.slice(0, 5)}..` : firstAnswer}</span>
+                                <span className={styles['graphColumnLabel']}>{secondAnswer.length > 5 ? `${secondAnswer.slice(0, 5)}..` : secondAnswer}</span>
+                                <span className={styles['graphColumnLabel']}>{thirdAnswer.length > 5 ? `${thirdAnswer.slice(0, 5)}..` : thirdAnswer}</span>
+                                <span className={styles['graphColumnLabel']}>{fourthAnswer.length > 5 ? `${fourthAnswer.slice(0, 5)}..` : fourthAnswer}</span>
+                            </>
+                            :
+                            <>
+                                <span className={styles['graphColumnLabel']}>A</span>
+                                <span className={styles['graphColumnLabel']}>B</span>
+                                <span className={styles['graphColumnLabel']}>C</span>
+                                <span className={styles['graphColumnLabel']}>D</span>
+                            </>
+                        }
+
                     </div>
                 </figure>
             </div>

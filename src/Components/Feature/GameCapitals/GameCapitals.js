@@ -128,12 +128,14 @@ export const GameCapitals = () => {
             {showCallFriendJoker && <CallFriend
                 showCallFriendJokerHandler={showCallFriendJokerHandler}
                 question={questions[questionNumber]}
+                game='Capitals'
             />}
 
             {showPublicJoker && <PublicJoker
                 showPublicJokerHandler={showPublicJokerHandler}
-                question={questions[questionNumber]} />}
-
+                question={questions[questionNumber]}
+                game='Capitals'
+            />}
             <Timer
                 nextQuestion={nextQuestion}
                 questionNumber={questionNumber}

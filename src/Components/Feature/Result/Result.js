@@ -18,7 +18,7 @@ export const Result = () => {
 
     let gameWasPlayed = false;
 
-    if (location.state && location.state.previousPath === '/game-capitals') {
+    if (location.state && (location.state.previousPath === '/game-capitals' || location.state.previousPath === '/game-flags')) {
         gameWasPlayed = true;
     }
 
