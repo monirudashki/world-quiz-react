@@ -7,8 +7,8 @@ export const Spinner = () => {
 
         <div className={styles['spinner-wrapper']}>
             <Circles
-                height="100"
-                width="100"
+                height="150"
+                width="150"
                 color="#5CE6F7"
                 ariaLabel="circles-loading"
                 wrapperStyle={{}}

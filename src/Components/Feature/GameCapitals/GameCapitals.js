@@ -147,7 +147,7 @@ export const GameCapitals = () => {
 
             <CoinsLives
                 coins={currentUser.coins}
-                lives={lives}
+                lives={lives.current}
             ></CoinsLives>
 
             <section className={styles['question-container']}>

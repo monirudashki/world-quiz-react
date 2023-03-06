@@ -16,8 +16,6 @@ const Jokers = ({
     showPublicJokerHandler
 }) => {
 
-    console.log('jokers');
-
     const [fiftyFiftyUsed, setFiftyFiftyUsed] = useState(false);
     const useFiftyFifty = () => {
         setFiftyFiftyUsed(true);
