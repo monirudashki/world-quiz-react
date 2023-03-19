@@ -4,7 +4,7 @@ import { getCurrentUser } from "../Services/authService";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({
-    children,
+    children
 }) => {
 
     const [currentUser, setCurrentUser] = useState(null);

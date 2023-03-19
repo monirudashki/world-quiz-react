@@ -29,7 +29,7 @@ export const Home = () => {
             }
 
             <div className={styles["head"]}>
-                <h1 className={styles["head-h1"]}>World Quiz Games</h1>
+                <h1 data-testId={'home-h1'} className={styles["head-h1"]}>World Quiz Games</h1>
             </div>
 
             <div className={styles['games-img-container']}>
