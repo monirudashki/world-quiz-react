@@ -31,7 +31,7 @@ export const Timer = ({
         return () => {
             clearInterval(intervalId);
         }
-    }, [nextQuestion, timer]);
+    }, [nextQuestion, timer, showCallFriendJokerHandler, showFiftyFiftyHandler, showPublicJokerHandler]);
 
     let style;
 

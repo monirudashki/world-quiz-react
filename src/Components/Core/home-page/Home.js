@@ -29,22 +29,22 @@ export const Home = () => {
             }
 
             <div className={styles["head"]}>
-                <h1 data-testId={'home-h1'} className={styles["head-h1"]}>World Quiz Games</h1>
+                <h1 data-testid={'home-h1'} className={styles["head-h1"]}>World Quiz Games</h1>
             </div>
 
             <div className={styles['games-img-container']}>
                 <div className={styles['games-img-container__item']}>
-                    <h2>Capitals Quiz</h2>
-                    <img src={capitalsRunning} alt="asd" />
+                    <h2 data-testid={'home-capitals'}>Capitals Quiz</h2>
+                    <img data-testid={'home-capitals-img'} src={capitalsRunning} alt="asd" />
                 </div>
                 <div className={styles['games-img-container__item']}>
-                    <h2>Flags Quiz</h2>
-                    <img src={flagsRunning} alt="asd" />
+                    <h2 data-testid={'home-flags'}>Flags Quiz</h2>
+                    <img data-testid={'home-flags-img'} src={flagsRunning} alt="asd" />
                 </div>
             </div>
 
             {currentUser?.roles === 'user' &&
-                <div className={styles['game-buttons']}>
+                <div data-testid='home-game-buttons' className={styles['game-buttons']}>
                     <Link
                         style={{ pointerEvents: currentUser.lives > 0 ? '' : 'none' }}
                         className={styles['button']} to={'/game-capitals'}

@@ -4,6 +4,7 @@ import imageFlags from './images/297005.jpg';
 import { memo } from 'react';
 
 const Rules = () => {
+
     return (
         <div className={styles["rules-container"]}>
             <div className={styles["rules-container__capitals"]}>

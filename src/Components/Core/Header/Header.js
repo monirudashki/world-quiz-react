@@ -40,17 +40,17 @@ function Header() {
 
                 {currentUser?.roles === 'admin' &&
                     <>
-                        <NavLink to={'/admin/capitals-questions?page=1'} className={setActiveStyle}>Capitals</NavLink>
-                        <NavLink to={'/admin/flags-questions'} className={setActiveStyle}>Flags</NavLink>
-                        <NavLink to={'/admin/add-capitals-question'} className={setActiveStyle}>Add Capitals</NavLink>
-                        <NavLink to={'/admin/add-flags-question'} className={setActiveStyle}>Add Flags</NavLink>
+                        <NavLink to={'/admin/capitals-questions?page=1'} className={setActiveStyle} data-testid="header-capitals">Capitals</NavLink>
+                        <NavLink to={'/admin/flags-questions'} className={setActiveStyle} data-testid='header-flags'>Flags</NavLink>
+                        <NavLink to={'/admin/add-capitals-question'} className={setActiveStyle} data-testid='header-capitals-add'>Add Capitals</NavLink>
+                        <NavLink to={'/admin/add-flags-question'} className={setActiveStyle} data-testid='header-flags-add'>Add Flags</NavLink>
                         <Link to={'/auth/logout'} className={styles['logout-button']} >{logoutIcon}</Link>
                     </>
                 }
                 {currentUser?.roles === 'user' &&
                     <>
                         <NavLink to={'/rules'} className={setActiveStyle}>{rulesIcon} Rules</NavLink>
-                        <NavLink to={'/scoreboard?page=1'} className={setActiveStyle}>{scoreboardIcon} Scoreboard</NavLink>
+                        <NavLink to={'/scoreboard?page=1'} className={setActiveStyle} data-testid='header-scoreboard' >{scoreboardIcon} Scoreboard</NavLink>
                         <NavLink to={`/auth/user-profile/${currentUser.username}`} className={setActiveStyle} data-testid='header-userProfile'>{userIcon} {currentUser.username}</NavLink>
                         <Link to={'/auth/logout'} className={styles['logout-button']} data-testid='header-logout'>{logoutIcon}</Link>
                     </>

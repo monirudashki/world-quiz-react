@@ -1,9 +1,7 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import Rules from "./Rules";
 
 describe('Rules tests', () => {
-
-    beforeAll(cleanup);
 
     test('h3 Capitals render', () => {
         render(<Rules />);
