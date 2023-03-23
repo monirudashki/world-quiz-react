@@ -50,7 +50,7 @@ export const Register = () => {
     return (
         <section id="register">
             <div className={styles["form"]}>
-                <h2>Registration</h2>
+                <h2 data-testid='register-h2'>Registration</h2>
 
                 {error &&
                     <div className={styles["error"]}>

@@ -46,6 +46,7 @@ export const Home = () => {
             {currentUser?.roles === 'user' &&
                 <div data-testid='home-game-buttons' className={styles['game-buttons']}>
                     <Link
+                        data-testid='home-link-capitalsGame'
                         style={{ pointerEvents: currentUser.lives > 0 ? '' : 'none' }}
                         className={styles['button']} to={'/game-capitals'}
                         onClick={onStartGame}
@@ -53,6 +54,7 @@ export const Home = () => {
                         CAPITALS START
                     </Link>
                     <Link
+                        data-testid='home-link-flagsGame'
                         className={styles['button']} to={'/game-flags'}
                         style={{ pointerEvents: currentUser.lives > 0 ? '' : 'none' }}
                     >

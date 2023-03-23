@@ -26,12 +26,34 @@ function mockUser(userValue) {
 
 function mockGameQuestions() {
     jest.spyOn(global, 'fetch').mockImplementation(() =>
-        Promise.resolve(undefined)
+        Promise.resolve({
+            json: () => Promise.resolve([])
+        })
     )
 }
 
 describe('Home page tests', () => {
     afterAll(cleanup);
+
+    test('home - coins and lives with user is rendered', async () => {
+        mockUser(fakeUser);
+        mockGameQuestions();
+        renderHome();
+        const element = await screen.findByTestId('coins-and-lives');
+        await waitFor(() => {
+            expect(element).toBeInTheDocument();
+        });
+    });
+
+    //from here
+
+    test('home - coins and lives without user is not rendered', async () => {
+        mockUser(undefined);
+        mockGameQuestions();
+        renderHome();
+        const element = screen.queryByTestId('coins-and-lives');
+        expect(element).toBeNull();
+    });
 
     test('home h1 render and correct text content', async () => {
         mockUser(undefined);
@@ -110,5 +132,41 @@ describe('Home page tests', () => {
         await waitFor(() => {
             expect(element).toBeInTheDocument();
         });
+    });
+
+    test('home - link capitals game with user is rendered', async () => {
+        mockUser(fakeUser);
+        mockGameQuestions();
+        renderHome();
+        const element = await screen.findByTestId('home-link-capitalsGame');
+        await waitFor(() => {
+            expect(element).toBeInTheDocument();
+        });
+    });
+
+    test('home - link capitals without user is not rendered', async () => {
+        mockUser(undefined);
+        mockGameQuestions();
+        renderHome();
+        const element = screen.queryByTestId('home-link-capitalsGame');
+        expect(element).toBeNull();
+    });
+
+    test('home - link capitals game with user is rendered', async () => {
+        mockUser(fakeUser);
+        mockGameQuestions();
+        renderHome();
+        const element = await screen.findByTestId('home-link-flagsGame');
+        await waitFor(() => {
+            expect(element).toBeInTheDocument();
+        });
+    });
+
+    test('home - link capitals without user is not rendered', async () => {
+        mockUser(undefined);
+        mockGameQuestions();
+        renderHome();
+        const element = screen.queryByTestId('home-link-flagsGame');
+        expect(element).toBeNull();
     });
 })

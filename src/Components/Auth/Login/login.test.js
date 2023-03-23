@@ -1,9 +1,9 @@
-import { render, screen, cleanup, waitFor, fireEvent } from "@testing-library/react"
+import { render, screen, cleanup, waitFor, fireEvent, getByTestId } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom";
 import { AuthProvider } from "../../../Contexts/AuthContext";
 import { Login } from "./Login";
 import * as authService from '../../../Services/authService';
-
+import React from 'react';
 
 function renderLogin() {
     render(
@@ -139,8 +139,8 @@ describe('Login suit tests', () => {
             fireEvent.change(passwordInput, { target: { value: testValue } });
             waitFor(() => {
                 fireEvent.click(screen.getByTestId('login-email'));
-                const errorPassword = screen.queryByTestId('login-error-email');
-                expect(errorEmail).toBeNull();
+                const errorPassword = screen.queryByTestId('login-error-password');
+                expect(errorPassword).toBeNull();
             })
         });
     });
@@ -161,5 +161,69 @@ describe('Login suit tests', () => {
         })
     });
 
-    //TODO More tests button and ..
-})
+    test('Login button should be enabled', async () => {
+
+        renderLogin();
+
+        await waitFor(() => {
+            const passwordInput = screen.getByTestId('login-password');
+            const testValue = '111111';
+            const emailInput = screen.getByTestId('login-email');
+            const testEmail = 'simeon@gmail.bg';
+
+            fireEvent.change(emailInput, { target: { value: testEmail } });
+
+            fireEvent.change(passwordInput, { target: { value: testValue } });
+            expect(screen.getByRole('button')).toBeEnabled();
+        })
+    });
+
+    test('Login button should be enabled', async () => {
+
+        renderLogin();
+
+        await waitFor(() => {
+            const passwordInput = screen.getByTestId('login-password');
+            const testValue = '111111';
+            const emailInput = screen.getByTestId('login-email');
+            const testEmail = 'simeon@gmail.bg';
+
+            fireEvent.change(emailInput, { target: { value: testEmail } });
+
+            fireEvent.change(passwordInput, { target: { value: testValue } });
+            expect(screen.getByRole('button')).toBeEnabled();
+        })
+    });
+
+    test('Login button show spinner when is clicked', async () => {
+
+        renderLogin();
+
+        await waitFor(() => {
+            const passwordInput = screen.getByTestId('login-password');
+            const testValue = '111111';
+            const emailInput = screen.getByTestId('login-email');
+            const testEmail = 'simeon@gmail.bg';
+
+            fireEvent.change(emailInput, { target: { value: testEmail } });
+
+            fireEvent.change(passwordInput, { target: { value: testValue } });
+
+            fireEvent.click(screen.getByRole('button'));
+            const spinner = screen.getByRole('button').firstChild;
+            expect(spinner).toBeInTheDocument();
+        })
+    });
+
+    test('Login - register link should be render', async () => {
+
+        renderLogin();
+
+        await waitFor(() => {
+            const link = screen.getByTestId('register-link');
+            expect(link).toBeInTheDocument();
+        })
+    });
+
+    //TODO link redirect
+});

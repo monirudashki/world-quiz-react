@@ -98,7 +98,7 @@ export const Login = () => {
                             {isLoading ? <SpinnerRequest /> : 'LOGIN'}
                         </button>
                         <p className={styles["message"]}>
-                            Not registered? <Link to="/auth/login">Register</Link>
+                            Not registered? <Link to="/auth/register" data-testid='register-link'>Register</Link>
                         </p>
                     </form>
                 </div>

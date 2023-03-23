@@ -27,12 +27,13 @@ const CoinsLives = ({
         }
     }
 
-    return (<div className={styles["lives"]}>
-        <span className={styles["coins"]}>{moneyCoins} {coins}</span>
-        <p className={styles["hearts"]}>
-            {currentLives}
-        </p>
-    </div>
+    return (
+        <div data-testid='coins-and-lives' className={styles["lives"]}>
+            <span className={styles["coins"]}>{moneyCoins} {coins}</span>
+            <p className={styles["hearts"]}>
+                {currentLives}
+            </p>
+        </div>
     )
 }
 
