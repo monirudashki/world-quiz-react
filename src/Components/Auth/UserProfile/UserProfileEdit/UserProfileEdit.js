@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { editCurrentUser } from '../../../../Services/authService';
 import { emailValidator, imageUrlValidator, minLength } from '../../../../Utils/validators';
+import { SpinnerRequest } from '../../../shared/SpinnerRequest/SpinnerRequest'
 import styles from '../UserProfileEdit/UserProfileEdit.module.css';
 
 export const UserProfileEdit = ({
@@ -10,6 +11,8 @@ export const UserProfileEdit = ({
 }) => {
 
     const [error, setError] = useState('');
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [errors, setErrors] = useState({});
 
@@ -31,25 +34,27 @@ export const UserProfileEdit = ({
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
-        console.log('edit profile');
+        setIsLoading(true);
 
         const userData = { ...formValues };
 
         try {
             const user = await editCurrentUser(userData);
             if (user) {
+                setIsLoading(false);
                 currentUserLoginHandler(user);
                 onEditClickHandler(false);
             }
         } catch (err) {
-            setError(err)
+            setIsLoading(false);
+            setError(err);
         }
     }
 
     return (
         <>
             {error &&
-                <div className={styles["error-edit"]}>
+                <div data-testid='editProfile-error' className={styles["error-edit"]}>
                     {error}
                 </div>
             }
@@ -61,7 +66,7 @@ export const UserProfileEdit = ({
                 />
 
                 {errors.username &&
-                    <span className={styles['error-edit']}>Username must be at least 3 characters long!</span>
+                    <span data-testid='editProfile-username-error' className={styles['error-edit']}>Username must be at least 3 characters long!</span>
                 }
 
                 <label htmlFor="register-email">Email: </label>
@@ -70,26 +75,27 @@ export const UserProfileEdit = ({
                 />
 
                 {errors.email &&
-                    <span className={styles['error-edit']}>Email must be valid!</span>
+                    <span data-testid='editProfile-email-error' className={styles['error-edit']}>Email must be valid!</span>
                 }
 
                 <label htmlFor="register-imageUrl">ImageUrl: </label>
-                <input type="text" name="imageUrl" id="register-imageUrl" placeholder="image Url"
+                <input type="text" name="imageUrl" id="register-imageUrl" placeholder="image url"
                     value={formValues.imageUrl} onChange={onChangeValueHandler} onBlur={(e) => imageUrlValidator(e, setErrors, formValues)}
                 />
 
                 {errors.imageUrl &&
-                    <span className={styles['error-edit']}>ImageUrl must be a valid link!</span>
+                    <span data-testid='editProfile-imageUrl-error' className={styles['error-edit']}>ImageUrl must be a valid link!</span>
                 }
 
                 <div className={styles['action-buttons']}>
                     <button type='button' onClick={() => onEditClickHandler(false)}>CANCEL</button>
                     <button
                         className={invalidForm ? styles['button-disabled'] : styles['button']}
-                        disabled={invalidForm}
+                        disabled={invalidForm || isLoading}
                         type="submit"
+                        data-testid='profileEdit-button'
                     >
-                        EDIT
+                        {isLoading ? <SpinnerRequest /> : "EDIT"}
                     </button>
                 </div>
             </form>

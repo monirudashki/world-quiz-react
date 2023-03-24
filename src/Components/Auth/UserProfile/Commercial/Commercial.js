@@ -35,12 +35,12 @@ export const Commercial = ({
     return (
         <div className={styles['commercial-container']}>
             <div className={styles['img-wrapper']}>
-                <a href="https://github.com/monirudashki?tab=repositories">
-                    <img src={image} alt="loading.." />
+                <a data-testid='commercial-href' href="https://github.com/monirudashki?tab=repositories">
+                    <img data-testid='commercial-img' src={image} alt="loading.." />
                 </a>
             </div>
 
-            <button type='button' disabled={timer !== "X"} className={styles['commercial-button']} onClick={earnLivesHandler}>{timer}</button>
+            <button data-testid='commercial-button' type='button' disabled={timer !== "X"} className={styles['commercial-button']} onClick={earnLivesHandler}>{timer}</button>
         </div>
     );
 }

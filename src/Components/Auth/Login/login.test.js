@@ -43,7 +43,7 @@ describe('Login suit tests', () => {
         })
     });
 
-    test('Login email input render without value', async () => {
+    test('Login email correct change', async () => {
         renderLogin();
 
         await waitFor(() => {
@@ -178,7 +178,7 @@ describe('Login suit tests', () => {
         })
     });
 
-    test('Login button should be enabled', async () => {
+    test('Login button should be enabled with correct inputs', async () => {
 
         renderLogin();
 
