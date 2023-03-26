@@ -33,7 +33,7 @@ export const Commercial = ({
     }
 
     return (
-        <div className={styles['commercial-container']}>
+        <div data-testid='commercial' className={styles['commercial-container']}>
             <div className={styles['img-wrapper']}>
                 <a data-testid='commercial-href' href="https://github.com/monirudashki?tab=repositories">
                     <img data-testid='commercial-img' src={image} alt="loading.." />

@@ -55,10 +55,10 @@ export const UserProfile = () => {
 
             <section className={styles["profile-container"]}>
                 <div className={styles["profile-container__img"]}>
-                    <img src={currentUser.imageUrl} alt="" />
+                    <img data-testid='userProfile-img' src={currentUser.imageUrl} alt="image-profile" />
                 </div>
 
-                <div className={styles['profile-container__info']}>
+                <div data-testid='userProfile-profileInfo' className={styles['profile-container__info']}>
                     {!editMode
                         ?
                         <UserProfileInfo
@@ -78,13 +78,13 @@ export const UserProfile = () => {
                 </div>
 
                 <div className={styles['profile-container__level']}>
-                    <h2>LEVEL</h2>
+                    <h2 data-testid='userProfile-level'>LEVEL</h2>
                     <div className={styles['level-square']}>
-                        <p>{currentUser.level}</p>
+                        <p data-testid='userProfile-level-text'>{currentUser.level}</p>
                     </div>
                 </div>
 
-                <div className={styles['profile-container__diagrama']}>
+                <div data-testid='userProfile-graph' className={styles['profile-container__diagrama']}>
                     <Graph lastFiveGames={currentUser.lastFiveGames} />
                 </div>
             </section>

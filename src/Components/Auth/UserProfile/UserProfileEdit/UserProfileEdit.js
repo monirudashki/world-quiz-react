@@ -59,7 +59,7 @@ export const UserProfileEdit = ({
                 </div>
             }
 
-            <form className={styles['form-edit']} onSubmit={onSubmitHandler}>
+            <form data-testid='editProfile-form' className={styles['form-edit']} onSubmit={onSubmitHandler}>
                 <label htmlFor="register-username">Username: </label>
                 <input type="text" name="username" id="register-username" placeholder="username"
                     value={formValues.username} onChange={onChangeValueHandler} onBlur={(e) => minLength(e, 3, setErrors, formValues)}

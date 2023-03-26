@@ -5,7 +5,7 @@ import styles from './Spinner.module.css'
 export const Spinner = () => {
     return (
 
-        <div className={styles['spinner-wrapper']}>
+        <div data-testid='spinner' className={styles['spinner-wrapper']}>
             <Circles
                 height="150"
                 width="150"
