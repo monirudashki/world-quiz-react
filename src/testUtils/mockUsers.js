@@ -1,0 +1,71 @@
+export const fakeUsers = [
+    {
+        coins: 76500,
+        created_at: "2023-02-04T12:51:22.766Z",
+        email: "simeon@gmail.bg",
+        imageUrl: "https://images.statusfacebook.com/profile_pictures/unique-dp/unique-profile-pictures-for-whatsapp-19.jpg",
+        lastFiveGames: [0, 25, 0, 21, 24],
+        level: 5,
+        lives: 2,
+        roles: "user",
+        updatedAt: "2023-03-03T14:33:30.916Z",
+        username: "simeon",
+        wrightAnswers: 132,
+        _id: "63de54ca5760e21c303bb24s"
+    },
+    {
+        coins: 76500,
+        created_at: "2023-02-04T12:51:22.766Z",
+        email: "simeon@gmail.bg",
+        imageUrl: "https://images.statusfacebook.com/profile_pictures/unique-dp/unique-profile-pictures-for-whatsapp-19.jpg",
+        lastFiveGames: [0, 25, 0, 21, 24],
+        level: 5,
+        lives: 2,
+        roles: "user",
+        updatedAt: "2023-03-03T14:33:30.916Z",
+        username: "kevin",
+        wrightAnswers: 132,
+        _id: "63de54ca5760e21c303bb24q"
+    }, {
+        coins: 76500,
+        created_at: "2023-02-04T12:51:22.766Z",
+        email: "simeon@gmail.bg",
+        imageUrl: "https://images.statusfacebook.com/profile_pictures/unique-dp/unique-profile-pictures-for-whatsapp-19.jpg",
+        lastFiveGames: [0, 25, 0, 21, 24],
+        level: 5,
+        lives: 2,
+        roles: "user",
+        updatedAt: "2023-03-03T14:33:30.916Z",
+        username: "ego",
+        wrightAnswers: 132,
+        _id: "63de54ca5760e21c303bb24v"
+    },
+    {
+        coins: 76500,
+        created_at: "2023-02-04T12:51:22.766Z",
+        email: "simeon@gmail.bg",
+        imageUrl: "https://images.statusfacebook.com/profile_pictures/unique-dp/unique-profile-pictures-for-whatsapp-19.jpg",
+        lastFiveGames: [0, 25, 0, 21, 24],
+        level: 5,
+        lives: 2,
+        roles: "user",
+        updatedAt: "2023-03-03T14:33:30.916Z",
+        username: "moni",
+        wrightAnswers: 132,
+        _id: "63de54ca5760e21c303bb24b"
+    },
+    {
+        coins: 76500,
+        created_at: "2023-02-04T12:51:22.766Z",
+        email: "simeon@gmail.bg",
+        imageUrl: "https://images.statusfacebook.com/profile_pictures/unique-dp/unique-profile-pictures-for-whatsapp-19.jpg",
+        lastFiveGames: [0, 25, 0, 21, 24],
+        level: 5,
+        lives: 2,
+        roles: "user",
+        updatedAt: "2023-03-03T14:33:30.916Z",
+        username: "vesko",
+        wrightAnswers: 132,
+        _id: "63de54ca5760e21c303bbf4g"
+    }
+]

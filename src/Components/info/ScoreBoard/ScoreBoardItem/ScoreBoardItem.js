@@ -37,15 +37,15 @@ export const ScoreBoardItem = ({
     return (
         <div className={styles["scoreboard-container__item"]} >
             <div className={styles["scoreboard-container__item__img"]}>
-                <img src={user.imageUrl} alt="dsad" />
+                <img data-testid='user-img' src={user.imageUrl} alt="dsad" />
             </div>
             <div className={styles["scoreboard-container__item__username"]} style={{ backgroundColor: isCurrentUser ? "lightgrey" : 'none' }}>
-                <p>{user.username}</p>
+                <p data-testid='user-username'>{user.username}</p>
             </div>
             <div className={styles["scoreboard-container__item__coins"]} style={{ backgroundColor: isCurrentUser ? "lightgrey" : 'none' }}>
-                <p>{user.coins} <span>{coins}</span></p>
+                <p data-testid='user-coins'>{user.coins} <span>{coins}</span></p>
             </div>
-            <div className={styles["scoreboard-container__item__place"]} >
+            <div data-testid='user-place' className={styles["scoreboard-container__item__place"]} >
                 {place < 4
                     ?
                     <p style={style}>{medal}</p>

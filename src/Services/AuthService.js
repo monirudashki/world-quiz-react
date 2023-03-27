@@ -29,3 +29,8 @@ export const editCurrentUser = async (userData) => {
 export const userEarnLives = async () => {
     return await request(`${baseUrl}/users/profile/earnLive`, "GET");
 }
+
+export const getUsersByPage = (currentPage) => {
+    return fetch(`http://localhost:3030/api/users?page=${currentPage}`)
+        .then(res => res.json());
+} 

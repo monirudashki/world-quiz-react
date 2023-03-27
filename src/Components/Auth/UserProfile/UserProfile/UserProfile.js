@@ -55,7 +55,7 @@ export const UserProfile = () => {
 
             <section className={styles["profile-container"]}>
                 <div className={styles["profile-container__img"]}>
-                    <img data-testid='userProfile-img' src={currentUser.imageUrl} alt="image-profile" />
+                    <img data-testid='userProfile-img' src={currentUser.imageUrl} alt="profile" />
                 </div>
 
                 <div data-testid='userProfile-profileInfo' className={styles['profile-container__info']}>

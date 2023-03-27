@@ -33,7 +33,7 @@ function mockGameQuestions() {
 }
 
 describe('Home page tests', () => {
-    afterAll(cleanup);
+    afterEach(cleanup);
 
     test('home - coins and lives with user is rendered', async () => {
         mockUser(fakeUser);

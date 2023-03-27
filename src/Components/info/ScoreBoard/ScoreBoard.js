@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { ScoreBoardItem } from './ScoreBoardItem/ScoreBoardItem';
 import { Spinner } from '../../shared/Spinner.js/Spinner';
+import { getUsersByPage } from '../../../Services/authService';
 
 export const ScoreBoard = () => {
 
@@ -18,13 +19,12 @@ export const ScoreBoard = () => {
 
     const lastPage = useRef(0);
 
-    let currentPage = Number(searchParams.get('page'));
+    let currentPage = Number(searchParams.get('page')) || 1; //TODO look is that work correctly
 
     useEffect(() => {
         setIsLoading(true);
 
-        fetch(`http://localhost:3030/api/users?page=${currentPage}`)
-            .then(res => res.json())
+        getUsersByPage(currentPage)
             .then(result => {
                 lastPage.current = (Math.ceil(result.count / 5));
                 if (!(Number(currentPage) <= Number(lastPage.current))) {
@@ -52,23 +52,28 @@ export const ScoreBoard = () => {
     return (
         <>
             <div className={styles["head"]}>
-                <h1>Scoreboard</h1>
+                <h1 data-testid='scoreboard-heading'>Scoreboard</h1>
             </div>
 
-            <section className={styles['scoreboard-container']}>
+            <section data-testid='scoreboard-section' className={styles['scoreboard-container']}>
 
                 {isLoading
                     ?
                     <Spinner />
                     :
                     <>
-                        {users.map((user, index) => <ScoreBoardItem key={user._id} user={user} index={index} page={currentPage} />)}
+                        {users.map((user, index) => <ScoreBoardItem
+                            key={user._id}
+                            user={user}
+                            index={index}
+                            page={currentPage}
+                        />)}
                     </>
                 }
 
                 <div className={styles['pagination']}>
                     <button type='button' onClick={pageDownHandler} disabled={currentPage === 1}>Previous</button>
-                    <p>{currentPage}/2</p>
+                    <p data-testid='scoreboard-pages'>{currentPage}/2</p>
                     <button type="button" onClick={pageUpHandler} disabled={currentPage === lastPage.current}>Next</button>
                 </div>
             </section>
