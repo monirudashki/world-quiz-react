@@ -30,7 +30,7 @@ describe('Register tests suit', () => {
 
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const el = screen.getByTestId('register-h2');
             expect(el).toBeInTheDocument();
         })
@@ -51,7 +51,7 @@ describe('Register tests suit', () => {
     test('Register - username label render', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             expect(screen.getByLabelText(/username/i)).toBeInTheDocument();
         })
     });
@@ -59,7 +59,7 @@ describe('Register tests suit', () => {
     test('Register - username input render without value', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-username');
             expect(input).toBeInTheDocument();
             expect(input.value).toBe('');
@@ -69,7 +69,7 @@ describe('Register tests suit', () => {
     test('Register - username correct change', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-username');
             const testValue = 'sssssssss';
 
@@ -82,7 +82,7 @@ describe('Register tests suit', () => {
     test('Register- username with correct data , error message hide', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-username');
             const testValue = 'aaaaa';
 
@@ -100,7 +100,7 @@ describe('Register tests suit', () => {
     test('Register - email label render', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
         })
     });
@@ -108,7 +108,7 @@ describe('Register tests suit', () => {
     test('Register - email input render without value', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-email');
             expect(input).toBeInTheDocument();
             expect(input.value).toBe('');
@@ -118,7 +118,7 @@ describe('Register tests suit', () => {
     test('Register - email correct change', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-email');
             const testValue = 'sssssssss';
 
@@ -131,7 +131,7 @@ describe('Register tests suit', () => {
     test('Register - email with incorrect data , error message show', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-email');
             const testValue = 'aa';
 
@@ -148,7 +148,7 @@ describe('Register tests suit', () => {
     test('Register- email with correct data , error message hide', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-email');
             const testValue = 'simeon@gmail.bg';
 
@@ -166,7 +166,7 @@ describe('Register tests suit', () => {
     test('Register imageUrl label render', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             expect(screen.getByLabelText(/imageUrl/i)).toBeInTheDocument();
         })
     });
@@ -174,7 +174,7 @@ describe('Register tests suit', () => {
     test('Register - imageUrl input render without value', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-imageUrl');
             expect(input).toBeInTheDocument();
             expect(input.value).toBe('');
@@ -184,7 +184,7 @@ describe('Register tests suit', () => {
     test('Register - imageUrl correct change', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-imageUrl');
             const testValue = 'sssssssss';
 
@@ -197,7 +197,7 @@ describe('Register tests suit', () => {
     test('Register -imageUrl with incorrect data , error message show', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-imageUrl');
             const testValue = 'aa';
 
@@ -214,7 +214,7 @@ describe('Register tests suit', () => {
     test('Register- imageUrl with correct data , error message hide', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-imageUrl');
             const testValue = 'http://image.jpg';
 
@@ -232,7 +232,7 @@ describe('Register tests suit', () => {
     test('Register - password input render without value', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-password');
             expect(input).toBeInTheDocument();
             expect(input.value).toBe('');
@@ -242,7 +242,7 @@ describe('Register tests suit', () => {
     test('Register - password correct change', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-password');
             const testValue = 'sssssssss';
 
@@ -255,7 +255,7 @@ describe('Register tests suit', () => {
     test('Register -password with incorrect data , error message show', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-password');
             const testValue = 'aa';
 
@@ -272,7 +272,7 @@ describe('Register tests suit', () => {
     test('Register- password with correct data , error message hide', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-password');
             const testValue = '111111';
 
@@ -290,7 +290,7 @@ describe('Register tests suit', () => {
     test('Register - rePass label render', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             expect(screen.getByLabelText(/Confirm Password:/i)).toBeInTheDocument();
         })
     });
@@ -298,7 +298,7 @@ describe('Register tests suit', () => {
     test('Register - rePass input render without value', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-rePass');
             expect(input).toBeInTheDocument();
             expect(input.value).toBe('');
@@ -308,7 +308,7 @@ describe('Register tests suit', () => {
     test('Register - rePass correct change', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const input = screen.getByTestId('register-rePass');
             const testValue = 'sssssssss';
 
@@ -321,7 +321,7 @@ describe('Register tests suit', () => {
     test('Register -rePass with incorrect data , error message show', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const password = screen.getByTestId('register-password');
             const passwordTestValue = '11111';
             const input = screen.getByTestId('register-password');
@@ -342,7 +342,7 @@ describe('Register tests suit', () => {
     test('Register- rePass with correct data , error message hide', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const password = screen.getByTestId('register-password');
             const passwordTestValue = '11111';
             const input = screen.getByTestId('register-password');
@@ -376,7 +376,7 @@ describe('Register tests suit', () => {
 
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             const usernameInput = screen.getByTestId('register-username');
             const testUsername = 'aaaaaaa';
             const passwordInput = screen.getByTestId('register-password');

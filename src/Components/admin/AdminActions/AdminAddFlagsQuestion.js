@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { createFlagsQuestion } from '../../../Services/flagsService';
 
 import { firstCapitalLetter, wrightAnswerExist } from '../../../Utils/validators';
+import { SpinnerRequest } from '../../shared/SpinnerRequest/SpinnerRequest';
 
 import styles from '../AdminActions/AdminActions.module.css';
 
 function AdminAddFlagsQuestion() {
 
     const navigateTo = useNavigate();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [requestError, setRequestError] = useState('');
     const [success, setSuccess] = useState(false);
@@ -36,6 +39,8 @@ function AdminAddFlagsQuestion() {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
+        setIsLoading(true);
+
         const questionData = { ...formValues };
 
         try {
@@ -43,6 +48,7 @@ function AdminAddFlagsQuestion() {
 
             setRequestError('');
             setSuccess(true);
+            setIsLoading(false);
 
             setTimeout(() => {
                 setSuccess(false);
@@ -57,16 +63,17 @@ function AdminAddFlagsQuestion() {
                 wrightAnswer: '',
             }))
         } catch (err) {
-            setRequestError(err)
+            setRequestError(err);
+            setIsLoading(false);
         }
     }
 
     return (
         <div className={styles['form']}>
-            <p className={styles['error']}>{requestError}</p>
+            <p data-testid='requestError' className={styles['error']}>{requestError}</p>
 
             {success &&
-                <p className={styles['success']}>Success!</p>
+                <p data-testid='success' className={styles['success']}>Success!</p>
             }
 
             <h2>Add Flags Question</h2>
@@ -75,7 +82,7 @@ function AdminAddFlagsQuestion() {
 
                 <div>
                     <label htmlFor="title">*Title: </label>
-                    <input type="text" name="title" id="Title"
+                    <input type="text" name="title" id="Title" data-testid='title'
                         value={formValues.title} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
                     {errors.title &&
@@ -85,7 +92,7 @@ function AdminAddFlagsQuestion() {
 
                 <div>
                     <label htmlFor="firstAnswer">*First answer:</label>
-                    <input type="text" name="firstAnswer" id="firstAnswer"
+                    <input type="text" name="firstAnswer" id="firstAnswer" data-testid='firstAnswer'
                         value={formValues.firstAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
                     {errors.firstAnswer &&
@@ -95,7 +102,7 @@ function AdminAddFlagsQuestion() {
 
                 <div>
                     <label htmlFor="secondAnswer">*Second Answer: </label>
-                    <input type="text" name="secondAnswer" id="secondAnswer"
+                    <input type="text" name="secondAnswer" id="secondAnswer" data-testid='secondAnswer'
                         value={formValues.secondAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
                     {errors.secondAnswer &&
@@ -105,7 +112,7 @@ function AdminAddFlagsQuestion() {
 
                 <div>
                     <label htmlFor="thirdAnswer">*Third Answer: </label>
-                    <input type="text" name="thirdAnswer" id="thirdAnswer"
+                    <input type="text" name="thirdAnswer" id="thirdAnswer" data-testid='thirdAnswer'
                         value={formValues.thirdAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
                     {errors.thirdAnswer &&
@@ -115,7 +122,7 @@ function AdminAddFlagsQuestion() {
 
                 <div>
                     <label htmlFor="fourthAnswer">*Forth Answer: </label>
-                    <input type="text" name="fourthAnswer" id="forthAnswer"
+                    <input type="text" name="fourthAnswer" id="forthAnswer" data-testid='fourthAnswer'
                         value={formValues.fourthAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
                     {errors.fourthAnswer &&
@@ -125,7 +132,7 @@ function AdminAddFlagsQuestion() {
 
                 <div>
                     <label htmlFor="wrightAnswer">*Wright Answer: </label>
-                    <input type="text" name="wrightAnswer" id="wrightAnswer"
+                    <input type="text" name="wrightAnswer" id="wrightAnswer" data-testid='wrightAnswer'
                         value={formValues.wrightAnswer} onChange={onChangeValueHandler} onBlur={(e) => wrightAnswerExist(e, setErrors, formValues)} />
 
                     {errors.wrightAnswer &&
@@ -138,8 +145,10 @@ function AdminAddFlagsQuestion() {
                     <button
                         type="submit"
                         className={invalidForm ? styles['button-disabled'] : styles['button']}
-                        disabled={invalidForm}
-                    >CREATE</button>
+                        disabled={invalidForm || isLoading}
+                    >
+                        {isLoading ? <SpinnerRequest /> : "CREATE"}
+                    </button>
                 </div>
             </form>
         </div>
