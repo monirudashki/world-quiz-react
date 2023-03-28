@@ -83,7 +83,7 @@ describe('Admin Add flags question tests suit', () => {
             fireEvent.change(input, { target: { value: testValue } });
             waitFor(() => {
                 fireEvent.click(screen.getByTestId('firstAnswer'));
-                expect(screen.getByText(/Title is required and needs to starts with capital letter!/i)).toBeNull();
+                expect(screen.queryByText(/Title is required and needs to starts with capital letter!/i)).toBeNull();
             })
         });
     });

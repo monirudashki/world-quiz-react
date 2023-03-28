@@ -49,6 +49,8 @@ export const ScoreBoard = () => {
         }));
     }
 
+    //TODO add section without any users!
+
     return (
         <>
             <div className={styles["head"]}>

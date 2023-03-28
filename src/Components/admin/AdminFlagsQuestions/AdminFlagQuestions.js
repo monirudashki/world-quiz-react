@@ -5,6 +5,7 @@ import { Spinner } from '../../shared/Spinner.js/Spinner';
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { getFlagsQuestions } from '../../../Services/flagsService';
 
 function AdminFlagsQuestions() {
 
@@ -23,8 +24,7 @@ function AdminFlagsQuestions() {
     useEffect(() => {
         setIsLoading(true);
 
-        fetch(`http://localhost:3030/api/flags?page=${currentPage}&search=${search}`)
-            .then(res => res.json())
+        getFlagsQuestions(currentPage, search)
             .then(result => {
                 setIsLoading(false);
                 setIsQuestionDeleted(false);
@@ -78,7 +78,7 @@ function AdminFlagsQuestions() {
             <div className={styles["search-container"]}>
                 <form onSubmit={onSubmitHandler}>
                     <label htmlFor="search"></label>
-                    <input type="text" name="search" id='search' />
+                    <input type="text" name="search" id='search' data-testid='search' />
                     <button type='submit'>SEARCH</button>
                 </form>
             </div>

@@ -32,8 +32,8 @@ export const CapitalsQuestionItem = ({
     }
 
     return (
-        <div className={styles["question-item"]}>
-            <h2>Capitol {question.title}</h2>
+        <div data-testid='capitals-catalog-item' className={styles["question-item"]}>
+            <h2 data-testid='h2'>Capital {question.title}</h2>
             <p className={styles["question-answer"]}>{question.firstAnswer}</p>
             <p className={styles["question-answer"]}>{question.secondAnswer}</p>
             <p className={styles["question-answer"]}>{question.thirdAnswer}</p>

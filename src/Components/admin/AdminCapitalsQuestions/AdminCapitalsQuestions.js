@@ -5,6 +5,7 @@ import styles from '../AdminCapitalsQuestions/AdminCapitalsQuestions.module.css'
 
 import { CapitalsQuestionItem } from '../CapitalsQuestionItem/CapitalsQuestionItem';
 import { Spinner } from '../../shared/Spinner.js/Spinner';
+import { getCapitalsQuestions } from '../../../Services/capitalsService';
 
 function AdminCapitalsQuestions() {
 
@@ -23,8 +24,7 @@ function AdminCapitalsQuestions() {
     useEffect(() => {
         setIsLoading(true);
 
-        fetch(`http://localhost:3030/api/capitals?page=${currentPage}&search=${search}`)
-            .then(res => res.json())
+        getCapitalsQuestions(currentPage, search)
             .then(result => {
                 setIsLoading(false);
                 setIsQuestionDeleted(false);
@@ -72,13 +72,13 @@ function AdminCapitalsQuestions() {
     return (
         <>
             <div className={styles["head"]}>
-                <h1>Admin Capitals Questions</h1>
+                <h1>Admin Capitals Catalog</h1>
             </div>
 
             <div className={styles["search-container"]}>
                 <form onSubmit={onSubmitHandler}>
                     <label htmlFor="search"></label>
-                    <input type="text" name="search" id='search' />
+                    <input type="text" name="search" id='search' data-testid='search' />
                     <button type='submit'>SEARCH</button>
                 </form>
             </div>
@@ -109,7 +109,7 @@ function AdminCapitalsQuestions() {
 
             <div className={styles["pagination"]}>
                 <button onClick={pageDownHandler} disabled={currentPage === 1} className={styles["pagination-button"]}>Previous</button>
-                <p>{currentPage}</p>
+                <p data-testid='currentPage'>{currentPage}</p>
                 <button onClick={pageUpHandler} className={styles["pagination-button"]}>Next</button>
             </div>
         </>

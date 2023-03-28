@@ -13,4 +13,9 @@ export const getFlagsQuestionById = async (id) => {
         credentials: 'include'
     })
         .then(res => res.json())
-} 
+}
+
+export const getFlagsQuestions = (currentPage, search) => {
+    return fetch(`http://localhost:3030/api/flags?page=${currentPage}&search=${search}`)
+        .then(res => res.json())
+}

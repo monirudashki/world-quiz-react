@@ -33,26 +33,26 @@ export const FlagsQuestionItem = ({
     }
 
     return (
-        <div className={styles['question-item']}>
-            <h2>Flag {question.title}</h2>
+        <div data-test-id='flags-catalog-item' className={styles['question-item']}>
+            <h2 data-testid='h2'>Flag {question.title}</h2>
             <div className={styles['question-answers']}>
                 <div className={styles['question-img-container']}>
-                    <img src={`../images/Flags/${question.firstAnswer}.png`} alt='dsadsa' className={styles['question-img']} />
+                    <img data-testid='firstAnswer' src={`../images/Flags/${question.firstAnswer}.png`} alt='dsadsa' className={styles['question-img']} />
                 </div>
                 <div className={styles['question-img-container']}>
-                    <img src={`../images/Flags/${question.secondAnswer}.png`} alt={question.answerB} className={styles['question-img']} />
+                    <img data-testid='secondAnswer' src={`../images/Flags/${question.secondAnswer}.png`} alt={question.answerB} className={styles['question-img']} />
                 </div>
                 <div className={styles['question-img-container']}>
-                    <img src={`../images/Flags/${question.thirdAnswer}.png`} alt={question.answerC} className={styles['question-img']} />
+                    <img data-testid='thirdAnswer' src={`../images/Flags/${question.thirdAnswer}.png`} alt={question.answerC} className={styles['question-img']} />
                 </div>
                 <div className={styles['question-img-container']}>
-                    <img src={`../images/Flags/${question.fourthAnswer}.png`} alt={question.answerD} className={styles['question-img']} />
+                    <img data-testid='fourthAnswer' src={`../images/Flags/${question.fourthAnswer}.png`} alt={question.answerD} className={styles['question-img']} />
                 </div>
             </div>
 
             <div className={styles['right-answer-container']}>
                 <p>Wright answer:</p>
-                <img src={`../images/Flags/${question.wrightAnswer}.png`} alt="sda" />
+                <img data-testid='wrightAnswer' src={`../images/Flags/${question.wrightAnswer}.png`} alt="sda" />
             </div>
 
             <div className={styles['action-buttons']}>
