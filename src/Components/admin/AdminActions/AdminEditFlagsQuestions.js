@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getFlagsQuestionById } from '../../../Services/flagsService';
 
 import { firstCapitalLetter, wrightAnswerExist } from '../../../Utils/validators';
 import { Spinner } from '../../shared/Spinner.js/Spinner';
+import { SpinnerRequest } from '../../shared/SpinnerRequest/SpinnerRequest';
 
 import styles from '../AdminActions/AdminActions.module.css';
 
@@ -11,12 +13,10 @@ function AdminEditFlagsQuestion() {
     const { id } = useParams();
 
     const [isLoading, setIsLoading] = useState(true);
+    const [requestIsLoading, setRequestIsLoading] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:3030/api/flags/${id}`, {
-            credentials: 'include'
-        })
-            .then(res => res.json())
+        getFlagsQuestionById(id)
             .then(result => {
                 setFormValues(state => ({
                     title: result.title,
@@ -52,6 +52,8 @@ function AdminEditFlagsQuestion() {
 
         const questionData = { ...formValues };
 
+        setRequestIsLoading(true);
+
         //TODO All admin action with rest api to service..
         try {
             const response = await fetch(`http://localhost:3030/api/flags/${id}/edit`, {
@@ -65,10 +67,12 @@ function AdminEditFlagsQuestion() {
 
             const result = await response.json();
 
+            setRequestIsLoading(false);
             setRequestError('');
             navigateTo(`/admin/flags-questions?page=1&search=${result.title}`);
         } catch (err) {
-            setRequestError(err)
+            setRequestIsLoading(false);
+            setRequestError(err);
         }
     }
 
@@ -79,7 +83,7 @@ function AdminEditFlagsQuestion() {
                 <Spinner />
                 :
                 <div className={styles['form']}>
-                    <p className={styles['error']}>{requestError}</p>
+                    <p data-testid='requestError' className={styles['error']}>{requestError}</p>
 
                     <h2>Edit Flags Question</h2>
 
@@ -87,7 +91,7 @@ function AdminEditFlagsQuestion() {
 
                         <div>
                             <label htmlFor="title">*Title: </label>
-                            <input type="text" name="title" id="Title"
+                            <input type="text" name="title" id="Title" data-testid='title'
                                 value={formValues.title} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
                             {errors.title &&
@@ -97,7 +101,7 @@ function AdminEditFlagsQuestion() {
 
                         <div>
                             <label htmlFor="firstAnswer">*First answer:</label>
-                            <input type="text" name="firstAnswer" id="firstAnswer"
+                            <input type="text" name="firstAnswer" id="firstAnswer" data-testid='firstAnswer'
                                 value={formValues.firstAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
                             {errors.firstAnswer &&
@@ -107,7 +111,7 @@ function AdminEditFlagsQuestion() {
 
                         <div>
                             <label htmlFor="secondAnswer">*Second Answer: </label>
-                            <input type="text" name="secondAnswer" id="secondAnswer"
+                            <input type="text" name="secondAnswer" id="secondAnswer" data-testid='secondAnswer'
                                 value={formValues.secondAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
                             {errors.secondAnswer &&
@@ -117,7 +121,7 @@ function AdminEditFlagsQuestion() {
 
                         <div>
                             <label htmlFor="thirdAnswer">*Third Answer: </label>
-                            <input type="text" name="thirdAnswer" id="thirdAnswer"
+                            <input type="text" name="thirdAnswer" id="thirdAnswer" data-testid='thirdAnswer'
                                 value={formValues.thirdAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
                             {errors.thirdAnswer &&
@@ -127,7 +131,7 @@ function AdminEditFlagsQuestion() {
 
                         <div>
                             <label htmlFor="fourthAnswer">*Forth Answer: </label>
-                            <input type="text" name="fourthAnswer" id="forthAnswer"
+                            <input type="text" name="fourthAnswer" id="forthAnswer" data-testid='fourthAnswer'
                                 value={formValues.fourthAnswer} onChange={onChangeValueHandler} onBlur={(e) => firstCapitalLetter(e, setErrors, formValues)} />
 
                             {errors.fourthAnswer &&
@@ -137,7 +141,7 @@ function AdminEditFlagsQuestion() {
 
                         <div>
                             <label htmlFor="wrightAnswer">*Wright Answer: </label>
-                            <input type="text" name="wrightAnswer" id="wrightAnswer"
+                            <input type="text" name="wrightAnswer" id="wrightAnswer" data-testid='wrightAnswer'
                                 value={formValues.wrightAnswer} onChange={onChangeValueHandler} onBlur={(e) => wrightAnswerExist(e, setErrors, formValues)} />
 
                             {errors.wrightAnswer &&
@@ -151,7 +155,9 @@ function AdminEditFlagsQuestion() {
                                 type="submit"
                                 className={invalidForm ? styles['button-disabled'] : styles['button']}
                                 disabled={invalidForm}
-                            >EDIT</button>
+                            >
+                                {requestIsLoading ? <SpinnerRequest /> : 'EDIT'}
+                            </button>
                         </div>
                     </form>
                 </div>

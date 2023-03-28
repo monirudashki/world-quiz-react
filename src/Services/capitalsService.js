@@ -20,3 +20,10 @@ export const updateUser = (updateUserData) => {
         body: JSON.stringify(updateUserData)
     });
 }
+
+export const getCapitalsQuestionById = async (id) => {
+    return fetch(`http://localhost:3030/api/capitals/${id}`, {
+        credentials: 'include'
+    })
+        .then(res => res.json())
+} 
