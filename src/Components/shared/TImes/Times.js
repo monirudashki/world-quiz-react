@@ -40,8 +40,8 @@ export const Timer = ({
     }
 
     return (
-        <div className={styles['timer']} style={style}>
-            <p>{timer}</p>
+        <div data-testid='timer-wrapper' className={styles['timer']} style={style}>
+            <p data-testid='timer'>{timer}</p>
         </div>
     );
 }

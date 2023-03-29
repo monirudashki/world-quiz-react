@@ -29,8 +29,8 @@ const CoinsLives = ({
 
     return (
         <div data-testid='coins-and-lives' className={styles["lives"]}>
-            <span className={styles["coins"]}>{moneyCoins} {coins}</span>
-            <p className={styles["hearts"]}>
+            <span data-testid='coins' className={styles["coins"]}>{moneyCoins} {coins}</span>
+            <p data-testid='lives' className={styles["hearts"]}>
                 {currentLives}
             </p>
         </div>
