@@ -1,10 +1,9 @@
 import styles from '../GameCapitals/GameCapitals.module.css';
 
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../../../Contexts/AuthContext';
-import { GameCapitalsContext } from '../../../Contexts/GameCapitalsContext';
 
 import { Timer } from '../../shared/TImes/Times';
 import CoinsLives from '../../shared/CoinsLives/Coins&Lives';
@@ -16,63 +15,46 @@ import { coinsForGame } from './Utils/coinsForGame';
 
 import { updateUser } from '../../../Services/capitalsService';
 import { userLevel } from './Utils/userLevel';
+import { useDispatch, useSelector } from 'react-redux';
+import { gameCurrentQuestion, gameEarnCoins, gameQuestions, gameResetState } from '../../../+store/features/game';
 
 export const GameCapitals = () => {
 
-    const { questions, setGameEarnCoinsHandler, setNewGameHandler } = useContext(GameCapitalsContext);
     const { currentUser, currentUserLoginHandler } = useContext(AuthContext);
 
+    const dispatch = useDispatch();
+    const gameState = useSelector((state) => state.game);
+
     const navigateTo = useNavigate();
+    const location = useLocation();
 
-    const [gameFinish, setGameFinish] = useState(false);
-    const setGameFinishHandler = () => {
-        setGameFinish(true);
-    }
-
-    const [correctAnswers, setCorrectAnswers] = useState(0);
-    const addCorrectAnswer = () => {
-        setCorrectAnswers(value => value + 1);
-    };
+    useEffect(() => {
+        fetch(`http://localhost:3030/api/capitals/gameQuestions`)
+            .then(res => res.json())
+            .then(result => {
+                dispatch(gameQuestions(result));
+                dispatch(gameCurrentQuestion(result[0]));
+            })
+            .catch(err => console.log(err));
+    }, [dispatch]);
 
     const lives = useRef(Number(currentUser.lives) - 1);
-
-    const [questionNumber, setQuestionsNumber] = useState(1);
-    const nextQuestion = () => {
-        setQuestionsNumber(value => value + 1);
-    };
-
-    const [showFiftyFifty, setShowFiftyFifty] = useState(false);
-    const showFiftyFiftyHandler = useCallback((boolean) => {
-        setShowFiftyFifty(boolean);
-    }, []);
-
-    const [showCallFriendJoker, setShowCallFriendJoker] = useState(false);
-    const showCallFriendJokerHandler = useCallback((boolean) => {
-        setShowCallFriendJoker(boolean);
-    }, []);
-
-    const [showPublicJoker, setShowPublicJoker] = useState(false);
-    const showPublicJokerHandler = useCallback((boolean) => {
-        setShowPublicJoker(boolean);
-    }, []);
-
-    const location = useLocation();
 
     useEffect(() => {
         if (currentUser.lives < 1) {
             return navigateTo('/');
         }
 
-        if (gameFinish) {
-            const earnCoins = coinsForGame(correctAnswers);
+        if (gameState.gameFinish === true) {
+            const earnCoins = coinsForGame(gameState.correctAnswers);
             const lastFive = currentUser.lastFiveGames.slice(0, 4);
-            lastFive.push(correctAnswers);
-            const level = userLevel(currentUser.wrightAnswers + correctAnswers);
+            lastFive.push(gameState.correctAnswers);
+            const level = userLevel(currentUser.wrightAnswers + gameState.correctAnswers);
             const updateUserData = {
                 lastFiveGames: lastFive,
                 lives: lives.current,
                 coins: earnCoins + Number(currentUser.coins),
-                correctAnswers: correctAnswers + Number(currentUser.wrightAnswers),
+                correctAnswers: gameState.correctAnswers + Number(currentUser.wrightAnswers),
                 level: level
             }
 
@@ -80,22 +62,21 @@ export const GameCapitals = () => {
                 .then(res => res.json())
                 .then(result => currentUserLoginHandler(result));
 
-            setNewGameHandler(true);
-            setGameEarnCoinsHandler(earnCoins);
+            dispatch(gameEarnCoins(earnCoins));
+
             navigateTo('/result', {
                 state: {
                     previousPath: location.pathname
                 }
             });
         }
-    }, [gameFinish,
-        correctAnswers,
+    }, [gameState.gameFinish,
+    gameState.correctAnswers,
         currentUser,
         navigateTo,
-        setGameEarnCoinsHandler,
+        dispatch,
         currentUserLoginHandler,
-        setNewGameHandler,
-        location.pathname]);
+    location.pathname]);
 
     const onExitGame = () => {
         const lastFive = currentUser.lastFiveGames.slice(1, 5);
@@ -108,11 +89,12 @@ export const GameCapitals = () => {
             level: currentUser.level
         }
 
+        dispatch(gameResetState());
+
         updateUser(updateUserData)
             .then(res => res.json())
             .then(result => {
                 currentUserLoginHandler(result);
-                setNewGameHandler(true);
             });
 
         navigateTo('/');
@@ -125,55 +107,26 @@ export const GameCapitals = () => {
                 <button type='button' className={styles['exit-button']} onClick={onExitGame}>EXIT</button>
             </div>
 
-            {showCallFriendJoker && <CallFriend
-                showCallFriendJokerHandler={showCallFriendJokerHandler}
-                question={questions[questionNumber]}
-                game='Capitals'
-            />}
+            {gameState.showCallFriendJoker === true && <CallFriend gameState={gameState} game='Capitals' />}
 
-            {showPublicJoker && <PublicJoker
-                showPublicJokerHandler={showPublicJokerHandler}
-                question={questions[questionNumber]}
-                game='Capitals'
-            />}
-            <Timer
-                nextQuestion={nextQuestion}
-                questionNumber={questionNumber}
-                showFiftyFiftyHandler={showFiftyFiftyHandler}
-                setGameFinishHandler={setGameFinishHandler}
-                showCallFriendJokerHandler={showCallFriendJokerHandler}
-                showPublicJokerHandler={showPublicJokerHandler}
-            />
+            {gameState.showPublicJoker === true && <PublicJoker gameState={gameState} game='Capitals' />}
 
-            <CoinsLives
-                coins={currentUser.coins}
-                lives={lives.current}
-            ></CoinsLives>
+            <Timer gameState={gameState} />
+
+            <CoinsLives coins={currentUser.coins} lives={lives.current} />
 
             <section className={styles['question-container']}>
                 <div className={styles['question']}>
-                    <p>The Capital of {questions[questionNumber]?.title} is?</p>
+                    <p>The Capital of {gameState.currentQuestion?.title} is?</p>
                 </div>
 
-                <CapitalsAnswers
-                    questions={questions}
-                    questionNumber={questionNumber}
-                    addCorrectAnswer={addCorrectAnswer}
-                    nextQuestion={nextQuestion}
-                    showFiftyFifty={showFiftyFifty}
-                    showFiftyFiftyHandler={showFiftyFiftyHandler}
-                    setGameFinishHandler={setGameFinishHandler}
-                />
+                <CapitalsAnswers gameState={gameState} />
 
-                <Jokers
-                    showFiftyFiftyHandler={showFiftyFiftyHandler}
-                    showCallFriendJokerHandler={showCallFriendJokerHandler}
-                    showPublicJokerHandler={showPublicJokerHandler}
-                />
+                <Jokers gameState={gameState} />
 
             </section>
             <div className={styles['number-container']}>
-                <p className={styles['question-number']}>QUESTION - <span>{questionNumber}</span></p>
+                <p className={styles['question-number']}>QUESTION - <span>{gameState.questionNumber}</span></p>
             </div>
         </>
     );

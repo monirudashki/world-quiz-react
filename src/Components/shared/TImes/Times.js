@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { gameCurrentQuestion, gameNextQuestion, gameShowCallFriendJokerToggle, gameShowFiftyFiftyToggle, gameShowPublicJokerToggle } from "../../../+store/features/game";
 import styles from "../TImes/Times.module.css";
 
 export const Timer = ({
-    nextQuestion,
-    questionNumber,
-    showFiftyFiftyHandler,
-    showCallFriendJokerHandler,
-    showPublicJokerHandler
+    gameState
 }) => {
 
     const [timer, setTimer] = useState(60);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setTimer(60);
-    }, [questionNumber])
+    }, [gameState.questionNumber])
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             if (timer > 0) {
                 setTimer(timer - 1);
             } else {
-                nextQuestion();
-                showFiftyFiftyHandler(false);
-                showPublicJokerHandler(false);
-                showCallFriendJokerHandler(false);
+                dispatch(gameNextQuestion());
+                dispatch(gameCurrentQuestion(gameState.questions[gameState.questionNumber]));
+                dispatch(gameShowFiftyFiftyToggle(false));
+                dispatch(gameShowPublicJokerToggle(false));
+                dispatch(gameShowCallFriendJokerToggle(false));
             }
         }, 1000);
 
@@ -31,7 +31,7 @@ export const Timer = ({
         return () => {
             clearInterval(intervalId);
         }
-    }, [nextQuestion, timer, showCallFriendJokerHandler, showFiftyFiftyHandler, showPublicJokerHandler]);
+    }, [timer, dispatch, gameState.questions, gameState.questionNumber]);
 
     let style;
 

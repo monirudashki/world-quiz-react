@@ -2,20 +2,24 @@ import styles from '../Jokers/CallFriend.module.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
+import { gameShowCallFriendJokerToggle } from '../../../+store/features/game';
 
 const phone = <FontAwesomeIcon icon={faPhone} />
 
 export const CallFriend = ({
-    showCallFriendJokerHandler,
-    question,
+    gameState,
     game
 }) => {
 
+    const dispatch = useDispatch();
+
     const hideCallFriendHandler = () => {
-        showCallFriendJokerHandler(false);
+        dispatch(gameShowCallFriendJokerToggle(false));
     }
 
-    const wrightAnswer = question.wrightAnswer;
+
+    const wrightAnswer = gameState.currentQuestion.wrightAnswer;
 
     const callAnswers = [
         `I think the wright answer is ${wrightAnswer} , good luck!`,
@@ -27,13 +31,13 @@ export const CallFriend = ({
 
     let letter;
 
-    if (wrightAnswer === question.firstAnswer) {
+    if (wrightAnswer === gameState.currentQuestion.firstAnswer) {
         letter = 'A'
-    } else if (wrightAnswer === question.secondAnswer) {
+    } else if (wrightAnswer === gameState.currentQuestion.secondAnswer) {
         letter = "B"
-    } else if (wrightAnswer === question.thirdAnswer) {
+    } else if (wrightAnswer === gameState.currentQuestion.thirdAnswer) {
         letter = "C"
-    } else if (wrightAnswer === question.fourthAnswer) {
+    } else if (wrightAnswer === gameState.currentQuestion.fourthAnswer) {
         letter = "D"
     }
 

@@ -1,19 +1,23 @@
+import { useDispatch } from 'react-redux';
+import { gameShowPublicJokerToggle } from '../../../+store/features/game';
 import styles from '../Jokers/PublicJoker.module.css';
 
 export const PublicJoker = ({
-    showPublicJokerHandler,
-    question,
+    gameState,
     game
 }) => {
 
-    const firstAnswer = question.firstAnswer;
-    const secondAnswer = question.secondAnswer;
-    const thirdAnswer = question.thirdAnswer;
-    const fourthAnswer = question.fourthAnswer;
-    const wrightAnswer = question.wrightAnswer;
+    const dispatch = useDispatch();
+    const currentQuestion = gameState.currentQuestion;
+
+    const firstAnswer = currentQuestion.firstAnswer;
+    const secondAnswer = currentQuestion.secondAnswer;
+    const thirdAnswer = currentQuestion.thirdAnswer;
+    const fourthAnswer = currentQuestion.fourthAnswer;
+    const wrightAnswer = currentQuestion.wrightAnswer;
 
     const hidePublicJokerHandler = () => {
-        showPublicJokerHandler(false);
+        dispatch(gameShowPublicJokerToggle(false));
     }
 
     let graphStyle1 = { gridColumn: 2, '--h': firstAnswer === wrightAnswer ? "56%" : "12%" };

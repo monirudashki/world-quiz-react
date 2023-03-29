@@ -4,6 +4,10 @@ SPA World quiz games - React JS
 
 Приложението е проектирано с React , за rest-api съм използвал Node.js-Express.js за база данни MongoDB.
 
+App build - React hooks , Context Provider , React-Redux , Redux-toolkit
+
+App ensure - 400~ Unit tests with Jest and react-testing-library
+
 Structure
 
 Core
@@ -16,7 +20,10 @@ Core
 Contexts
 
 - AuthContext - users actions
-- GameContexts - get questions for game
+
++Store
+
+- gameStore - state management for both games
 
 Guards
 

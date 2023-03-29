@@ -1,44 +1,43 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { gameAddCorrectAnswer, gameCurrentQuestion, gameFinishToggle, gameNextQuestion, gameShowFiftyFiftyToggle } from '../../../../+store/features/game';
 import styles from '../CapitalsAnswers.js/CapitalAnswers.module.css';
 
 export const CapitalsAnswers = ({
-    questions,
-    questionNumber,
-    addCorrectAnswer,
-    nextQuestion,
-    showFiftyFifty,
-    showFiftyFiftyHandler,
-    setGameFinishHandler
+    gameState
 }) => {
 
     const [answerIsGiven, setAnswerIsGiven] = useState(false);
+    const currentQuestion = gameState.currentQuestion;
+    const dispatch = useDispatch();
 
-    const firstAnswer = questions[questionNumber]?.firstAnswer;
-    const secondAnswer = questions[questionNumber]?.secondAnswer;
-    const thirdAnswer = questions[questionNumber]?.thirdAnswer;
-    const fourthAnswer = questions[questionNumber]?.fourthAnswer;
-    const wrightAnswer = questions[questionNumber]?.wrightAnswer;
+    const firstAnswer = currentQuestion?.firstAnswer;
+    const secondAnswer = currentQuestion?.secondAnswer;
+    const thirdAnswer = currentQuestion?.thirdAnswer;
+    const fourthAnswer = currentQuestion?.fourthAnswer;
+    const wrightAnswer = currentQuestion?.wrightAnswer;
 
     let className = styles['answers-container__answer-button'];
 
     const giveAnswer = (e) => {
         e.preventDefault();
         setAnswerIsGiven(true);
-        if (e.target.textContent === questions[questionNumber].wrightAnswer) {
+        if (e.target.textContent === currentQuestion.wrightAnswer) {
             e.target.className = styles['answers-container__answer-buttonCorrect'];
-            addCorrectAnswer();
+            dispatch(gameAddCorrectAnswer());
         } else {
             e.target.className = styles['answers-container__answer-buttonWrong']
         }
 
         setTimeout(() => {
             e.target.className = styles['answers-container__answer-button'];
-            showFiftyFiftyHandler(false);
-            if (questionNumber === 25) {
-                setGameFinishHandler();
+            dispatch(gameShowFiftyFiftyToggle(false));
+            if (gameState.questionNumber === 25) {
+                dispatch(gameFinishToggle(true));
             }
             setAnswerIsGiven(false);
-            nextQuestion();
+            dispatch(gameNextQuestion());
+            dispatch(gameCurrentQuestion(gameState.questions[gameState.questionNumber]));
         }, 1000)
     }
 
@@ -52,7 +51,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
-                disabled={(twoWrongAnswerArray.includes(firstAnswer) && showFiftyFifty) || answerIsGiven}
+                disabled={(twoWrongAnswerArray.includes(firstAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
             >
                 {firstAnswer}
             </button>
@@ -60,7 +59,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
-                disabled={(twoWrongAnswerArray.includes(secondAnswer) && showFiftyFifty) || answerIsGiven}
+                disabled={(twoWrongAnswerArray.includes(secondAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
             >
                 {secondAnswer}
             </button>
@@ -68,7 +67,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
-                disabled={(twoWrongAnswerArray.includes(thirdAnswer) && showFiftyFifty) || answerIsGiven}
+                disabled={(twoWrongAnswerArray.includes(thirdAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
             >
                 {thirdAnswer}
             </button>
@@ -76,7 +75,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
-                disabled={(twoWrongAnswerArray.includes(fourthAnswer) && showFiftyFifty) || answerIsGiven}
+                disabled={(twoWrongAnswerArray.includes(fourthAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
             >
                 {fourthAnswer}
             </button>

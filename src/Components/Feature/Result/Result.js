@@ -6,7 +6,8 @@ import { Link, useLocation } from 'react-router-dom';
 import CoinsLives from '../../shared/CoinsLives/Coins&Lives';
 import { useContext } from 'react';
 import { AuthContext } from '../../../Contexts/AuthContext';
-import { GameCapitalsContext } from '../../../Contexts/GameCapitalsContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { gameResetState } from '../../../+store/features/game';
 const coins = <FontAwesomeIcon icon={faCoins} />
 
 
@@ -14,12 +15,17 @@ export const Result = () => {
 
     const location = useLocation();
     const { currentUser } = useContext(AuthContext);
-    const { gameEarnCoins } = useContext(GameCapitalsContext)
+    const dispatch = useDispatch();
+    const earnCoins = useSelector((state) => state.game.earnCoins);
 
     let gameWasPlayed = false;
 
     if (location.state && (location.state.previousPath === '/game-capitals' || location.state.previousPath === '/game-flags')) {
         gameWasPlayed = true;
+    }
+
+    const onExitResultHandler = () => {
+        dispatch(gameResetState());
     }
 
     return (
@@ -41,12 +47,12 @@ export const Result = () => {
                             </div>
                             <div className={styles["coins"]}>
                                 <p>Earn Coins</p>
-                                <p className={styles["score"]}>{gameEarnCoins}{coins}</p>
+                                <p className={styles["score"]}>{earnCoins}{coins}</p>
                             </div>
                         </div>
                         <div className={styles["active-buttons-result"]}>
-                            <Link to="/game-capitals">RESTART</Link>
-                            <Link to="/">EXIT</Link>
+                            <Link onClick={onExitResultHandler} to="/game-capitals">RESTART</Link>
+                            <Link onClick={onExitResultHandler} to="/">EXIT</Link>
                         </div>
                     </>
                     :

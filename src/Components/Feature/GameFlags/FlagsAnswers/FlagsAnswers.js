@@ -1,44 +1,44 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { gameAddCorrectAnswer, gameCurrentQuestion, gameFinishToggle, gameNextQuestion, gameShowFiftyFiftyToggle } from '../../../../+store/features/game';
 import styles from './FlagsAnswers.module.css';
 
 export const FlagsAnswers = ({
-    questions,
-    questionNumber,
-    addCorrectAnswer,
-    nextQuestion,
-    showFiftyFifty,
-    showFiftyFiftyHandler,
-    setGameFinishHandler
+    gameState,
 }) => {
 
     const [answerIsGiven, setAnswerIsGiven] = useState(false);
+    const currentQuestion = gameState.currentQuestion;
 
-    const firstAnswer = questions[questionNumber]?.firstAnswer;
-    const secondAnswer = questions[questionNumber]?.secondAnswer;
-    const thirdAnswer = questions[questionNumber]?.thirdAnswer;
-    const fourthAnswer = questions[questionNumber]?.fourthAnswer;
-    const wrightAnswer = questions[questionNumber]?.wrightAnswer;
+    const dispatch = useDispatch();
+
+    const firstAnswer = currentQuestion?.firstAnswer;
+    const secondAnswer = currentQuestion?.secondAnswer;
+    const thirdAnswer = currentQuestion?.thirdAnswer;
+    const fourthAnswer = currentQuestion?.fourthAnswer;
+    const wrightAnswer = currentQuestion?.wrightAnswer;
 
     let className = styles['answer-flag-button'];
 
     const giveAnswer = (e) => {
         e.preventDefault();
         setAnswerIsGiven(true);
-        if (e.target.id === questions[questionNumber].wrightAnswer) {
+        if (e.target.id === currentQuestion.wrightAnswer) {
             e.target.className = styles['answer-flag-button-correct'];
-            addCorrectAnswer();
+            dispatch(gameAddCorrectAnswer());
         } else {
             e.target.className = styles['answer-flag-button-wrong']
         }
 
         setTimeout(() => {
             e.target.className = styles['answer-flag-button'];
-            showFiftyFiftyHandler(false);
-            if (questionNumber === 25) {
-                setGameFinishHandler();
+            dispatch(gameShowFiftyFiftyToggle(false));
+            if (gameState.questionNumber === 25) {
+                dispatch(gameFinishToggle(true));
             }
             setAnswerIsGiven(false);
-            nextQuestion();
+            dispatch(gameNextQuestion());
+            dispatch(gameCurrentQuestion(gameState.questions[gameState.questionNumber]));
         }, 1000);
     }
 
@@ -54,7 +54,7 @@ export const FlagsAnswers = ({
                     type='button'
                     onClick={giveAnswer}
                     className={className}
-                    disabled={(twoWrongAnswerArray.includes(firstAnswer) && showFiftyFifty) || answerIsGiven}
+                    disabled={(twoWrongAnswerArray.includes(firstAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
                 >
                     A
                 </button>
@@ -69,7 +69,7 @@ export const FlagsAnswers = ({
                     type='button'
                     onClick={giveAnswer}
                     className={className}
-                    disabled={(twoWrongAnswerArray.includes(secondAnswer) && showFiftyFifty) || answerIsGiven}
+                    disabled={(twoWrongAnswerArray.includes(secondAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
                 >B</button>
                 <div className={styles['img-wrapper']}>
                     <img src={`../images/Flags/${secondAnswer}.png`} alt="" />
@@ -82,7 +82,7 @@ export const FlagsAnswers = ({
                     type='button'
                     onClick={giveAnswer}
                     className={className}
-                    disabled={(twoWrongAnswerArray.includes(thirdAnswer) && showFiftyFifty) || answerIsGiven}
+                    disabled={(twoWrongAnswerArray.includes(thirdAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
                 >C</button>
                 <div className={styles['img-wrapper']}>
                     <img src={`../images/Flags/${thirdAnswer}.png`} alt="" />
@@ -95,7 +95,7 @@ export const FlagsAnswers = ({
                     type='button'
                     onClick={giveAnswer}
                     className={className}
-                    disabled={(twoWrongAnswerArray.includes(fourthAnswer) && showFiftyFifty) || answerIsGiven}
+                    disabled={(twoWrongAnswerArray.includes(fourthAnswer) && gameState.showFiftyFifty) || answerIsGiven}
                 >D</button>
                 <div className={styles['img-wrapper']}>
                     <img src={`../images/Flags/${fourthAnswer}.png`} alt="" />

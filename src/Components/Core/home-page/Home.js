@@ -5,18 +5,10 @@ import CoinsLives from '../../shared/CoinsLives/Coins&Lives';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthContext';
-import { GameCapitalsContext } from '../../../Contexts/GameCapitalsContext';
 
 export const Home = () => {
 
     const { currentUser } = useContext(AuthContext);
-    const { setNewGameHandler, questions } = useContext(GameCapitalsContext);
-
-    const onStartGame = () => {
-        if (questions.length === 0) {
-            setNewGameHandler(true);
-        }
-    }
 
     return (
         <main className={styles["main"]}>
@@ -49,7 +41,6 @@ export const Home = () => {
                         data-testid='home-link-capitalsGame'
                         style={{ pointerEvents: currentUser.lives > 0 ? '' : 'none' }}
                         className={styles['button']} to={'/game-capitals'}
-                        onClick={onStartGame}
                     >
                         CAPITALS START
                     </Link>
