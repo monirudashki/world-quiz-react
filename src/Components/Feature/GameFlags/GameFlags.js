@@ -13,8 +13,9 @@ import { AuthContext } from "../../../Contexts/AuthContext";
 import { updateUser } from "../../../Services/capitalsService";
 import { userLevel } from "../GameCapitals/Utils/userLevel";
 import { coinsForGame } from "../GameCapitals/Utils/coinsForGame";
-import { useDispatch, useSelector } from "react-redux";
 import { gameCurrentQuestion, gameEarnCoins, gameQuestions, gameResetState } from "../../../+store/features/game";
+import { useGameFlagsDispatch, useGameFlagsSelector } from "../../../+store/redux-hooks/redux-hooks";
+import { getFlagsGameQuestions } from "../../../Services/flagsService";
 
 export const GameFlags = () => {
 
@@ -22,14 +23,13 @@ export const GameFlags = () => {
 
     const location = useLocation();
 
-    const dispatch = useDispatch();
-    const gameState = useSelector((state) => state.game);
+    const dispatch = useGameFlagsDispatch
+    const gameState = useGameFlagsSelector((state) => state.game);
 
     const navigateTo = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:3030/api/flags/gameQuestions`)
-            .then(res => res.json())
+        getFlagsGameQuestions()
             .then(result => {
                 dispatch(gameQuestions(result));
                 dispatch(gameCurrentQuestion(result[0]));
@@ -126,7 +126,7 @@ export const GameFlags = () => {
 
             </section>
             <div className={styles['number-container']}>
-                <p className={styles['question-number']}>QUESTION - <span>{gameState.questionNumber}</span></p>
+                <p className={styles['question-number']}>QUESTION - <span data-testid='question-number'>{gameState.questionNumber}</span></p>
             </div>
         </>
     );

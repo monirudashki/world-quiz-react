@@ -1,7 +1,6 @@
 import { cleanup, screen, render, waitFor } from "@testing-library/react"
 import { MemoryRouter } from "react-router-dom"
 import { AuthProvider } from "../../../Contexts/AuthContext"
-import { GameCapitalsProvider } from "../../../Contexts/GameCapitalsContext"
 import { Home } from "./Home";
 import * as authService from '../../../Services/authService';
 import { fakeUser } from "../../../testUtils/mockUser";
@@ -10,9 +9,7 @@ function renderHome() {
     render(
         <MemoryRouter>
             <AuthProvider>
-                <GameCapitalsProvider>
-                    <Home />
-                </GameCapitalsProvider>
+                <Home />
             </AuthProvider>
         </MemoryRouter>
     )
@@ -24,20 +21,11 @@ function mockUser(userValue) {
     )
 }
 
-function mockGameQuestions() {
-    jest.spyOn(global, 'fetch').mockImplementation(() =>
-        Promise.resolve({
-            json: () => Promise.resolve([])
-        })
-    )
-}
-
 describe('Home page tests', () => {
     afterEach(cleanup);
 
     test('home - coins and lives with user is rendered', async () => {
         mockUser(fakeUser);
-        mockGameQuestions();
         renderHome();
         const element = await screen.findByTestId('coins-and-lives');
         await waitFor(() => {
@@ -49,7 +37,6 @@ describe('Home page tests', () => {
 
     test('home - coins and lives without user is not rendered', async () => {
         mockUser(undefined);
-        mockGameQuestions();
         renderHome();
         const element = screen.queryByTestId('coins-and-lives');
         expect(element).toBeNull();
@@ -57,7 +44,6 @@ describe('Home page tests', () => {
 
     test('home h1 render and correct text content', async () => {
         mockUser(undefined);
-        mockGameQuestions();
         renderHome();
         await waitFor(() => {
             const homeH1 = screen.getByTestId('home-h1');
@@ -69,7 +55,6 @@ describe('Home page tests', () => {
 
     test('home capitals h2 render and correct text content', async () => {
         mockUser(undefined);
-        mockGameQuestions();
         renderHome();
         await waitFor(() => {
             const homeCapitalsH2 = screen.getByTestId('home-capitals');
@@ -81,7 +66,6 @@ describe('Home page tests', () => {
 
     test('home capitals img render', async () => {
         mockUser(undefined);
-        mockGameQuestions();
         renderHome();
         await waitFor(() => {
             const homeCapitalsImg = screen.getByTestId('home-capitals-img');
@@ -92,7 +76,6 @@ describe('Home page tests', () => {
 
     test('home flags h2 render and correct text content', async () => {
         mockUser(undefined);
-        mockGameQuestions();
         renderHome();
         await waitFor(() => {
             const homeFlagsH2 = screen.getByTestId('home-flags');
@@ -104,7 +87,6 @@ describe('Home page tests', () => {
 
     test('home flags img render', async () => {
         mockUser(undefined);
-        mockGameQuestions();
         renderHome();
         await waitFor(() => {
             const homeFlagsImg = screen.getByTestId('home-flags-img');
@@ -115,7 +97,6 @@ describe('Home page tests', () => {
 
     test('home div with game buttons not rendered', async () => {
         mockUser(undefined);
-        mockGameQuestions();
         renderHome();
         await waitFor(() => {
             const divGameButtons = screen.queryByTestId('home-game-buttons');
@@ -126,7 +107,6 @@ describe('Home page tests', () => {
 
     test('home div with game buttons rendered with user', async () => {
         mockUser(fakeUser);
-        mockGameQuestions();
         renderHome();
         const element = await screen.findByTestId('home-game-buttons');
         await waitFor(() => {
@@ -136,7 +116,6 @@ describe('Home page tests', () => {
 
     test('home - link capitals game with user is rendered', async () => {
         mockUser(fakeUser);
-        mockGameQuestions();
         renderHome();
         const element = await screen.findByTestId('home-link-capitalsGame');
         await waitFor(() => {
@@ -146,7 +125,6 @@ describe('Home page tests', () => {
 
     test('home - link capitals without user is not rendered', async () => {
         mockUser(undefined);
-        mockGameQuestions();
         renderHome();
         const element = screen.queryByTestId('home-link-capitalsGame');
         expect(element).toBeNull();
@@ -154,7 +132,6 @@ describe('Home page tests', () => {
 
     test('home - link capitals game with user is rendered', async () => {
         mockUser(fakeUser);
-        mockGameQuestions();
         renderHome();
         const element = await screen.findByTestId('home-link-flagsGame');
         await waitFor(() => {
@@ -164,7 +141,6 @@ describe('Home page tests', () => {
 
     test('home - link capitals without user is not rendered', async () => {
         mockUser(undefined);
-        mockGameQuestions();
         renderHome();
         const element = screen.queryByTestId('home-link-flagsGame');
         expect(element).toBeNull();

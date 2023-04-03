@@ -32,3 +32,8 @@ export const getCapitalsQuestions = async (currentPage, search) => {
     return fetch(`http://localhost:3030/api/capitals?page=${currentPage}&search=${search}`)
         .then(res => res.json())
 }
+
+export const getCapitalsGameQuestions = async () => {
+    return fetch(`http://localhost:3030/api/capitals/gameQuestions`)
+        .then(res => res.json())
+}

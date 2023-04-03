@@ -165,7 +165,7 @@ describe('Scoreboard tests suit', () => {
 
         renderScoreBoard();
 
-        waitFor(() => {
+        await waitFor(() => {
             fireEvent.click(screen.getByText(/next/i));
         })
 

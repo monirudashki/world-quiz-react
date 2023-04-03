@@ -13,24 +13,23 @@ import { CallFriend } from '../Jokers/CallFriend';
 import { PublicJoker } from '../Jokers/PublicJoker';
 import { coinsForGame } from './Utils/coinsForGame';
 
-import { updateUser } from '../../../Services/capitalsService';
+import { getCapitalsGameQuestions, updateUser } from '../../../Services/capitalsService';
 import { userLevel } from './Utils/userLevel';
-import { useDispatch, useSelector } from 'react-redux';
 import { gameCurrentQuestion, gameEarnCoins, gameQuestions, gameResetState } from '../../../+store/features/game';
+import { useGameCapitalsDispatch, useGameCapitalsSelector } from '../../../+store/redux-hooks/redux-hooks';
 
 export const GameCapitals = () => {
 
     const { currentUser, currentUserLoginHandler } = useContext(AuthContext);
 
-    const dispatch = useDispatch();
-    const gameState = useSelector((state) => state.game);
+    const dispatch = useGameCapitalsDispatch();
+    const gameState = useGameCapitalsSelector((state) => state.game);
 
     const navigateTo = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
-        fetch(`http://localhost:3030/api/capitals/gameQuestions`)
-            .then(res => res.json())
+        getCapitalsGameQuestions()
             .then(result => {
                 dispatch(gameQuestions(result));
                 dispatch(gameCurrentQuestion(result[0]));
@@ -126,7 +125,7 @@ export const GameCapitals = () => {
 
             </section>
             <div className={styles['number-container']}>
-                <p className={styles['question-number']}>QUESTION - <span>{gameState.questionNumber}</span></p>
+                <p className={styles['question-number']}>QUESTION - <span data-testid='question-number'>{gameState.questionNumber}</span></p>
             </div>
         </>
     );

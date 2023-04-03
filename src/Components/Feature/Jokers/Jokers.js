@@ -38,13 +38,13 @@ const Jokers = ({
 
     return (
         <div className={styles['jokers']}>
-            <button disabled={publicJokerUsed} className={styles['jokers__button']} onClick={usePublicJoker}>
+            <button data-testid='publicJoker' disabled={publicJokerUsed} className={styles['jokers__button']} onClick={usePublicJoker}>
                 {users}
             </button>
-            <button disabled={fiftyFiftyUsed} className={styles['jokers__button']} onClick={useFiftyFifty}>
+            <button data-testid='50/50' disabled={fiftyFiftyUsed} className={styles['jokers__button']} onClick={useFiftyFifty}>
                 50/50
             </button>
-            <button disabled={callFriendUsed} className={styles['jokers__button']} onClick={useCallFriend}>
+            <button data-testid='callFriend' disabled={callFriendUsed} className={styles['jokers__button']} onClick={useCallFriend}>
                 {phone}
             </button>
         </div>

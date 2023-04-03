@@ -46,7 +46,7 @@ export const CapitalsAnswers = ({
     const twoWrongAnswerArray = wrongAnswerArray.filter(x => x !== random);
 
     return (
-        <div className={styles['answers-container']}>
+        <div data-test-id='capitals-answers' className={styles['answers-container']}>
             <button
                 onClick={giveAnswer}
                 type="button"

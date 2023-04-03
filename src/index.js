@@ -9,7 +9,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { gameSlice } from './+store/features/game';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     game: gameSlice.reducer
   }

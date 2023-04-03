@@ -26,7 +26,7 @@ export const PublicJoker = ({
     let graphStyle4 = { gridColumn: 5, '--h': fourthAnswer === wrightAnswer ? "56%" : "9%" };
 
     return (
-        <div className={styles['public-container']}>
+        <div data-testid='jokers-publicJoker' className={styles['public-container']}>
             <div className={styles['public-wrapper']}>
                 <figure aria-hidden="true">
                     <div className={styles['graph']}>
@@ -40,20 +40,20 @@ export const PublicJoker = ({
                         <span className={styles['graphRowLabel']}></span>
                         <span className={styles['graphRowLabel']}></span>
                         <span className={styles['graphRowLabel']}></span>
-                        <div className={styles['graphBar']} style={graphStyle1}></div>
-                        <div className={styles['graphBar']} style={graphStyle2}></div>
-                        <div className={styles['graphBar']} style={graphStyle3}></div>
-                        <div className={styles['graphBar']} style={graphStyle4}></div>
+                        <div data-testid='graphBar1' className={styles['graphBar']} style={graphStyle1}></div>
+                        <div data-testid='graphBar2' className={styles['graphBar']} style={graphStyle2}></div>
+                        <div data-testid='graphBar3' className={styles['graphBar']} style={graphStyle3}></div>
+                        <div data-testid='graphBar4' className={styles['graphBar']} style={graphStyle4}></div>
                         <span className={styles['graphColumnLabel']}></span>
                         <span className={styles['graphColumnLabel']}></span>
                         <span className={styles['graphColumnLabel']}></span>
                         {game === 'Capitals'
                             ?
                             <>
-                                <span className={styles['graphColumnLabel']}>{firstAnswer.length > 5 ? `${firstAnswer.slice(0, 5)}..` : firstAnswer}</span>
-                                <span className={styles['graphColumnLabel']}>{secondAnswer.length > 5 ? `${secondAnswer.slice(0, 5)}..` : secondAnswer}</span>
-                                <span className={styles['graphColumnLabel']}>{thirdAnswer.length > 5 ? `${thirdAnswer.slice(0, 5)}..` : thirdAnswer}</span>
-                                <span className={styles['graphColumnLabel']}>{fourthAnswer.length > 5 ? `${fourthAnswer.slice(0, 5)}..` : fourthAnswer}</span>
+                                <span data-testid='answer' className={styles['graphColumnLabel']}>{firstAnswer.length > 7 ? `${firstAnswer.slice(0, 7)}..` : firstAnswer}</span>
+                                <span data-testid='answer' className={styles['graphColumnLabel']}>{secondAnswer.length > 7 ? `${secondAnswer.slice(0, 7)}..` : secondAnswer}</span>
+                                <span data-testid='answer' className={styles['graphColumnLabel']}>{thirdAnswer.length > 7 ? `${thirdAnswer.slice(0, 7)}..` : thirdAnswer}</span>
+                                <span data-testid='answer' className={styles['graphColumnLabel']}>{fourthAnswer.length > 7 ? `${fourthAnswer.slice(0, 7)}..` : fourthAnswer}</span>
                             </>
                             :
                             <>

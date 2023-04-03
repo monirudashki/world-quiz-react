@@ -59,7 +59,7 @@ export const FlagsAnswers = ({
                     A
                 </button>
                 <div className={styles['img-wrapper']}>
-                    <img src={`../images/Flags/${firstAnswer}.png`} alt="" />
+                    <img data-testid='firstAnswer-img' src={`../images/Flags/${firstAnswer}.png`} alt="" />
                 </div>
             </div>
 
@@ -70,9 +70,11 @@ export const FlagsAnswers = ({
                     onClick={giveAnswer}
                     className={className}
                     disabled={(twoWrongAnswerArray.includes(secondAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
-                >B</button>
+                >
+                    B
+                </button>
                 <div className={styles['img-wrapper']}>
-                    <img src={`../images/Flags/${secondAnswer}.png`} alt="" />
+                    <img data-testid='secondAnswer-img' src={`../images/Flags/${secondAnswer}.png`} alt="" />
                 </div>
             </div>
 
@@ -83,9 +85,11 @@ export const FlagsAnswers = ({
                     onClick={giveAnswer}
                     className={className}
                     disabled={(twoWrongAnswerArray.includes(thirdAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
-                >C</button>
+                >
+                    C
+                </button>
                 <div className={styles['img-wrapper']}>
-                    <img src={`../images/Flags/${thirdAnswer}.png`} alt="" />
+                    <img data-testid='thirdAnswer-img' src={`../images/Flags/${thirdAnswer}.png`} alt="" />
                 </div>
             </div>
 
@@ -96,9 +100,11 @@ export const FlagsAnswers = ({
                     onClick={giveAnswer}
                     className={className}
                     disabled={(twoWrongAnswerArray.includes(fourthAnswer) && gameState.showFiftyFifty) || answerIsGiven}
-                >D</button>
+                >
+                    D
+                </button>
                 <div className={styles['img-wrapper']}>
-                    <img src={`../images/Flags/${fourthAnswer}.png`} alt="" />
+                    <img data-testid='fourthAnswer-img' src={`../images/Flags/${fourthAnswer}.png`} alt="" />
                 </div>
             </div>
         </div>

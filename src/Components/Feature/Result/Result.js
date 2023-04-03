@@ -6,8 +6,8 @@ import { Link, useLocation } from 'react-router-dom';
 import CoinsLives from '../../shared/CoinsLives/Coins&Lives';
 import { useContext } from 'react';
 import { AuthContext } from '../../../Contexts/AuthContext';
-import { useDispatch, useSelector } from 'react-redux';
 import { gameResetState } from '../../../+store/features/game';
+import { useResultDispatch, useResultSelector } from '../../../+store/redux-hooks/redux-hooks';
 const coins = <FontAwesomeIcon icon={faCoins} />
 
 
@@ -15,8 +15,8 @@ export const Result = () => {
 
     const location = useLocation();
     const { currentUser } = useContext(AuthContext);
-    const dispatch = useDispatch();
-    const earnCoins = useSelector((state) => state.game.earnCoins);
+    const dispatch = useResultDispatch();
+    const earnCoins = useResultSelector((state) => state.game.earnCoins);
 
     let gameWasPlayed = false;
 

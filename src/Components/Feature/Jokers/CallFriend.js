@@ -18,7 +18,6 @@ export const CallFriend = ({
         dispatch(gameShowCallFriendJokerToggle(false));
     }
 
-
     const wrightAnswer = gameState.currentQuestion.wrightAnswer;
 
     const callAnswers = [
@@ -50,13 +49,13 @@ export const CallFriend = ({
     const answerFlag = callAnswersForFlags[Math.floor(Math.random() * callAnswersForFlags.length)];
 
     return (
-        <div className={styles['call-container']}>
+        <div data-testid='callFriend-joker' className={styles['call-container']}>
             <div className={styles['call-wrapper']}>
                 {game === "Capitals"
                     ?
-                    <p className={styles['call-answer']}><span>{phone}</span>... {answer} </p>
+                    <p data-testid='capitals-joker' className={styles['call-answer']}><span>{phone}</span>... {answer} </p>
                     :
-                    <p className={styles['call-answer']}><span>{phone}</span>... {answerFlag} </p>
+                    <p data-testid='flag-joker' className={styles['call-answer']}><span>{phone}</span>... {answerFlag} </p>
                 }
             </div>
 
