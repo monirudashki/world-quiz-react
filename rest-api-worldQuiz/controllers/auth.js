@@ -12,6 +12,10 @@ const removePassword = (data) => {
     return userData
 }
 
+const fs = require('fs');
+const readLine = require('readline');
+const { google } = require('googleapis')
+
 async function register(req, res, next) {
     const { email, username, password, repeatPassword, imageUrl } = req.body;
 
@@ -44,6 +48,7 @@ async function register(req, res, next) {
 
 function login(req, res, next) {
     const { email, password } = req.body;
+    console.log(req.body);
 
     userModel.findOne({ email })
         .then(user => {
@@ -163,6 +168,57 @@ async function updateUser(req, res, next) {
         });
 }
 
+async function fileUpload(req, res, next) {
+
+    const file = req.file;
+
+    const KEYFILEPATH = './worldquizgames-e535671d2db5.json';
+
+    const SCOPES = ['https://www.googleapis.com/auth/drive'];
+
+    const auth = new google.auth.GoogleAuth({
+        keyFile: KEYFILEPATH,
+        scopes: SCOPES
+    });
+
+    async function createAndUploadFile(auth) {
+
+        const driveService = google.drive({ version: 'v3', auth });
+
+        let fileMetaData = {
+            'name': file.filename,
+            'parents': ['1e9Y0QAl7f90vJxMfYoDVKK0AqPm_Ax9A']
+        }
+
+        let media = {
+            mimeType: file.mimetype,
+            body: fs.createReadStream(file.path)
+        }
+
+        let response = await driveService.files.create({
+            resource: fileMetaData,
+            media: media,
+            fields: 'id'
+        });
+
+        console.log(response.data);
+
+        switch (response.status) {
+            case 200:
+                res.json({ id: response.data.id });
+                break;
+
+            default:
+                console.error(response.error);
+                break;
+        };
+
+    }
+    createAndUploadFile(auth).catch(console.error);
+
+    //TODO find way to return existing photo , not create a new one
+}
+
 module.exports = {
     login,
     register,
@@ -171,5 +227,6 @@ module.exports = {
     editProfileInfo,
     getAllUsers,
     earnLive,
-    updateUser
+    updateUser,
+    fileUpload
 }

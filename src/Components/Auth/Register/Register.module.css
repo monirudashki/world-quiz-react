@@ -1,12 +1,55 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+.register-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 80vh;
+    gap: 50px;
+}
+
+.image-upload {
+    width: 400px;
+    height: 63vh;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.image-wrapper {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+}
+
+.image-input {
+    padding: 10px 14px;
+    background-color: #737474;
+    border-radius: 8px;
+    cursor: pointer;
+    font-style: italic;
+    color: black;
+}
+
 .form {
     background: #ffffff;
     max-width: 460px;
-    position: absolute;
-    left: 50%;
-    top: 10%;
-    transform: translate(-50%);
     padding: 35px;
     text-align: center;
     border: 2px solid black;
@@ -136,3 +179,7 @@
     transition: all 0.3 ease;
     cursor: pointer;
 }
+
+
+/* https://drive.google.com/uc?export=view&id=12o4Vru1oLPBd5KBwxpNlBhAoYRKQxrPm
+https://drive.google.com/file/d/1mFVExFFMExnCVynoXC6Fdbl2DESkYxbK/view?usp=share_link */

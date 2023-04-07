@@ -6,11 +6,16 @@
     gap: 5px;
 }
 
+.input-image {
+    margin-top: 10px;
+}
+
 .action-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
+    margin-top: 10px;
 }
 
 .action-buttons button {

@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { editCurrentUser } from '../../../../Services/authService';
-import { emailValidator, imageUrlValidator, minLength } from '../../../../Utils/validators';
+import { emailValidator, minLength } from '../../../../Utils/validators';
 import { SpinnerRequest } from '../../../shared/SpinnerRequest/SpinnerRequest'
 import styles from '../UserProfileEdit/UserProfileEdit.module.css';
+import axios from 'axios';
 
 export const UserProfileEdit = ({
     user,
     onEditClickHandler,
-    currentUserLoginHandler
+    currentUserLoginHandler,
+    onSetEditModeImage,
+    editModeImage,
+    onImageLoading
 }) => {
 
     const [error, setError] = useState('');
@@ -19,7 +23,6 @@ export const UserProfileEdit = ({
     const [formValues, setFormValues] = useState({
         username: user.username,
         email: user.email,
-        imageUrl: user.imageUrl,
     });
 
     const onChangeValueHandler = (e) => {
@@ -27,6 +30,23 @@ export const UserProfileEdit = ({
             ...state,
             [e.target.name]: e.target.value
         }))
+    };
+
+    const handleFileChange = (e) => {
+        e.preventDefault();
+
+        onImageLoading(true);
+
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        axios.post('http://localhost:3030/api/users/profile/fileUpload', formData)
+            .then(result => {
+                onSetEditModeImage(`https://drive.google.com/uc?export=view&id=${result.data.id}`);
+            })
+            .catch(err => console.log(err))
+            .finally(() => onImageLoading(false));
     }
 
     const invalidForm = Object.values(formValues).some(x => x === '') || Object.values(errors).some(x => x)
@@ -36,7 +56,11 @@ export const UserProfileEdit = ({
 
         setIsLoading(true);
 
-        const userData = { ...formValues };
+        const userData = {
+            username: formValues.username,
+            email: formValues.email,
+            imageUrl: editModeImage
+        };
 
         try {
             const user = await editCurrentUser(userData);
@@ -49,6 +73,11 @@ export const UserProfileEdit = ({
             setIsLoading(false);
             setError(err);
         }
+    }
+
+    const handleCancelClick = () => {
+        onSetEditModeImage(user.imageUrl);
+        onEditClickHandler(false);
     }
 
     return (
@@ -78,17 +107,10 @@ export const UserProfileEdit = ({
                     <span data-testid='editProfile-email-error' className={styles['error-edit']}>Email must be valid!</span>
                 }
 
-                <label htmlFor="register-imageUrl">ImageUrl: </label>
-                <input type="text" name="imageUrl" id="register-imageUrl" placeholder="image url"
-                    value={formValues.imageUrl} onChange={onChangeValueHandler} onBlur={(e) => imageUrlValidator(e, setErrors, formValues)}
-                />
-
-                {errors.imageUrl &&
-                    <span data-testid='editProfile-imageUrl-error' className={styles['error-edit']}>ImageUrl must be a valid link!</span>
-                }
+                <input className={styles['input-image']} type="file" name='photo' accept='image/*' onChange={handleFileChange} />
 
                 <div className={styles['action-buttons']}>
-                    <button type='button' onClick={() => onEditClickHandler(false)}>CANCEL</button>
+                    <button type='button' onClick={handleCancelClick}>CANCEL</button>
                     <button
                         className={invalidForm ? styles['button-disabled'] : styles['button']}
                         disabled={invalidForm || isLoading}

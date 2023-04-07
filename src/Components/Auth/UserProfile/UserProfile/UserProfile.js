@@ -25,8 +25,9 @@ export const UserProfile = () => {
 
 
     const [editMode, setEditMode] = useState(false);
-
+    const [editModeImage, setEditModeImage] = useState(currentUser.imageUrl);
     const [commercialMode, setCommercialMode] = useState(false);
+    const [imageLoading, setImageLoading] = useState(false);
 
     const onEditClickHandler = useCallback((boolean) => {
         setEditMode(boolean);
@@ -34,6 +35,14 @@ export const UserProfile = () => {
 
     const onEarnLivesHandler = useCallback((boolean) => {
         setCommercialMode(boolean);
+    }, []);
+
+    const onSetEditModeImage = useCallback((value) => {
+        setEditModeImage(value);
+    }, []);
+
+    const onImageLoading = useCallback((boolean) => {
+        setImageLoading(boolean);
     }, []);
 
     if (!currentUser) {
@@ -55,7 +64,14 @@ export const UserProfile = () => {
 
             <section className={styles["profile-container"]}>
                 <div className={styles["profile-container__img"]}>
-                    <img data-testid='userProfile-img' src={currentUser.imageUrl} alt="profile" />
+
+                    {imageLoading && <Spinner />}
+
+                    {!editMode ?
+                        <img data-testid='userProfile-img' src={currentUser.imageUrl} alt="profile" />
+                        :
+                        <img data-testid='userProfile-img' src={editModeImage} alt="profile" />
+                    }
                 </div>
 
                 <div data-testid='userProfile-profileInfo' className={styles['profile-container__info']}>
@@ -73,6 +89,9 @@ export const UserProfile = () => {
                             user={currentUser}
                             onEditClickHandler={onEditClickHandler}
                             currentUserLoginHandler={currentUserLoginHandler}
+                            onSetEditModeImage={onSetEditModeImage}
+                            editModeImage={editModeImage}
+                            onImageLoading={onImageLoading}
                         />
                     }
                 </div>

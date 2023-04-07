@@ -1,11 +1,13 @@
 import styles from '../Register/Register.module.css';
-import { emailValidator, imageUrlValidator, minLength, passwordsMatch } from '../../../Utils/validators';
+import { emailValidator, minLength, passwordsMatch } from '../../../Utils/validators';
 
 import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react';
 import { register } from '../../../Services/authService';
 import { AuthContext } from '../../../Contexts/AuthContext';
 import { SpinnerRequest } from '../../shared/SpinnerRequest/SpinnerRequest';
+import axios from 'axios';
+import { Spinner } from '../../shared/Spinner.js/Spinner';
 
 export const Register = () => {
 
@@ -15,6 +17,12 @@ export const Register = () => {
 
     const navigateTo = useNavigate();
 
+    const [imageId, setImageId] = useState('');
+
+    const [image, setImage] = useState(false);
+
+    const [imageLoading, setImageLoading] = useState(false);
+
     const [error, setError] = useState('');
 
     const [errors, setErrors] = useState({});
@@ -22,9 +30,8 @@ export const Register = () => {
     const [formValues, setFormValues] = useState({
         username: '',
         email: '',
-        imageUrl: '',
         password: '',
-        rePass: ''
+        rePass: '',
     });
 
     const onChangeValueHandler = (e) => {
@@ -32,16 +39,40 @@ export const Register = () => {
             ...state,
             [e.target.name]: e.target.value
         }))
+    };
+
+    const handleFileChange = (e) => {
+        e.preventDefault();
+
+        setImageLoading(true);
+
+        const file = (e.target.files[0]);
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        axios.post('http://localhost:3030/api/users/profile/fileUpload', formData)
+            .then(result => {
+                setImageId(result.data.id)
+                setImage(true);
+            })
+            .catch(err => console.log(err))
+            .finally(() => setImageLoading(false));
     }
 
-    const invalidForm = Object.values(formValues).some(x => x === '') || Object.values(errors).some(x => x)
+    const invalidForm = Object.values(formValues).some(x => x === '') || Object.values(errors).some(x => x) || imageId === '';
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
         setIsLoading(true);
 
-        const userData = { ...formValues };
+        const userData = {
+            username: formValues.username,
+            email: formValues.email,
+            password: formValues.password,
+            imageUrl: `https://drive.google.com/uc?export=view&id=${imageId}`
+        };
 
         try {
             const user = await register(userData);
@@ -56,73 +87,80 @@ export const Register = () => {
 
     return (
         <section id="register">
-            <div className={styles["form"]}>
-                <h2 data-testid='register-h2'>Registration</h2>
+            <div className={styles['register-wrapper']}>
+                <div className={styles['image-upload']}>
+                    <div className={styles['image-wrapper']}>
 
-                {error &&
-                    <div data-testid='register-error' className={styles["error"]}>
-                        {error}
+                        {imageLoading && <Spinner />}
+
+                        {(image && !imageLoading) &&
+                            <img src={`https://drive.google.com/uc?export=view&id=${imageId}`} alt="profile" />
+                        }
                     </div>
-                }
 
-                <form className={styles["login-form"]} onSubmit={onSubmitHandler}>
+                    <input className={styles['image-input']} type="file" name='photo' accept='image/*' onChange={handleFileChange} />
 
-                    <label htmlFor="register-username">Username: </label>
-                    <input type="text" name="username" id="register-username" data-testid='register-username'
-                        value={formValues.username} onChange={onChangeValueHandler} onBlur={(e) => minLength(e, 3, setErrors, formValues)}
-                    />
+                </div>
+                <div className={styles["form"]}>
 
-                    {errors.username &&
-                        <p data-testid='register-username-error' className={styles['error']}>Username must be at least 3 characters long!</p>
+                    <h2 data-testid='register-h2'>Registration</h2>
+
+                    {error &&
+                        <div data-testid='register-error' className={styles["error"]}>
+                            {error}
+                        </div>
                     }
 
-                    <label htmlFor="register-email">Email: </label>
-                    <input type="text" name="email" id="register-email" data-testid='register-email'
-                        value={formValues.email} onChange={onChangeValueHandler} onBlur={(e) => emailValidator(e, setErrors, formValues)}
-                    />
+                    <form className={styles["login-form"]} onSubmit={onSubmitHandler}>
 
-                    {errors.email &&
-                        <p data-testid='register-email-error' className={styles['error']}>Email must be valid!</p>
-                    }
+                        <label htmlFor="register-username">Username: </label>
+                        <input type="text" name="username" id="register-username" data-testid='register-username'
+                            value={formValues.username} onChange={onChangeValueHandler} onBlur={(e) => minLength(e, 3, setErrors, formValues)}
+                        />
 
-                    <label htmlFor="register-imageUrl">ImageUrl: </label>
-                    <input type="text" name="imageUrl" id="register-imageUrl" data-testid='register-imageUrl'
-                        value={formValues.imageUrl} onChange={onChangeValueHandler} onBlur={(e) => imageUrlValidator(e, setErrors, formValues)}
-                    />
+                        {errors.username &&
+                            <p data-testid='register-username-error' className={styles['error']}>Username must be at least 3 characters long!</p>
+                        }
 
-                    {errors.imageUrl &&
-                        <p data-testid='register-imageUrl-error' className={styles['error']}>ImageUrl must be a valid link!</p>
-                    }
+                        <label htmlFor="register-email">Email: </label>
+                        <input type="text" name="email" id="register-email" data-testid='register-email'
+                            value={formValues.email} onChange={onChangeValueHandler} onBlur={(e) => emailValidator(e, setErrors, formValues)}
+                        />
+
+                        {errors.email &&
+                            <p data-testid='register-email-error' className={styles['error']}>Email must be valid!</p>
+                        }
 
 
-                    <label htmlFor="register-password">Password: </label>
-                    <input type="password" name="password" id="register-password" data-testid='register-password'
-                        value={formValues.password} onChange={onChangeValueHandler} onBlur={(e) => minLength(e, 5, setErrors, formValues)}
-                    />
+                        <label htmlFor="register-password">Password: </label>
+                        <input type="password" name="password" id="register-password" data-testid='register-password'
+                            value={formValues.password} onChange={onChangeValueHandler} onBlur={(e) => minLength(e, 5, setErrors, formValues)}
+                        />
 
-                    {errors.password &&
-                        <p data-testid='register-password-error' className={styles['error']}>Password must be at least 5 characters long!</p>
-                    }
+                        {errors.password &&
+                            <p data-testid='register-password-error' className={styles['error']}>Password must be at least 5 characters long!</p>
+                        }
 
-                    <label htmlFor="repeat-password">Confirm Password: </label>
-                    <input type="password" name="rePass" id="repeat-password" data-testid='register-rePass'
-                        value={formValues.rePass} onChange={onChangeValueHandler} onBlur={(e) => passwordsMatch(e, setErrors, formValues)}
-                    />
+                        <label htmlFor="repeat-password">Confirm Password: </label>
+                        <input type="password" name="rePass" id="repeat-password" data-testid='register-rePass'
+                            value={formValues.rePass} onChange={onChangeValueHandler} onBlur={(e) => passwordsMatch(e, setErrors, formValues)}
+                        />
 
-                    {errors.rePass &&
-                        <p data-testid='register-rePass-error' className={styles['error']}>Passwords don't match!</p>
-                    }
+                        {errors.rePass &&
+                            <p data-testid='register-rePass-error' className={styles['error']}>Passwords don't match!</p>
+                        }
 
-                    <button
-                        data-testid='register-button'
-                        className={invalidForm ? styles['button-disabled'] : styles['button']}
-                        disabled={invalidForm || isLoading}
-                        type="submit"
-                    >
-                        {isLoading ? <SpinnerRequest /> : "REGISTER"}
-                    </button>
-                    <p className={styles["message"]}>Already registered? <Link to="/auth/login" data-testid='login-link'>Login</Link></p>
-                </form>
+                        <button
+                            data-testid='register-button'
+                            className={invalidForm ? styles['button-disabled'] : styles['button']}
+                            disabled={invalidForm || isLoading}
+                            type="submit"
+                        >
+                            {isLoading ? <SpinnerRequest /> : "REGISTER"}
+                        </button>
+                        <p className={styles["message"]}>Already registered? <Link to="/auth/login" data-testid='login-link'>Login</Link></p>
+                    </form>
+                </div>
             </div>
         </section>
     );
