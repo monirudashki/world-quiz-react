@@ -3,10 +3,9 @@ import { emailValidator, minLength, passwordsMatch } from '../../../Utils/valida
 
 import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react';
-import { register } from '../../../Services/authService';
+import { register, uploadImage } from '../../../Services/authService';
 import { AuthContext } from '../../../Contexts/AuthContext';
 import { SpinnerRequest } from '../../shared/SpinnerRequest/SpinnerRequest';
-import axios from 'axios';
 import { Spinner } from '../../shared/Spinner.js/Spinner';
 
 export const Register = () => {
@@ -51,7 +50,7 @@ export const Register = () => {
         const formData = new FormData();
         formData.append('file', file);
 
-        axios.post('http://localhost:3030/api/users/profile/fileUpload', formData)
+        uploadImage(formData)
             .then(result => {
                 setImageId(result.data.id)
                 setImage(true);
@@ -130,7 +129,6 @@ export const Register = () => {
                         {errors.email &&
                             <p data-testid='register-email-error' className={styles['error']}>Email must be valid!</p>
                         }
-
 
                         <label htmlFor="register-password">Password: </label>
                         <input type="password" name="password" id="register-password" data-testid='register-password'

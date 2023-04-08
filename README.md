@@ -4,9 +4,19 @@ SPA World quiz games - React JS
 
 Приложението е проектирано с React , за rest-api съм използвал Node.js-Express.js за база данни MongoDB.
 
-App build - React hooks , Context Provider , React-Redux , Redux-toolkit
+App build - React hooks , Context Provider , React-Redux , Redux-toolkit , Google Drive AuthO
+Rest-api - Node.js , Express.js , JWT , mongoose
+
+Upload image with Google Drive Auth
+
+- Sending file on front-end with formData , creating and uploading file on Back-end,
+  then send back data to my application to render image for user
 
 App ensure - 400~ Unit tests with Jest and react-testing-library
+*Mock providers
+*Mock service functions
+*Mock redux state management
+*Mock axios functions
 
 Structure
 
@@ -41,7 +51,7 @@ Admin Panel (lazy loaded for optimization)
 
 Auth
 
-- Register (dynamic validation , error handling , login user after correct request)
+- Register (dynamic validation , error handling , login user after correct request, upload image with google drive)
 - Login (dynamic validation , error handling)
 - User Profile (Image , User info/User edit info, Level , Graph for last five games with correct data)
 

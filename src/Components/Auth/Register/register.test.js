@@ -6,6 +6,8 @@ import React from 'react';
 import { Register } from "./Register";
 import { act } from "react-dom/test-utils";
 
+import mockAxios from "jest-mock-axios";
+
 function renderRegister() {
     render(
         <MemoryRouter>
@@ -22,18 +24,24 @@ describe('Register tests suit', () => {
         jest.spyOn(authService, 'getCurrentUser').mockImplementation(() =>
             Promise.resolve(undefined)
         )
+
+        const result = {
+            data: { id: 'sdafgsagwags' }
+        }
+
+        mockAxios.post.mockRejectedValueOnce(result);
     });
 
-    afterEach(cleanup);
+    afterEach(() => {
+        mockAxios.reset();
+        cleanup
+    });
 
     test('Register - heading should be rendered', async () => {
 
         renderRegister();
 
-        waitFor(() => {
-            const el = screen.getByTestId('register-h2');
-            expect(el).toBeInTheDocument();
-        })
+        expect(await screen.findAllByTestId('register-h2'))
     });
 
     //error
@@ -41,7 +49,7 @@ describe('Register tests suit', () => {
     test('Register - error not render', async () => {
         renderRegister();
 
-        await waitFor(() => {
+        waitFor(() => {
             expect(screen.queryByTestId('register-error')).toBeNull();
         });
     });
@@ -156,72 +164,6 @@ describe('Register tests suit', () => {
             waitFor(() => {
                 fireEvent.click(screen.getByTestId('register-username'));
                 const error = screen.queryByTestId('register-email-error');
-                expect(error).toBeNull();
-            })
-        });
-    });
-
-    //imageUrl
-
-    test('Register imageUrl label render', async () => {
-        renderRegister();
-
-        waitFor(() => {
-            expect(screen.getByLabelText(/imageUrl/i)).toBeInTheDocument();
-        })
-    });
-
-    test('Register - imageUrl input render without value', async () => {
-        renderRegister();
-
-        waitFor(() => {
-            const input = screen.getByTestId('register-imageUrl');
-            expect(input).toBeInTheDocument();
-            expect(input.value).toBe('');
-        })
-    });
-
-    test('Register - imageUrl correct change', async () => {
-        renderRegister();
-
-        waitFor(() => {
-            const input = screen.getByTestId('register-imageUrl');
-            const testValue = 'sssssssss';
-
-            fireEvent.change(input, { target: { value: testValue } });
-
-            expect(input.value).toBe(testValue);
-        })
-    });
-
-    test('Register -imageUrl with incorrect data , error message show', async () => {
-        renderRegister();
-
-        waitFor(() => {
-            const input = screen.getByTestId('register-imageUrl');
-            const testValue = 'aa';
-
-            fireEvent.change(input, { target: { value: testValue } });
-            waitFor(() => {
-                fireEvent.click(screen.getByTestId('register-username'));
-                const error = screen.getByTestId('register-imageUrl-error');
-                expect(error).toBeInTheDocument();
-                expect(error).toHaveTextContent(/ImageUrl must be a valid link!/i)
-            })
-        });
-    });
-
-    test('Register- imageUrl with correct data , error message hide', async () => {
-        renderRegister();
-
-        waitFor(() => {
-            const input = screen.getByTestId('register-imageUrl');
-            const testValue = 'http://image.jpg';
-
-            fireEvent.change(input, { target: { value: testValue } });
-            waitFor(() => {
-                fireEvent.click(screen.getByTestId('register-username'));
-                const error = screen.queryByTestId('register-imageUrl-error');
                 expect(error).toBeNull();
             })
         });

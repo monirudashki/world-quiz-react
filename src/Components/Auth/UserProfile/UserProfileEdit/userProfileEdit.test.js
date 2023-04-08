@@ -3,6 +3,7 @@ import { UserProfileEdit } from "./UserProfileEdit";
 import { fakeUser } from '../../../../testUtils/mockUser'
 import { MemoryRouter } from "react-router-dom";
 import { act } from "react-dom/test-utils";
+import mockAxios from "jest-mock-axios";
 
 describe('userProfileEdit tests suit', () => {
 
@@ -13,6 +14,14 @@ describe('userProfileEdit tests suit', () => {
             </MemoryRouter>
         )
     }
+
+    beforeEach(() => {
+        const result = {
+            data: { id: 'sdafgsagwags' }
+        }
+
+        mockAxios.post.mockRejectedValueOnce(result);
+    })
 
     afterEach(cleanup);
 
@@ -127,59 +136,6 @@ describe('userProfileEdit tests suit', () => {
             waitFor(() => {
                 fireEvent.click(screen.getByPlaceholderText('username'));
                 expect(screen.queryByTestId('editProfile-email-error')).toBeNull();
-            })
-        });
-    });
-
-    //imageUrl
-
-    test('U.P.E. - imageUrl input render with correct value', async () => {
-        renderUserProfileEdit();
-
-        const input = screen.getByPlaceholderText(/image Url/i);
-        expect(input).toBeInTheDocument();
-        expect(input.value).toBe('https://images.statusfacebook.com/profile_pictures/unique-dp/unique-profile-pictures-for-whatsapp-19.jpg');
-    });
-
-    test('U.P.E. - imageUrl correct change', async () => {
-        renderUserProfileEdit();
-
-        act(() => {
-            const input = screen.getByPlaceholderText(/image Url/i);
-            const testValue = 'testValue';
-
-            fireEvent.change(input, { target: { value: testValue } });
-            expect(input.value).toBe(testValue);
-        });
-    });
-
-    test('U.P.E imageUrl with incorrect data , error message show', async () => {
-        renderUserProfileEdit();
-
-        await waitFor(() => {
-            const input = screen.getByPlaceholderText(/image Url/i);
-            const testValue = 'aa';
-
-            fireEvent.change(input, { target: { value: testValue } });
-            waitFor(() => {
-                fireEvent.click(screen.getByPlaceholderText('username'));
-                const error = screen.getByTestId('editProfile-imageUrl-error');
-                expect(error).toBeInTheDocument();
-            })
-        });
-    });
-
-    test('U.P.E imageUrl with correct data , error message hide', async () => {
-        renderUserProfileEdit();
-
-        await waitFor(() => {
-            const input = screen.getByPlaceholderText(/image Url/i);
-            const testValue = 'https://images.statusfacebook.com/profile_pictures/unique-dp/unique-profile-pictures-for-whatsapp-19.jpg';
-
-            fireEvent.change(input, { target: { value: testValue } });
-            waitFor(() => {
-                fireEvent.click(screen.getByPlaceholderText('username'));
-                expect(screen.queryByTestId('editProfile-imageUrl-error')).toBeNull();
             })
         });
     });

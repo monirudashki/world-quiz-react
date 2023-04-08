@@ -4,7 +4,7 @@ import * as authService from '../../../../../Services/authService'
 import { MemoryRouter } from "react-router-dom";
 import { AuthProvider } from "../../../../../Contexts/AuthContext";
 import { UserProfile } from "../UserProfile";
-import { act } from "react-dom/test-utils";
+import mockAxios from "jest-mock-axios";
 
 function renderUserProfile() {
     render(
@@ -21,7 +21,13 @@ describe('User Profile test suit', () => {
     beforeEach(() => {
         jest.spyOn(authService, 'getCurrentUser').mockImplementation(() =>
             Promise.resolve(fakeUser)
-        )
+        );
+
+        const result = {
+            data: { id: 'sdafgsagwags' }
+        }
+
+        mockAxios.post.mockRejectedValueOnce(result);
     });
 
     afterEach(cleanup);
