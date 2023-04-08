@@ -51,7 +51,12 @@ export const Result = () => {
                             </div>
                         </div>
                         <div className={styles["active-buttons-result"]}>
-                            <Link onClick={onExitResultHandler} to="/game-capitals">RESTART</Link>
+                            <Link
+                                onClick={onExitResultHandler}
+                                style={{ pointerEvents: currentUser.lives > 0 ? '' : 'none' }}
+                                to="/game-capitals"
+                            >RESTART
+                            </Link>
                             <Link onClick={onExitResultHandler} to="/">EXIT</Link>
                         </div>
                     </>

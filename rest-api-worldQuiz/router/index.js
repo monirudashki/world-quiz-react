@@ -3,7 +3,6 @@ const users = require('./users');
 const capitalsQuestion = require('./capitalsQuestion')
 const flagsQuestion = require('./flagsQuestion');
 
-//TODO add correct required
 const test = require('./test');
 const { authController } = require('../controllers');
 

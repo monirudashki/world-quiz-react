@@ -86,6 +86,11 @@
     background-color: #95B0B4;
 }
 
+.profile-container__info .work-buttons button:hover {
+    color: #95B0B4;
+    background-color: whitesmoke;
+}
+
 .profile-container__level {
     grid-area: level;
 }

@@ -34,3 +34,11 @@ export const getUsersByPage = async (currentPage) => {
     return fetch(`http://localhost:3030/api/users?page=${currentPage}`)
         .then(res => res.json());
 }
+
+export const uploadImage = async (formData) => {
+    return fetch('http://localhost:3030/api/users/profile/fileUpload', {
+        method: "POST",
+        body: formData
+    })
+        .then(res => res.json());
+}

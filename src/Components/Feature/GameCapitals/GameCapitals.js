@@ -22,7 +22,7 @@ export const GameCapitals = () => {
 
     const { currentUser, currentUserLoginHandler } = useContext(AuthContext);
 
-    const dispatch = useGameCapitalsDispatch();
+    const dispatch = useGameCapitalsDispatch()
     const gameState = useGameCapitalsSelector((state) => state.game);
 
     const navigateTo = useNavigate();

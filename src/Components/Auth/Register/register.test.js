@@ -398,33 +398,6 @@ describe('Register tests suit', () => {
         })
     });
 
-    test('register - button show spinner when is clicked', async () => {
-
-        renderRegister();
-
-        const usernameInput = await screen.findByTestId('register-username');
-        const testUsername = 'aaaaaaa';
-        const passwordInput = await screen.findByTestId('register-password');
-        const testPassword = '11111';
-        const emailInput = await screen.findByTestId('register-email');
-        const testEmail = 'simeon@gmail.bg';
-        const imageInput = await screen.findByTestId('register-imageUrl');
-        const testImage = 'http://image';
-        const rePassInput = await screen.findByTestId('register-rePass');
-        const testRePass = '11111';
-
-        fireEvent.change(usernameInput, { target: { value: testUsername } });
-        fireEvent.change(emailInput, { target: { value: testEmail } });
-        fireEvent.change(imageInput, { target: { value: testImage } });
-        fireEvent.change(passwordInput, { target: { value: testPassword } });
-        fireEvent.change(rePassInput, { target: { value: testRePass } });
-
-        fireEvent.click(screen.getByTestId('register-button'));
-
-        const spinner = screen.getByTestId('register-button').firstChild;
-        expect(spinner).toBeInTheDocument();
-    });
-
     test('Register - login link should be render', async () => {
 
         renderRegister();

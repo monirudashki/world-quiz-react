@@ -1,7 +1,6 @@
 const { userModel } = require('../models');
 const { capitalQuestionModel } = require('../models');
 
-//TODO add function get questions for game..
 
 async function getAllCapitalsQuestions(req, res, next) {
 

@@ -1,6 +1,6 @@
 import styles from '../Header/Header.module.css';
 import { AuthContext } from '../../../Contexts/AuthContext';
-import logo from './HeaderImages/world-globe-logo.jfif';
+import logo from './HeaderImages/world-globe-logo-4.png';
 
 import { useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';

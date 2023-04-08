@@ -83,7 +83,7 @@ export const UserProfileEdit = ({
     return (
         <>
             {error &&
-                <div data-testid='editProfile-error' className={styles["error-edit"]}>
+                <div data-testid='editProfile-error' className={styles["error-request"]}>
                     {error}
                 </div>
             }

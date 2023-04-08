@@ -45,12 +45,34 @@ export const CapitalsAnswers = ({
     const random = wrongAnswerArray[Math.floor(Math.random() * wrongAnswerArray.length)];
     const twoWrongAnswerArray = wrongAnswerArray.filter(x => x !== random);
 
+    let styleFirstAnswer;
+    let styleSecondAnswer;
+    let styleThirdAnswer;
+    let styleFourthAnswer;
+
+    if (twoWrongAnswerArray.includes(firstAnswer) && gameState.showFiftyFifty === true) {
+        styleFirstAnswer = { backgroundColor: 'red' };
+    }
+
+    if (twoWrongAnswerArray.includes(secondAnswer) && gameState.showFiftyFifty === true) {
+        styleSecondAnswer = { backgroundColor: 'red' };
+    }
+
+    if (twoWrongAnswerArray.includes(thirdAnswer) && gameState.showFiftyFifty === true) {
+        styleThirdAnswer = { backgroundColor: 'red' };
+    }
+
+    if (twoWrongAnswerArray.includes(fourthAnswer) && gameState.showFiftyFifty === true) {
+        styleFourthAnswer = { backgroundColor: 'red' };
+    }
+
     return (
         <div data-test-id='capitals-answers' className={styles['answers-container']}>
             <button
                 onClick={giveAnswer}
                 type="button"
                 className={className}
+                style={answerIsGiven ? null : styleFirstAnswer}
                 disabled={(twoWrongAnswerArray.includes(firstAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
             >
                 {firstAnswer}
@@ -59,6 +81,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
+                style={answerIsGiven ? null : styleSecondAnswer}
                 disabled={(twoWrongAnswerArray.includes(secondAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
             >
                 {secondAnswer}
@@ -67,6 +90,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
+                style={answerIsGiven ? null : styleThirdAnswer}
                 disabled={(twoWrongAnswerArray.includes(thirdAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
             >
                 {thirdAnswer}
@@ -75,6 +99,7 @@ export const CapitalsAnswers = ({
                 onClick={giveAnswer}
                 type="button"
                 className={className}
+                style={answerIsGiven ? null : styleFourthAnswer}
                 disabled={(twoWrongAnswerArray.includes(fourthAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
             >
                 {fourthAnswer}

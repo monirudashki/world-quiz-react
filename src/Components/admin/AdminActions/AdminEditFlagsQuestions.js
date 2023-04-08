@@ -54,7 +54,6 @@ function AdminEditFlagsQuestion() {
 
         setRequestIsLoading(true);
 
-        //TODO All admin action with rest api to service..
         try {
             const response = await fetch(`http://localhost:3030/api/flags/${id}/edit`, {
                 method: "PUT",

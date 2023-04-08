@@ -19,7 +19,7 @@ export const ScoreBoard = () => {
 
     const lastPage = useRef(0);
 
-    let currentPage = Number(searchParams.get('page')) || 1; //TODO look is that work correctly
+    let currentPage = Number(searchParams.get('page')) || 1;
 
     useEffect(() => {
         setIsLoading(true);
@@ -48,8 +48,6 @@ export const ScoreBoard = () => {
             page: currentPage - 1
         }));
     }
-
-    //TODO add section without any users!
 
     return (
         <>

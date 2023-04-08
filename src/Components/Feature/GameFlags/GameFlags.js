@@ -23,7 +23,7 @@ export const GameFlags = () => {
 
     const location = useLocation();
 
-    const dispatch = useGameFlagsDispatch
+    const dispatch = useGameFlagsDispatch();
     const gameState = useGameFlagsSelector((state) => state.game);
 
     const navigateTo = useNavigate();

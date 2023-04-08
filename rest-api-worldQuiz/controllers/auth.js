@@ -48,7 +48,6 @@ async function register(req, res, next) {
 
 function login(req, res, next) {
     const { email, password } = req.body;
-    console.log(req.body);
 
     userModel.findOne({ email })
         .then(user => {
@@ -200,8 +199,6 @@ async function fileUpload(req, res, next) {
             media: media,
             fields: 'id'
         });
-
-        console.log(response.data);
 
         switch (response.status) {
             case 200:

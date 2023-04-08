@@ -14,5 +14,3 @@ function AdminHome() {
 }
 
 export default AdminHome;
-
-//TODO create better admin home page

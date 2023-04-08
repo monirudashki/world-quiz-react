@@ -10,6 +10,12 @@
     margin-top: 10px;
 }
 
+.error-request {
+    padding-top: 5px;
+    font-size: 16px;
+    color: red;
+}
+
 .action-buttons {
     display: flex;
     justify-content: center;
@@ -19,11 +25,17 @@
 }
 
 .action-buttons button {
+    font-size: 12px;
     width: 100px;
     cursor: pointer;
-    padding: 6px 8px;
+    padding: 3px 6px;
     border-radius: 5px;
     background-color: #95B0B4;
+}
+
+.action-buttons button:hover {
+    color: #95B0B4;
+    background-color: whitesmoke;
 }
 
 .button-disabled {

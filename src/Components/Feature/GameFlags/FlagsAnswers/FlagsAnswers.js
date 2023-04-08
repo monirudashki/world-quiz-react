@@ -46,6 +46,27 @@ export const FlagsAnswers = ({
     const random = wrongAnswerArray[Math.floor(Math.random() * wrongAnswerArray.length)];
     const twoWrongAnswerArray = wrongAnswerArray.filter(x => x !== random);
 
+    let styleFirstAnswer;
+    let styleSecondAnswer;
+    let styleThirdAnswer;
+    let styleFourthAnswer;
+
+    if (twoWrongAnswerArray.includes(firstAnswer) && gameState.showFiftyFifty === true) {
+        styleFirstAnswer = { backgroundColor: 'red' };
+    }
+
+    if (twoWrongAnswerArray.includes(secondAnswer) && gameState.showFiftyFifty === true) {
+        styleSecondAnswer = { backgroundColor: 'red' };
+    }
+
+    if (twoWrongAnswerArray.includes(thirdAnswer) && gameState.showFiftyFifty === true) {
+        styleThirdAnswer = { backgroundColor: 'red' };
+    }
+
+    if (twoWrongAnswerArray.includes(fourthAnswer) && gameState.showFiftyFifty === true) {
+        styleFourthAnswer = { backgroundColor: 'red' };
+    }
+
     return (
         <div className={styles['answers-container']}>
             <div className={styles['answers-container__flag-wrapper']}>
@@ -54,6 +75,7 @@ export const FlagsAnswers = ({
                     type='button'
                     onClick={giveAnswer}
                     className={className}
+                    style={answerIsGiven ? null : styleFirstAnswer}
                     disabled={(twoWrongAnswerArray.includes(firstAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
                 >
                     A
@@ -69,6 +91,7 @@ export const FlagsAnswers = ({
                     type='button'
                     onClick={giveAnswer}
                     className={className}
+                    style={answerIsGiven ? null : styleSecondAnswer}
                     disabled={(twoWrongAnswerArray.includes(secondAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
                 >
                     B
@@ -84,6 +107,7 @@ export const FlagsAnswers = ({
                     type='button'
                     onClick={giveAnswer}
                     className={className}
+                    style={answerIsGiven ? null : styleThirdAnswer}
                     disabled={(twoWrongAnswerArray.includes(thirdAnswer) && gameState.showFiftyFifty === true) || answerIsGiven}
                 >
                     C
@@ -99,6 +123,7 @@ export const FlagsAnswers = ({
                     type='button'
                     onClick={giveAnswer}
                     className={className}
+                    style={answerIsGiven ? null : styleFourthAnswer}
                     disabled={(twoWrongAnswerArray.includes(fourthAnswer) && gameState.showFiftyFifty) || answerIsGiven}
                 >
                     D
