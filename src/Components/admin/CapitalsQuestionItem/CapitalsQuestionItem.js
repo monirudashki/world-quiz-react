@@ -27,7 +27,7 @@ export const CapitalsQuestionItem = ({
                 setIsQuestionDeletedHandler(true);
             }
         } catch (err) {
-            console.log(err);
+            alert('Network error, try again later');
         }
     }
 

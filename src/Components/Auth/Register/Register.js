@@ -55,7 +55,7 @@ export const Register = () => {
                 setImageId(result.data.id)
                 setImage(true);
             })
-            .catch(err => console.log(err))
+            .catch(err => alert('Network error, try again later'))
             .finally(() => setImageLoading(false));
     }
 

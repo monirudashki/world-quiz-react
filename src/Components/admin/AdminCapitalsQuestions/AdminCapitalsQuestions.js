@@ -30,6 +30,9 @@ function AdminCapitalsQuestions() {
                 setIsQuestionDeleted(false);
                 setQuestions(result);
             })
+            .catch(err => {
+                alert('Network Error, try again later');
+            })
     }, [currentPage, search, isQuestionDeleted]);
 
     const pageUpHandler = () => {

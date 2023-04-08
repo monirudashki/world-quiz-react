@@ -28,7 +28,7 @@ export const FlagsQuestionItem = ({
                 setIsQuestionDeletedHandler(true);
             }
         } catch (err) {
-            console.log(err);
+            alert('Network error, try again later');
         }
     }
 

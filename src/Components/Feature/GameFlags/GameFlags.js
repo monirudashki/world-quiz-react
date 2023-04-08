@@ -34,7 +34,7 @@ export const GameFlags = () => {
                 dispatch(gameQuestions(result));
                 dispatch(gameCurrentQuestion(result[0]));
             })
-            .catch(err => console.log(err));
+            .catch(err => alert('Network error, try again later'));
     }, [dispatch]);
 
     const lives = useRef(Number(currentUser.lives) - 1);
