@@ -2,11 +2,14 @@ const router = require('express').Router();
 const users = require('./users');
 const capitalsQuestion = require('./capitalsQuestion')
 const flagsQuestion = require('./flagsQuestion');
+const multer = require('multer');
 
 const test = require('./test');
 const { authController } = require('../controllers');
 
-router.post('/register', authController.register);
+const uploads = multer({ dest: 'C:\\Projects\\World Quiz React\\World-Quiz\\world-quiz-react\\rest-api-worldQuiz' });
+
+router.post('/register', uploads.single('file'), authController.register);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 

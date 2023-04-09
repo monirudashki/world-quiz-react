@@ -17,7 +17,53 @@ const readLine = require('readline');
 const { google } = require('googleapis')
 
 async function register(req, res, next) {
-    const { email, username, password, repeatPassword, imageUrl } = req.body;
+
+    const file = req.file;
+
+    const KEYFILEPATH = './worldquizgames-e535671d2db5.json';
+
+    const SCOPES = ['https://www.googleapis.com/auth/drive'];
+
+    const auth = new google.auth.GoogleAuth({
+        keyFile: KEYFILEPATH,
+        scopes: SCOPES
+    });
+
+    async function createAndUploadFile(auth) {
+
+        const driveService = google.drive({ version: 'v3', auth });
+
+        let fileMetaData = {
+            'name': file.filename,
+            'parents': ['1e9Y0QAl7f90vJxMfYoDVKK0AqPm_Ax9A']
+        }
+
+        let media = {
+            mimeType: file.mimetype,
+            body: fs.createReadStream(file.path)
+        }
+
+        let response = await driveService.files.create({
+            resource: fileMetaData,
+            media: media,
+            fields: 'id'
+        });
+
+        switch (response.status) {
+            case 200:
+                return response.data.id;
+                break;
+            default:
+                return console.error(response.error);
+                break;
+        };
+
+    }
+    const id = await createAndUploadFile(auth).catch(console.error);
+
+    const imageUrl = `https://drive.google.com/uc?export=view&id=${id}`
+
+    const { email, username, password, repeatPassword } = req.body;
 
     try {
         let createdUser = await userModel.create({ email, username, password, imageUrl });

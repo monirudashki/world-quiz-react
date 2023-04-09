@@ -3,10 +3,9 @@ import { emailValidator, minLength, passwordsMatch } from '../../../Utils/valida
 
 import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react';
-import { register, uploadImage } from '../../../Services/authService';
+import { register } from '../../../Services/authService';
 import { AuthContext } from '../../../Contexts/AuthContext';
 import { SpinnerRequest } from '../../shared/SpinnerRequest/SpinnerRequest';
-import { Spinner } from '../../shared/Spinner.js/Spinner';
 
 export const Register = () => {
 
@@ -16,11 +15,11 @@ export const Register = () => {
 
     const navigateTo = useNavigate();
 
-    const [imageId, setImageId] = useState('');
-
     const [image, setImage] = useState(false);
 
-    const [imageLoading, setImageLoading] = useState(false);
+    const [imgSrc, setImgSrc] = useState('');
+
+    const [file, setFile] = useState('');
 
     const [error, setError] = useState('');
 
@@ -43,38 +42,31 @@ export const Register = () => {
     const handleFileChange = (e) => {
         e.preventDefault();
 
-        setImageLoading(true);
-
         const file = (e.target.files[0]);
-
-        const formData = new FormData();
-        formData.append('file', file);
-
-        uploadImage(formData)
-            .then(result => {
-                setImageId(result.data.id)
-                setImage(true);
-            })
-            .catch(err => alert('Network error, try again later'))
-            .finally(() => setImageLoading(false));
+        if (file) {
+            setImgSrc(URL.createObjectURL(file));
+            setImage(true);
+            setFile(file);
+        }
     }
 
-    const invalidForm = Object.values(formValues).some(x => x === '') || Object.values(errors).some(x => x) || imageId === '';
+    const invalidForm = Object.values(formValues).some(x => x === '') || Object.values(errors).some(x => x) || image === false;
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
         setIsLoading(true);
 
-        const userData = {
-            username: formValues.username,
-            email: formValues.email,
-            password: formValues.password,
-            imageUrl: `https://drive.google.com/uc?export=view&id=${imageId}`
-        };
+        const formData = new FormData();
+        formData.append('username', formValues.username);
+        formData.append('email', formValues.email);
+        formData.append('password', formValues.password);
+        formData.append('file', file);
 
         try {
-            const user = await register(userData);
+            const response = await register(formData);
+            const user = response.data;
+            console.log(user);
             currentUserLoginHandler(user);
             setIsLoading(false);
             navigateTo('/')
@@ -89,15 +81,15 @@ export const Register = () => {
             <div className={styles['register-wrapper']}>
                 <div className={styles['image-upload']}>
                     <div className={styles['image-wrapper']}>
-
-                        {imageLoading && <Spinner />}
-
-                        {(image && !imageLoading) &&
-                            <img src={`https://drive.google.com/uc?export=view&id=${imageId}`} alt="profile" />
+                        {image &&
+                            <img src={imgSrc} alt="profile" />
                         }
                     </div>
 
-                    <input className={styles['image-input']} type="file" name='photo' accept='image/*' onChange={handleFileChange} />
+                    <input style={{ backgroundColor: image ? 'green' : null }}
+                        className={styles['image-input']}
+                        type="file" name='photo' accept='image/*' onChange={handleFileChange}
+                    />
 
                 </div>
                 <div className={styles["form"]}>

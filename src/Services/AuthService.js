@@ -15,8 +15,8 @@ export const logout = () => {
     });
 }
 
-export const register = async (userData) => {
-    return await request(`${baseUrl}/register`, "POST", userData)
+export const register = async (formData) => {
+    return await axios.post(`${baseUrl}/register`, formData);
 }
 
 export const getCurrentUser = async () => {
