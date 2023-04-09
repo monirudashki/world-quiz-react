@@ -46,7 +46,7 @@ export const GameCapitals = () => {
 
         if (gameState.gameFinish === true) {
             const earnCoins = coinsForGame(gameState.correctAnswers);
-            const lastFive = currentUser.lastFiveGames.slice(0, 4);
+            const lastFive = currentUser.lastFiveGames.slice(1, 5);
             lastFive.push(gameState.correctAnswers);
             const level = userLevel(currentUser.wrightAnswers + gameState.correctAnswers);
             const updateUserData = {

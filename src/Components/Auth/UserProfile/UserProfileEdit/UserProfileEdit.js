@@ -45,7 +45,7 @@ export const UserProfileEdit = ({
             .then(result => {
                 onSetEditModeImage(`https://drive.google.com/uc?export=view&id=${result.data.id}`);
             })
-            .catch(err => alert('Network error, try again later'))
+            .catch(err => console.log(err))
             .finally(() => onImageLoading(false));
     }
 

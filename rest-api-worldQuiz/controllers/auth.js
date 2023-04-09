@@ -14,7 +14,7 @@ const removePassword = (data) => {
 
 const fs = require('fs');
 const readLine = require('readline');
-const { google } = require('googleapis')
+const { google } = require('googleapis');
 
 async function register(req, res, next) {
 

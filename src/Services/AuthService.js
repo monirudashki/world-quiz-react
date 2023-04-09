@@ -16,7 +16,11 @@ export const logout = () => {
 }
 
 export const register = async (formData) => {
-    return await axios.post(`${baseUrl}/register`, formData);
+    try {
+        return await axios.post(`${baseUrl}/register`, formData);
+    } catch (error) {
+        throw error;
+    }
 }
 
 export const getCurrentUser = async () => {

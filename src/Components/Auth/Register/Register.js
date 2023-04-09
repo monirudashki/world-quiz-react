@@ -66,13 +66,13 @@ export const Register = () => {
         try {
             const response = await register(formData);
             const user = response.data;
-            console.log(user);
             currentUserLoginHandler(user);
             setIsLoading(false);
             navigateTo('/')
         } catch (err) {
+            const error = err.response.data.message;
             setIsLoading(false);
-            setError(err);
+            setError(error);
         }
     }
 

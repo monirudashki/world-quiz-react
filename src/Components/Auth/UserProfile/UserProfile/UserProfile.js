@@ -23,7 +23,6 @@ export const UserProfile = () => {
         }
     }, [username, currentUser.username, navigateTo])
 
-
     const [editMode, setEditMode] = useState(false);
     const [editModeImage, setEditModeImage] = useState(currentUser.imageUrl);
     const [commercialMode, setCommercialMode] = useState(false);
