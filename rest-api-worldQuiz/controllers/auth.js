@@ -15,7 +15,7 @@ const removePassword = (data) => {
 const fs = require('fs');
 const readLine = require('readline');
 const { google } = require('googleapis');
-const { KEYGOOGLEDRIVEACCOUNT, GOOGLEDRIVEFOLDER } = require('../../src/Secure/constans');
+const { KEYGOOGLEDRIVEACCOUNT, GOOGLEDRIVEFOLDER } = require('../../Secure/constans')
 
 async function register(req, res, next) {
 

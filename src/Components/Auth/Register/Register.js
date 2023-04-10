@@ -74,6 +74,8 @@ export const Register = () => {
             setIsLoading(false);
             setError(error);
         }
+
+        //IF that don't work i have to unlock my google drive (sharing with any) 
     }
 
     return (
