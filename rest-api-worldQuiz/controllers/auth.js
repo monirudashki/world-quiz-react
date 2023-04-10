@@ -15,12 +15,13 @@ const removePassword = (data) => {
 const fs = require('fs');
 const readLine = require('readline');
 const { google } = require('googleapis');
+const { KEYGOOGLEDRIVEACCOUNT, GOOGLEDRIVEFOLDER } = require('../../src/Secure/constans');
 
 async function register(req, res, next) {
 
     const file = req.file;
 
-    const KEYFILEPATH = './worldquizgames-e535671d2db5.json';
+    const KEYFILEPATH = KEYGOOGLEDRIVEACCOUNT;
 
     const SCOPES = ['https://www.googleapis.com/auth/drive'];
 
@@ -35,7 +36,7 @@ async function register(req, res, next) {
 
         let fileMetaData = {
             'name': file.filename,
-            'parents': ['1e9Y0QAl7f90vJxMfYoDVKK0AqPm_Ax9A']
+            'parents': GOOGLEDRIVEFOLDER
         }
 
         let media = {
@@ -217,7 +218,7 @@ async function fileUpload(req, res, next) {
 
     const file = req.file;
 
-    const KEYFILEPATH = './worldquizgames-e535671d2db5.json';
+    const KEYFILEPATH = KEYGOOGLEDRIVEACCOUNT;
 
     const SCOPES = ['https://www.googleapis.com/auth/drive'];
 
@@ -232,7 +233,7 @@ async function fileUpload(req, res, next) {
 
         let fileMetaData = {
             'name': file.filename,
-            'parents': ['1e9Y0QAl7f90vJxMfYoDVKK0AqPm_Ax9A']
+            'parents': GOOGLEDRIVEFOLDER
         }
 
         let media = {
